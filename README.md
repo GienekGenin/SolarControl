@@ -3,7 +3,7 @@ This is my graduate work
 
 ### About this project
 
-#### First stage. STM32F767ZI
+## First stage. STM32F767ZI
 
 1. Declare your pins using `AnalogIn` object
 2. Use `Timer` to create timer and set measuring frequency
@@ -39,7 +39,7 @@ This is my graduate work
     device.printf("%s", battaryArr);
 ```
 
-#### Second stage. NodeMCU
+## Second stage. NodeMCU
 
 1. Create Wi-Fi connection
 ```c++
@@ -79,7 +79,7 @@ void sendData(String data) {
   delay(100);
 }
 ```
-4. Read data from `STM` and send it to your server
+#### ** 4. Read data from `STM` and send it to your server **
 ```c++
 void loop() {
   String message;
@@ -96,3 +96,41 @@ void loop() {
     }
 }
 ```
+
+## Third stage. MEAN application
+
+Angular project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+
+### Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+### Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+### Express server
+
+Run `ng build` and then `npm start` to check everything working fine on express server
+
+### Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+### Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+### Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+### Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+##### I used a lot of libraries to build this MEAN application and I will try to comment nicely every important aspect of app in the source code.**
+
+## Authors
+
+**[Gennadii Genin](https://github.com/GienekGenin)**
