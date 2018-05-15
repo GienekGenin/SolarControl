@@ -79,7 +79,7 @@ void sendData(String data) {
   delay(100);
 }
 ```
-#### ** 4. Read data from `STM` and send it to your server **
+#### 4. Read data from `STM` and send it to your server 
 ```c++
 void loop() {
   String message;
@@ -129,7 +129,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-##### I used a lot of libraries to build this MEAN application and I will try to comment nicely every important aspect of app in the source code.**
+##### I used a lot of libraries to build this MEAN application and I will try to comment nicely every important aspect of app in the source code.
 
 ## Authors
 
