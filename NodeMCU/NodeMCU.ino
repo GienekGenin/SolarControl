@@ -20,35 +20,40 @@ void setup () {
 }
 
 void sendData(String data) {
-  if (WiFi.status() == WL_CONNECTED) { //Check WiFi connection status
+  //Check WiFi connection status
+  if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin("http://blooming-fortress-61113.herokuapp.com/data");
     http.addHeader("Content-Type", "application/json");
     String postMessage = "{\"data\":" + data + "}";
-    //http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    //Serial.println("data:");
-    //Serial.println(data);
-    //Serial.println(postMessage);
+    //Uncomment these lines to see output
+    /*
+      Serial.println("Data:");
+      Serial.println(data);
+      Serial.println("PostMessage:");
+      Serial.println(postMessage);
+    */
+    //Send POST request
     int httpCode = http.POST(postMessage);
-    //Serial.print("http result:");
-    //Serial.println(httpCode);
-    //http.writeToStream(&Serial);
-    //Send the request
-    if (httpCode > 0) { //Check the returning code
-    //Serial.println("We've got response!");
+    //Check the returning code
+    if (httpCode > 0) {
+    //Print http response
     //Serial.println("http response: " + httpCode);
-      String payload = http.getString();   //Get the request response payload
-      //Serial.println(payload);                     //Print the response payload
+      //Get the request response payload
+      String payload = http.getString();
+      //Print the response payload
+      //Serial.println(payload);
     }
-    http.end();   //Close connection
+    //Close connection
+    http.end();
   }
-  delay(100);    //Send a request every 30 seconds
+  //Send a request every 100ms seconds
+  delay(100);
 }
 
 void loop() {
   String message;
   int i = 0;
-  bool a = digitalRead(flag);
     if (NodeSerial.available()>0) {
       ++i;
       String s = NodeSerial.readString();
@@ -63,19 +68,4 @@ void loop() {
        NodeSerial.end();
        NodeSerial.begin(9600);
     }
-    if(!a){
-      message = "";  
-    }
 }
-
-/*
-  Serial.println("hi");
-    String message;
-    while (NodeSerial.available() > 0) {
-    message = NodeSerial.readString();
-    //message.remove(0,63);
-    Serial.println(message);
-  }
-  delay(1000);
-  //sendData(message);
-  */
