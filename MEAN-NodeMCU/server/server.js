@@ -79,16 +79,20 @@ function rightSensors(msg) {
   });
 }
 
-let session = false;
+let session = {
+  'sessionStatus': false,
+  'sessionIndex': 0
+};
 
 app.post('/data', function (req, res) {
   console.log(req.body);
   rightSensors(req.body);
-  if (session) {
+  if (session.sessionStatus) {
     const dataToDb = {
       'Volts': req.body.data.bv,
       'Time': getTime(),
-      'Day': getDay()
+      'Day': getDay(),
+      'index': session.sessionIndex
     };
     db.solarInput.save(dataToDb, function (err, data) {
       if (err) {

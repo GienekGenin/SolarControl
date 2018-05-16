@@ -23,8 +23,6 @@ export class SensorComponent implements OnInit {
     current: 0,
     next: 0
   };
-  nextSessionIndex: number;
-  lastSessionIndex = 0;
   private chart: AmChart;
 
   constructor(private _sensorService: SensorService, private AmCharts: AmChartsService) {
@@ -36,7 +34,7 @@ export class SensorComponent implements OnInit {
       this.sessionIndex.next = this.sessionIndex.current + 1;
     }
     this._sensorService.emit('setSession', {
-      msg: this.session = status
+      msg: {'sessionStatus': this.session = status, 'sessionIndex': this.sessionIndex.current}
     });
   }
 
@@ -63,28 +61,20 @@ export class SensorComponent implements OnInit {
         this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts});
       }
       this.AmCharts.updateChart(this.chart, () => {
-        // Change whatever properties you want
         this.chart.dataProvider = this.chartData;
       });
     });
     this._sensorService.on('Battery voltage', (data: any) => {
-      console.log('Sensor data: ', data.msg);
-      console.log('Chart data: ', this.chartData);
       let index = 0;
       for (let i = 0; i < data.msg.length; i++) {
-        console.log('Sensor for');
-        // console.log('Sensor: chartData last: ', this.chartData[this.chartData.length - 1]);
         if (this.chartData[this.chartData.length - 1].Time === data.msg[i].Time) {
-          console.log('Found index');
           index = i;
-          // this.chartData.push({'Time': data.msg[++i].Time, 'Volts': data.msg[++i].Volts});
         }
       }
       for (let i = index + 1; i < data.msg.length; i++) {
         console.log('In push');
         this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts});
         this.AmCharts.updateChart(this.chart, () => {
-          // Change whatever properties you want
           this.chart.dataProvider = this.chartData;
         });
       }

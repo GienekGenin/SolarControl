@@ -315,7 +315,6 @@ var SensorComponent = (function () {
             current: 0,
             next: 0
         };
-        this.lastSessionIndex = 0;
     }
     SensorComponent.prototype.setSession = function (status) {
         if (status) {
@@ -323,7 +322,7 @@ var SensorComponent = (function () {
             this.sessionIndex.next = this.sessionIndex.current + 1;
         }
         this._sensorService.emit('setSession', {
-            msg: this.session = status
+            msg: { 'sessionStatus': this.session = status, 'sessionIndex': this.sessionIndex.current }
         });
     };
     SensorComponent.prototype.ngOnInit = function () {
@@ -350,28 +349,20 @@ var SensorComponent = (function () {
                 _this.chartData.push({ 'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts });
             }
             _this.AmCharts.updateChart(_this.chart, function () {
-                // Change whatever properties you want
                 _this.chart.dataProvider = _this.chartData;
             });
         });
         this._sensorService.on('Battery voltage', function (data) {
-            console.log('Sensor data: ', data.msg);
-            console.log('Chart data: ', _this.chartData);
             var index = 0;
             for (var i = 0; i < data.msg.length; i++) {
-                console.log('Sensor for');
-                // console.log('Sensor: chartData last: ', this.chartData[this.chartData.length - 1]);
                 if (_this.chartData[_this.chartData.length - 1].Time === data.msg[i].Time) {
-                    console.log('Found index');
                     index = i;
-                    // this.chartData.push({'Time': data.msg[++i].Time, 'Volts': data.msg[++i].Volts});
                 }
             }
             for (var i = index + 1; i < data.msg.length; i++) {
                 console.log('In push');
                 _this.chartData.push({ 'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts });
                 _this.AmCharts.updateChart(_this.chart, function () {
-                    // Change whatever properties you want
                     _this.chart.dataProvider = _this.chartData;
                 });
             }
