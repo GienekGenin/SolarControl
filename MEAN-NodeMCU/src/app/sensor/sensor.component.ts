@@ -16,10 +16,11 @@ export class SensorComponent implements OnInit {
   };
   chartData = [{
     'Time': '0',
-    'Volts': 0
+    'Volts': 0,
+    'index': 0
   }];
   session = false;
-  sessionIndex = {
+  sessionID = {
     current: 0,
     next: 0
   };
@@ -30,15 +31,16 @@ export class SensorComponent implements OnInit {
 
   setSession(status) {
     if (status) {
-      ++this.sessionIndex.current;
-      this.sessionIndex.next = this.sessionIndex.current + 1;
+      ++this.sessionID.current;
+      this.sessionID.next = this.sessionID.current + 1;
     }
     this._sensorService.emit('setSession', {
-      msg: {'sessionStatus': this.session = status, 'sessionIndex': this.sessionIndex.current}
+      msg: {'sessionStatus': this.session = status, 'sessionIndex': this.sessionID.current}
     });
   }
 
   ngOnInit() {
+    // Test messages
     this._sensorService.emit('Client_asking', {
       msg: 'Client to server, can u hear me server?'
     });
@@ -51,40 +53,44 @@ export class SensorComponent implements OnInit {
         console.log(_data.msg);
       });
     });
+
+    // Data handling
     this._sensorService.emit('Init data', {
       msg: 'Init data'
     });
-    this._sensorService.on('First_data_transfer', (data: any) => {
-      for (let i = 1; i < data.msg.length; i++) {
-        this.chartData[0].Time = data.msg[0].Time;
-        this.chartData[0].Volts = data.msg[0].Volts;
-        this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts});
-      }
-      this.AmCharts.updateChart(this.chart, () => {
-        this.chart.dataProvider = this.chartData;
-      });
-    });
-    this._sensorService.on('Battery voltage', (data: any) => {
-      let index = 0;
-      for (let i = 0; i < data.msg.length; i++) {
-        if (this.chartData[this.chartData.length - 1].Time === data.msg[i].Time) {
-          index = i;
-        }
-      }
-      for (let i = index + 1; i < data.msg.length; i++) {
-        console.log('In push');
-        this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts});
-        this.AmCharts.updateChart(this.chart, () => {
-          this.chart.dataProvider = this.chartData;
-        });
-      }
-    });
     this._sensorService.on('Sensors data', (data: any) => {
-      console.log(data.msg);
+      // console.log(data.msg);
       this.data.light = data.msg.light;
       this.data.temp = data.msg.temp;
       this.data.bv = data.msg.bv;
       this.data.bc = data.msg.bc;
+    });
+    this._sensorService.on('Remove data for chart', (data: any) => {
+      this.AmCharts.updateChart(this.chart, () => {
+        // this.chartData = [];
+        this.chart.dataProvider = [];
+      });
+    });
+    this._sensorService.on('Update session', (data: any) => {
+      console.log(data.msg);
+      if (this.chartData.length > data.msg.length) {
+        const diff = this.chartData.length - data.msg.length;
+        for (let i = 0; i < diff; i++) {
+          this.chartData.pop();
+        }
+      }
+      for (let i = 0; i < data.msg.length; i++) {
+        if (this.chartData[i]) {
+          this.chartData[i].Volts = data.msg[i].Volts;
+          this.chartData[i].Time = data.msg[i].Time;
+        } else if (!this.chartData[i]) {
+          this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg.index});
+        }
+        this.AmCharts.updateChart(this.chart, () => {
+          this.chart.dataProvider = this.chartData;
+        });
+      }
+      console.log(this.chartData);
     });
   }
 

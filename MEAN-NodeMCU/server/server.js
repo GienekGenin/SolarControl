@@ -81,7 +81,8 @@ function rightSensors(msg) {
 
 let session = {
   'sessionStatus': false,
-  'sessionIndex': 0
+  "sessionID": 0,
+  'index': 0
 };
 
 app.post('/data', function (req, res) {
@@ -92,7 +93,8 @@ app.post('/data', function (req, res) {
       'Volts': req.body.data.bv,
       'Time': getTime(),
       'Day': getDay(),
-      'index': session.sessionIndex
+      'sessionID': session.sessionID,
+      'index': ++session.index
     };
     db.solarInput.save(dataToDb, function (err, data) {
       if (err) {
@@ -143,35 +145,37 @@ io.on('connection', (socket) => {
       msg: 'Loud and clear'
     })
   });
+
   socket.on('Init data', (data) => {
     console.log(data.msg);
-    firstDataTransfer();
-  });
-  socket.on('setSession', (data) => {
-    console.log(`Toggle session: ${data.msg}`);
-    session = data.msg;
-  });
-
-  function firstDataTransfer() {
-    db.solarInput.find({'Day': getDay()}, function (err, docs) {
-      return socket.emit('First_data_transfer', {
-        msg: docs
-      });
-    });
-    setInterval(function () {
-      db.solarInput.find({'Day': getDay()}, function (err, docs) {
-        // console.log(docs);
-        return socket.emit('Battery voltage', {
-          msg: docs
-        });
-      });
-    }, 2000);
     setInterval(function () {
       db.sensors.findOne(function (err, docs) {
         socket.emit('Sensors data', {
           msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
         });
       });
-    }, 2000);
-  }
+    }, 1000);
+  });
+  socket.on('setSession', (data) => {
+    session.index = 0;
+    console.log(`Toggle session: ${data.msg}`);
+    session.sessionID = data.msg.sessionIndex;
+    session.sessionStatus = data.msg.sessionStatus;
+    if(session.sessionStatus){
+      socket.emit('Remove data for chart', {
+        msg: 'Remove data'
+      });
+    }
+    setInterval(function () {
+      console.log(session.sessionStatus);
+      if(session.sessionStatus){
+        db.solarInput.find({'sessionID': session.sessionID}, function (err, docs) {
+          console.log(docs);
+          return socket.emit('Update session', {
+            msg: docs
+          });
+        });
+      }
+    }, 3000);
+  });
 });
