@@ -154,7 +154,7 @@ io.on('connection', (socket) => {
           msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
         });
       });
-    }, 1000);
+    }, 2000);
   });
   socket.on('setSession', (data) => {
     session.index = 0;
@@ -176,6 +176,6 @@ io.on('connection', (socket) => {
           });
         });
       }
-    }, 3000);
+    }, 5000);
   });
 });
