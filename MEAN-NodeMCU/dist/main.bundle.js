@@ -354,8 +354,8 @@ var SensorComponent = (function () {
         });
         this._sensorService.on('Remove data for chart', function (data) {
             _this.AmCharts.updateChart(_this.chart, function () {
-                // this.chartData = [];
-                _this.chart.dataProvider = [];
+                _this.chartData = [];
+                // this.chart.dataProvider = [];
             });
         });
         this._sensorService.on('Update session', function (data) {

@@ -67,8 +67,8 @@ export class SensorComponent implements OnInit {
     });
     this._sensorService.on('Remove data for chart', (data: any) => {
       this.AmCharts.updateChart(this.chart, () => {
-        // this.chartData = [];
-        this.chart.dataProvider = [];
+        this.chartData = [];
+        // this.chart.dataProvider = [];
       });
     });
     this._sensorService.on('Update session', (data: any) => {
