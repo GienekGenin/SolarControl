@@ -39,6 +39,12 @@ export class SensorComponent implements OnInit {
     });
   }
 
+  clearDB() {
+    this._sensorService.emit('clearDB', {
+      msg: 'clear DB'
+    });
+  }
+
   ngOnInit() {
     // Test messages
     this._sensorService.emit('Client_asking', {
@@ -72,25 +78,21 @@ export class SensorComponent implements OnInit {
       });
     });
     this._sensorService.on('Update session', (data: any) => {
-      console.log(data.msg);
-      if (this.chartData.length > data.msg.length) {
-        const diff = this.chartData.length - data.msg.length;
-        for (let i = 0; i < diff; i++) {
-          this.chartData.pop();
-        }
-      }
+      //console.log(data.msg);
       for (let i = 0; i < data.msg.length; i++) {
-        if (this.chartData[i]) {
-          this.chartData[i].Volts = data.msg[i].Volts;
-          this.chartData[i].Time = data.msg[i].Time;
-        } else if (!this.chartData[i]) {
-          this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg.index});
-        }
-        this.AmCharts.updateChart(this.chart, () => {
-          this.chart.dataProvider = this.chartData;
-        });
+        this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg[i].index});
       }
-      console.log(this.chartData);
+      for (let i = 0; i < this.chartData.length; i++) {
+        for (let c = 0; c < this.chartData.length; c++) {
+          if (this.chartData[i].index === this.chartData[c].index && i > c) {
+            this.chartData.splice(c, 1);
+          }
+        }
+      }
+      this.AmCharts.updateChart(this.chart, () => {
+        this.chart.dataProvider = this.chartData;
+      });
+      //console.log(this.chartData);
     });
   }
 
