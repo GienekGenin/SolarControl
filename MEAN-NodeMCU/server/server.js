@@ -146,19 +146,24 @@ io.on('connection', (socket) => {
     })
   });
 
+  socket.on('clearDB', (data) => {
+    //console.log(data.msg);
+    db.solarInput.remove();
+  });
+
   socket.on('Init data', (data) => {
-    console.log(data.msg);
+    //console.log(data.msg);
     setInterval(function () {
       db.sensors.findOne(function (err, docs) {
         socket.emit('Sensors data', {
           msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
         });
       });
-    }, 2000);
+    }, 1000);
   });
   socket.on('setSession', (data) => {
     session.index = 0;
-    console.log(`Toggle session: ${data.msg}`);
+    console.log(`Toggle session: ${data.msg.sessionStatus}`);
     session.sessionID = data.msg.sessionIndex;
     session.sessionStatus = data.msg.sessionStatus;
     if(session.sessionStatus){
@@ -167,15 +172,17 @@ io.on('connection', (socket) => {
       });
     }
     setInterval(function () {
-      console.log(session.sessionStatus);
+      //console.log(session.sessionStatus);
       if(session.sessionStatus){
-        db.solarInput.find({'sessionID': session.sessionID}, function (err, docs) {
-          console.log(docs);
-          return socket.emit('Update session', {
-            msg: docs
-          });
+        db.solarInput.find({sessionID: session.sessionID, index:{$gte: session.index}}, function (err, docs) {
+          if(docs){
+            //console.log(docs);
+            return socket.emit('Update session', {
+              msg: docs
+            });
+          }
         });
       }
-    }, 5000);
+    }, 2000);
   });
 });

@@ -254,7 +254,7 @@ var SensorService = (function () {
 /***/ "../../../../../src/app/sensor/sensor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <th>Sensor index</th>\r\n      <th>Light</th>\r\n      <th>Temperature</th>\r\n    </tr>\r\n    <tr>\r\n      <td>1</td>\r\n      <td>{{data.light[0]}}</td>\r\n      <td>{{data.temp[0]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>2</td>\r\n      <td>{{data.light[1]}}</td>\r\n      <td>{{data.temp[1]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>3</td>\r\n      <td>{{data.light[2]}}</td>\r\n      <td>{{data.temp[2]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>4</td>\r\n      <td>{{data.light[3]}}</td>\r\n      <td>{{data.temp[3]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>5</td>\r\n      <td>{{data.light[4]}}</td>\r\n      <td>{{data.temp[4]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>6</td>\r\n      <td>{{data.light[5]}}</td>\r\n      <td>{{data.temp[5]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>7</td>\r\n      <td>{{data.light[6]}}</td>\r\n      <td>{{data.temp[6]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>8</td>\r\n      <td>{{data.light[7]}}</td>\r\n      <td>{{data.temp[7]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>9</td>\r\n      <td>{{data.light[8]}}</td>\r\n      <td>{{data.temp[8]}}</td>\r\n    </tr>\r\n  </table>\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <th>Instant Battery Voltage</th>\r\n      <th>Instant Battery Current</th>\r\n    </tr>\r\n    <tr>\r\n      <td>{{data.bv}}</td>\r\n      <td>{{data.bc}}</td>\r\n    </tr>\r\n  </table>\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <td>\r\n        <button (click)=\"setSession(true)\">Start session</button>\r\n      </td>\r\n      <td>Next session: {{sessionID.next}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <button (click)=\"setSession(false)\">Stop session</button>\r\n      </td>\r\n      <td>Current session {{sessionID.current}}</td>\r\n    </tr>\r\n  </table>\r\n  <button (click)=\"deleteData()\"></button>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
+module.exports = "<div style=\"text-align:center\">\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <th>Sensor index</th>\r\n      <th>Light</th>\r\n      <th>Temperature</th>\r\n    </tr>\r\n    <tr>\r\n      <td>1</td>\r\n      <td>{{data.light[0]}}</td>\r\n      <td>{{data.temp[0]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>2</td>\r\n      <td>{{data.light[1]}}</td>\r\n      <td>{{data.temp[1]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>3</td>\r\n      <td>{{data.light[2]}}</td>\r\n      <td>{{data.temp[2]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>4</td>\r\n      <td>{{data.light[3]}}</td>\r\n      <td>{{data.temp[3]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>5</td>\r\n      <td>{{data.light[4]}}</td>\r\n      <td>{{data.temp[4]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>6</td>\r\n      <td>{{data.light[5]}}</td>\r\n      <td>{{data.temp[5]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>7</td>\r\n      <td>{{data.light[6]}}</td>\r\n      <td>{{data.temp[6]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>8</td>\r\n      <td>{{data.light[7]}}</td>\r\n      <td>{{data.temp[7]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>9</td>\r\n      <td>{{data.light[8]}}</td>\r\n      <td>{{data.temp[8]}}</td>\r\n    </tr>\r\n  </table>\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <th>Instant Battery Voltage</th>\r\n      <th>Instant Battery Current</th>\r\n    </tr>\r\n    <tr>\r\n      <td>{{data.bv}}</td>\r\n      <td>{{data.bc}}</td>\r\n    </tr>\r\n  </table>\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <td>\r\n        <button (click)=\"setSession(true)\">Start session</button>\r\n      </td>\r\n      <td>Next session: {{sessionID.next}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <button (click)=\"setSession(false)\">Stop session</button>\r\n      </td>\r\n      <td>Current session {{sessionID.current}}</td>\r\n    </tr>\r\n    <button (click)=\"clearDB()\">Clear database</button>\r\n  </table>\r\n  <button (click)=\"deleteData()\">Clear database</button>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -326,6 +326,11 @@ var SensorComponent = (function () {
             msg: { 'sessionStatus': this.session = status, 'sessionIndex': this.sessionID.current }
         });
     };
+    SensorComponent.prototype.clearDB = function () {
+        this._sensorService.emit('clearDB', {
+            msg: 'clear DB'
+        });
+    };
     SensorComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Test messages
@@ -354,31 +359,26 @@ var SensorComponent = (function () {
         });
         this._sensorService.on('Remove data for chart', function (data) {
             _this.AmCharts.updateChart(_this.chart, function () {
-                // this.chartData = [];
-                _this.chart.dataProvider = [];
+                _this.chartData = [];
+                // this.chart.dataProvider = [];
             });
         });
         this._sensorService.on('Update session', function (data) {
-            console.log(data.msg);
-            if (_this.chartData.length > data.msg.length) {
-                var diff = _this.chartData.length - data.msg.length;
-                for (var i = 0; i < diff; i++) {
-                    _this.chartData.pop();
-                }
-            }
+            //console.log(data.msg);
             for (var i = 0; i < data.msg.length; i++) {
-                if (_this.chartData[i]) {
-                    _this.chartData[i].Volts = data.msg[i].Volts;
-                    _this.chartData[i].Time = data.msg[i].Time;
-                }
-                else if (!_this.chartData[i]) {
-                    _this.chartData.push({ 'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg.index });
-                }
-                _this.AmCharts.updateChart(_this.chart, function () {
-                    _this.chart.dataProvider = _this.chartData;
-                });
+                _this.chartData.push({ 'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg[i].index });
             }
-            console.log(_this.chartData);
+            for (var i = 0; i < _this.chartData.length; i++) {
+                for (var c = 0; c < _this.chartData.length; c++) {
+                    if (_this.chartData[i].index === _this.chartData[c].index && i > c) {
+                        _this.chartData.splice(c, 1);
+                    }
+                }
+            }
+            _this.AmCharts.updateChart(_this.chart, function () {
+                _this.chart.dataProvider = _this.chartData;
+            });
+            //console.log(this.chartData);
         });
     };
     SensorComponent.prototype.ngAfterViewInit = function () {
