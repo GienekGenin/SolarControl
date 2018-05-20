@@ -47,6 +47,7 @@ export class SensorComponent implements OnInit {
     });
   }
 
+  // what will be executed after component init
   ngOnInit() {
     // Test events to check sockets working properly
     this._sensorService.emit('Client_asking', {
