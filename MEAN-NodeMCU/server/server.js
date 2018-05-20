@@ -31,6 +31,7 @@ app.get('/', function (req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+// This two pages currently not used
 //Home page route
 app.use('/index', index);
 
@@ -47,12 +48,15 @@ function getDay() {
   return today.getDate();
 }
 
-// Handling data incoming from nodeMCU
-// Request: {"data": {"L1":1065.20,"L2":1064.89,"L3":1063.67,"L4":1041.72,"L5":1049.04,"L6":1060.02,"L7":1013.97,
-//                    "L8":918.82,"L9":812.09,"T1":917.60,"T2":917.60,"T3":1063.67,"T4":916.38,"T5":947.79,
-//                    "T6":1060.02,"T7":993.23,"T8":1014.88,"T9":812.09,"bc":0.22,"bv":0.00}}
-// DB model: {"Volts": 4.33,"Time": "21:53:0",  "Day": 14}
-//write sensors data in DB
+/*
+Handling data incoming from nodeMCU
+Data pattern:
+http request: {"data": {"L1":1065.20,"L2":1064.89,"L3":1063.67,"L4":1041.72,"L5":1049.04,"L6":1060.02,"L7":1013.97,
+                   "L8":918.82,"L9":812.09,"T1":917.60,"T2":917.60,"T3":1063.67,"T4":916.38,"T5":947.79,
+                   "T6":1060.02,"T7":993.23,"T8":1014.88,"T9":812.09,"bc":0.22,"bv":0.00}}
+DB model: {"Volts": 4.33,"Time": "21:53:0",  "Day": 14, "sessionID": 1, "index": 1}
+write sensors data in DB
+*/
 function rightSensors(msg) {
   let counter = 0;
   let lightArr = [];
@@ -79,12 +83,14 @@ function rightSensors(msg) {
   });
 }
 
+// monitoring session status
 let session = {
   'sessionStatus': false,
   "sessionID": 0,
   'index': 0
 };
 
+// Accepting http request from nodeMCU
 app.post('/data', function (req, res) {
   console.log(req.body);
   rightSensors(req.body);
@@ -129,7 +135,7 @@ const io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log('New connection made');
 
-  //Test Messages
+  // Test events to check sockets working properly
   socket.on('Client_asking', (data) => {
     console.log(data.msg);
   });
@@ -146,11 +152,13 @@ io.on('connection', (socket) => {
     })
   });
 
+  // Event that clears all data in DB
   socket.on('clearDB', (data) => {
     //console.log(data.msg);
     db.solarInput.remove();
   });
 
+  // Starting data transfer
   socket.on('Init data', (data) => {
     //console.log(data.msg);
     setInterval(function () {
@@ -161,6 +169,8 @@ io.on('connection', (socket) => {
       });
     }, 1000);
   });
+
+  // Event that sets starts new or stop current session
   socket.on('setSession', (data) => {
     session.index = 0;
     console.log(`Toggle session: ${data.msg.sessionStatus}`);
@@ -171,6 +181,7 @@ io.on('connection', (socket) => {
         msg: 'Remove data'
       });
     }
+    // Finds all new incoming data
     setInterval(function () {
       //console.log(session.sessionStatus);
       if(session.sessionStatus){
