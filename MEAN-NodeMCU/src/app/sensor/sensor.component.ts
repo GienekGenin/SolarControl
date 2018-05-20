@@ -29,6 +29,7 @@ export class SensorComponent implements OnInit {
   constructor(private _sensorService: SensorService, private AmCharts: AmChartsService) {
   }
 
+  // set session index and signals server to start or stop measuring session
   setSession(status) {
     if (status) {
       ++this.sessionID.current;
@@ -39,6 +40,7 @@ export class SensorComponent implements OnInit {
     });
   }
 
+  // emit event to clear all data in DB before start
   clearDB() {
     this._sensorService.emit('clearDB', {
       msg: 'clear DB'
@@ -46,7 +48,7 @@ export class SensorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Test messages
+    // Test events to check sockets working properly
     this._sensorService.emit('Client_asking', {
       msg: 'Client to server, can u hear me server?'
     });
@@ -60,23 +62,25 @@ export class SensorComponent implements OnInit {
       });
     });
 
-    // Data handling
+    // Socket events that handling actual data-flow
+    // Telling server to start data transfer
     this._sensorService.emit('Init data', {
       msg: 'Init data'
     });
+    // Accept sensor values
     this._sensorService.on('Sensors data', (data: any) => {
-      // console.log(data.msg);
       this.data.light = data.msg.light;
       this.data.temp = data.msg.temp;
       this.data.bv = data.msg.bv;
       this.data.bc = data.msg.bc;
     });
+    // Clear data from chart before start of the new session
     this._sensorService.on('Remove data for chart', (data: any) => {
       this.AmCharts.updateChart(this.chart, () => {
         this.chartData = [];
-        // this.chart.dataProvider = [];
       });
     });
+    // Handling new data incoming from DB
     this._sensorService.on('Update session', (data: any) => {
       //console.log(data.msg);
       for (let i = 0; i < data.msg.length; i++) {
@@ -92,10 +96,11 @@ export class SensorComponent implements OnInit {
       this.AmCharts.updateChart(this.chart, () => {
         this.chart.dataProvider = this.chartData;
       });
-      //console.log(this.chartData);
+      // console.log(this.chartData);
     });
   }
 
+  // Chart creation after view init
   ngAfterViewInit() {
     this.chart = this.AmCharts.makeChart('chartdiv', {
       'type': 'serial',
@@ -113,6 +118,7 @@ export class SensorComponent implements OnInit {
     });
   }
 
+  // Remove chart if user session is over
   ngOnDestroy() {
     if (this.chart) {
       this.AmCharts.destroyChart(this.chart);
