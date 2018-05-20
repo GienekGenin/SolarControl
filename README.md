@@ -1,7 +1,10 @@
 # SolarControl
 This is my graduate work
 
-### About this project
+## Project's circuit
+![Circuit](https://pp.userapi.com/c846323/v846323282/5b163/XHdE0YK-Hw4.jpg)
+
+## About this project
 
 ## First stage. STM32F767ZI
 
