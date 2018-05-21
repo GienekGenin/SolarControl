@@ -10,8 +10,8 @@ const char* password = "1q2w120195";
 void setup () {
     pinMode(D5, INPUT);
     pinMode(D6, OUTPUT);    pinMode(flag, INPUT);
-    Serial.begin(9600);
-    NodeSerial.begin(9600);
+    Serial.begin(38400);
+    NodeSerial.begin(38400);
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
@@ -48,7 +48,7 @@ void sendData(String data) {
     http.end();
   }
   //Send a request every 100ms seconds
-  delay(100);
+  //delay(100);
 }
 
 void loop() {
@@ -59,13 +59,13 @@ void loop() {
       String s = NodeSerial.readString();
       message = message + s;
       if(i=3){
-        Serial.println("Start");
-        Serial.println(message.length());
-        Serial.println(message);
-        Serial.println("End");
+//        Serial.println("Start");
+//        Serial.println(message.length());
+//        Serial.println(message);
+//        Serial.println("End");
         sendData(message);
       }
        NodeSerial.end();
-       NodeSerial.begin(9600);
+       NodeSerial.begin(38400);
     }
 }

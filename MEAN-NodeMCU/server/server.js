@@ -167,7 +167,7 @@ io.on('connection', (socket) => {
           msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
         });
       });
-    }, 1000);
+    }, 500);
   });
 
   // Event that sets starts new or stop current session
@@ -194,6 +194,6 @@ io.on('connection', (socket) => {
           }
         });
       }
-    }, 2000);
+    }, 500);
   });
 });
