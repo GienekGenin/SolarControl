@@ -1,8 +1,8 @@
 #include "mbed.h"
 #include <string>
 
-Serial pc(USBTX, USBRX,9600); // tx, rx
-Serial device(D1,D0,9600);  // tx, rx
+Serial pc(USBTX, USBRX,38400); // tx, rx
+Serial device(D1,D0,38400);  // tx, rx
 
 //Timer needed for correcct recieving and sending of information
 Timer timer;
@@ -64,7 +64,7 @@ int main() {
     timer.start();
     while(1) {
         begin = timer.read_ms();
-        if(begin - lastms >= 3000){
+        if(begin - lastms >= 2000){
             lastms = begin;
             //Value of light sensors
             float L1 = a_light_1/3.28 * 4096,L2 = a_light_1/3.28 * 4096,L3 = a_light_1/3.28 * 4096;

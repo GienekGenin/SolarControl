@@ -3,7 +3,7 @@
 #include <SoftwareSerial.h>
 
 SoftwareSerial NodeSerial(D5, D6);  //RX, TX
-#define flag D4
+
 const char* ssid = "NodeMCU";
 const char* password = "1q2w120195";
 
