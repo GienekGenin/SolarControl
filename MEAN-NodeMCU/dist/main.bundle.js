@@ -333,6 +333,7 @@ var SensorComponent = (function () {
             msg: 'clear DB'
         });
     };
+    // what will be executed after component init
     SensorComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Test events to check sockets working properly
