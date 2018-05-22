@@ -323,13 +323,13 @@ var SensorComponent = (function () {
             ++this.sessionID.current;
             this.sessionID.next = this.sessionID.current + 1;
         }
-        this._sensorService.emit('setSession', {
+        this._sensorService.emit('Set_session', {
             msg: { 'sessionStatus': this.session = status, 'sessionIndex': this.sessionID.current }
         });
     };
     // emit event to clear all data in DB before start
     SensorComponent.prototype.clearDB = function () {
-        this._sensorService.emit('clearDB', {
+        this._sensorService.emit('Clear_DB', {
             msg: 'clear DB'
         });
     };
@@ -351,24 +351,24 @@ var SensorComponent = (function () {
         });
         // Socket events that handling actual data-flow
         // Telling server to start data transfer
-        this._sensorService.emit('Init data', {
+        this._sensorService.emit('Init_data', {
             msg: 'Init data'
         });
         // Accept sensor values
-        this._sensorService.on('Sensors data', function (data) {
+        this._sensorService.on('Sensors_data', function (data) {
             _this.data.light = data.msg.light;
             _this.data.temp = data.msg.temp;
             _this.data.bv = data.msg.bv;
             _this.data.bc = data.msg.bc;
         });
         // Clear data from chart before start of the new session
-        this._sensorService.on('Remove data for chart', function (data) {
+        this._sensorService.on('Remove_data_from_chart', function (data) {
             _this.AmCharts.updateChart(_this.chart, function () {
                 _this.chartData = [];
             });
         });
         // Handling new data incoming from DB
-        this._sensorService.on('Update session', function (data) {
+        this._sensorService.on('Update_session', function (data) {
             //console.log(data.msg);
             for (var i = 0; i < data.msg.length; i++) {
                 _this.chartData.push({ 'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg[i].index });
