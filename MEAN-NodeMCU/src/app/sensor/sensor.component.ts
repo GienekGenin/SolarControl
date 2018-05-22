@@ -35,14 +35,14 @@ export class SensorComponent implements OnInit {
       ++this.sessionID.current;
       this.sessionID.next = this.sessionID.current + 1;
     }
-    this._sensorService.emit('setSession', {
+    this._sensorService.emit('Set_session', {
       msg: {'sessionStatus': this.session = status, 'sessionIndex': this.sessionID.current}
     });
   }
 
   // emit event to clear all data in DB before start
   clearDB() {
-    this._sensorService.emit('clearDB', {
+    this._sensorService.emit('Clear_DB', {
       msg: 'clear DB'
     });
   }
@@ -65,24 +65,24 @@ export class SensorComponent implements OnInit {
 
     // Socket events that handling actual data-flow
     // Telling server to start data transfer
-    this._sensorService.emit('Init data', {
+    this._sensorService.emit('Init_data', {
       msg: 'Init data'
     });
     // Accept sensor values
-    this._sensorService.on('Sensors data', (data: any) => {
+    this._sensorService.on('Sensors_data', (data: any) => {
       this.data.light = data.msg.light;
       this.data.temp = data.msg.temp;
       this.data.bv = data.msg.bv;
       this.data.bc = data.msg.bc;
     });
     // Clear data from chart before start of the new session
-    this._sensorService.on('Remove data for chart', (data: any) => {
+    this._sensorService.on('Remove_data_from_chart', (data: any) => {
       this.AmCharts.updateChart(this.chart, () => {
         this.chartData = [];
       });
     });
     // Handling new data incoming from DB
-    this._sensorService.on('Update session', (data: any) => {
+    this._sensorService.on('Update_session', (data: any) => {
       //console.log(data.msg);
       for (let i = 0; i < data.msg.length; i++) {
         this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg[i].index});

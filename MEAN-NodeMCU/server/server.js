@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 //Set static folder for Angular
-let staticPath = path.normalize(__dirname + '/../dist');
+const staticPath = path.normalize(__dirname + '/../dist');
 app.use(express.static(staticPath));
 
 // Catch all other routes and return the index file
@@ -125,7 +125,7 @@ app.get('/data', function (req, res) {
 
 app.set('port', process.env.PORT || 8080);
 
-let server = app.listen(process.env.PORT || 8080, function () {
+const server = app.listen(process.env.PORT || 8080, function () {
   let port = server.address().port;
   console.log("App now running on port", port);
 });
@@ -153,17 +153,17 @@ io.on('connection', (socket) => {
   });
 
   // Event that clears all data in DB
-  socket.on('clearDB', (data) => {
+  socket.on('Clear_DB', (data) => {
     //console.log(data.msg);
     db.solarInput.remove();
   });
 
   // Starting data transfer
-  socket.on('Init data', (data) => {
+  socket.on('Init_data', (data) => {
     //console.log(data.msg);
     setInterval(function () {
       db.sensors.findOne(function (err, docs) {
-        socket.emit('Sensors data', {
+        socket.emit('Sensors_data', {
           msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
         });
       });
@@ -171,13 +171,13 @@ io.on('connection', (socket) => {
   });
 
   // Event that sets starts new or stop current session
-  socket.on('setSession', (data) => {
+  socket.on('Set_session', (data) => {
     session.index = 0;
     console.log(`Toggle session: ${data.msg.sessionStatus}`);
     session.sessionID = data.msg.sessionIndex;
     session.sessionStatus = data.msg.sessionStatus;
     if(session.sessionStatus){
-      socket.emit('Remove data for chart', {
+      socket.emit('Remove_data_from_chart', {
         msg: 'Remove data'
       });
     }
@@ -188,7 +188,7 @@ io.on('connection', (socket) => {
         db.solarInput.find({sessionID: session.sessionID, index:{$gte: session.index}}, function (err, docs) {
           if(docs){
             //console.log(docs);
-            return socket.emit('Update session', {
+            return socket.emit('Update_session', {
               msg: docs
             });
           }
