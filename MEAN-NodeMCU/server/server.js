@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 //Set static folder for Angular
-let staticPath = path.normalize(__dirname + '/../dist');
+const staticPath = path.normalize(__dirname + '/../dist');
 app.use(express.static(staticPath));
 
 // Catch all other routes and return the index file
