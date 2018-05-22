@@ -125,7 +125,7 @@ app.get('/data', function (req, res) {
 
 app.set('port', process.env.PORT || 8080);
 
-let server = app.listen(process.env.PORT || 8080, function () {
+const server = app.listen(process.env.PORT || 8080, function () {
   let port = server.address().port;
   console.log("App now running on port", port);
 });
