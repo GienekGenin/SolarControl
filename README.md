@@ -2,7 +2,7 @@
 This is my graduate work
 
 ## Project's circuit
-![Circuit](https://pp.userapi.com/c846323/v846323282/5b163/XHdE0YK-Hw4.jpg)
+![Circuit](https://pp.userapi.com/c846124/v846124376/59d33/SVWv4HL4n90.jpg)
 
 ## About this project
 
