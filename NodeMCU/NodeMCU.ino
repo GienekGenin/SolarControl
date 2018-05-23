@@ -9,9 +9,9 @@ const char* password = "1q2w120195";
 
 void setup () {
     pinMode(D5, INPUT);
-    pinMode(D6, OUTPUT);    pinMode(flag, INPUT);
-    Serial.begin(38400);
-    NodeSerial.begin(38400);
+    pinMode(D6, OUTPUT);
+    Serial.begin(230400);
+    NodeSerial.begin(115200);
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
@@ -25,7 +25,7 @@ void sendData(String data) {
     HTTPClient http;
     http.begin("http://blooming-fortress-61113.herokuapp.com/data");
     http.addHeader("Content-Type", "application/json");
-    String postMessage = "{\"data\":" + data + "}";
+    String postMessage = data;
     //Uncomment these lines to see output
     /*
       Serial.println("Data:");
@@ -53,19 +53,9 @@ void sendData(String data) {
 
 void loop() {
   String message;
-  int i = 0;
     if (NodeSerial.available()>0) {
-      ++i;
-      String s = NodeSerial.readString();
-      message = message + s;
-      if(i=3){
-//        Serial.println("Start");
-//        Serial.println(message.length());
-//        Serial.println(message);
-//        Serial.println("End");
-        sendData(message);
-      }
-       NodeSerial.end();
-       NodeSerial.begin(38400);
+      String message = NodeSerial.readString();
+      Serial.println(message);
+      sendData(message);
     }
 }

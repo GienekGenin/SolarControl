@@ -51,32 +51,20 @@ function getDay() {
 /*
 Handling data incoming from nodeMCU
 Data pattern:
-http request: {"data": {"L1":1065.20,"L2":1064.89,"L3":1063.67,"L4":1041.72,"L5":1049.04,"L6":1060.02,"L7":1013.97,
-                   "L8":918.82,"L9":812.09,"T1":917.60,"T2":917.60,"T3":1063.67,"T4":916.38,"T5":947.79,
-                   "T6":1060.02,"T7":993.23,"T8":1014.88,"T9":812.09,"bc":0.22,"bv":0.00}}
+http request: {"data":{"light":["1072","1099","1084","1118","1154","1166","1127","1094"],
+                       "temp":["1085.3","1092.3","1086.2","1121.9","1058.5","1084.7","1100.9","1125.6"]},
+                       "voltage":"7.25","current":"0.26"}
 DB model: {"Volts": 4.33,"Time": "21:53:0",  "Day": 14, "sessionID": 1, "index": 1}
 write sensors data in DB
 */
 function rightSensors(msg) {
-  let counter = 0;
-  let lightArr = [];
-  let tempArr = [];
-  for (let key in msg.data) {
-    ++counter;
-    if (counter >= 1 && counter <= 9) {
-      lightArr.push(msg.data[key]);
-    }
-    if (counter >= 10 && counter <= 18) {
-      tempArr.push(msg.data[key]);
-    }
-  }
-  console.log(msg.data.bv);
+  console.log(msg);
   db.sensors.update({_id: mongojs.ObjectId('5af489d1f36d28074502ec0a')}, {
     $set: {
-      light: lightArr,
-      temp: tempArr,
-      bv: msg.data.bv,
-      bc: msg.data.bc
+      light: msg.light,
+      temp: msg.temp,
+      bv: msg.bv,
+      bc: msg.bc
     }
   }, function () {
     console.log('Done');
@@ -93,10 +81,11 @@ let session = {
 // Accepting http request from nodeMCU
 app.post('/data', function (req, res) {
   console.log(req.body);
-  rightSensors(req.body);
+  rightSensors(req.body.data);
   if (session.sessionStatus) {
     const dataToDb = {
       'Volts': req.body.data.bv,
+      'Current': req.body.data.bc,
       'Time': getTime(),
       'Day': getDay(),
       'sessionID': session.sessionID,
