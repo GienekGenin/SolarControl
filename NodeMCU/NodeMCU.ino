@@ -25,7 +25,7 @@ void sendData(String data) {
     HTTPClient http;
     http.begin("http://blooming-fortress-61113.herokuapp.com/data");
     http.addHeader("Content-Type", "application/json");
-    String postMessage = "{\"data\":" + data + "}";
+    String postMessage = data;
     //Uncomment these lines to see output
     /*
       Serial.println("Data:");
