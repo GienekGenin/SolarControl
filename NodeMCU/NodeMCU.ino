@@ -12,11 +12,11 @@ void setup () {
     pinMode(D6, OUTPUT);
     Serial.begin(230400);
     NodeSerial.begin(115200);
-//    WiFi.begin(ssid, password);
-//    while (WiFi.status() != WL_CONNECTED) {
-//    delay(1000);
-//    Serial.print("Connecting..");
-//  }
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print("Connecting..");
+  }
 }
 
 void sendData(String data) {
@@ -56,6 +56,6 @@ void loop() {
     if (NodeSerial.available()>0) {
       String message = NodeSerial.readString();
       Serial.println(message);
-        //sendData(message);
+      sendData(message);
     }
 }
