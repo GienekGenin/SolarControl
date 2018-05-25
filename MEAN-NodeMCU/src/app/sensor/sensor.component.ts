@@ -112,6 +112,7 @@ export class SensorComponent implements OnInit {
     this.chart = this.AmCharts.makeChart('chartdiv', {
       'type': 'serial',
       'theme': 'light',
+      'autoMarginOffset': 20,
       'legend': {
         'useGraphSettings': true
       },
@@ -140,21 +141,37 @@ export class SensorComponent implements OnInit {
         'lineColor': '#FF6600',
         'bullet': 'round',
         'bulletBorderThickness': 1,
-        'hideBulletsCount': 30,
+        'hideBulletsCount': 50,
         'title': 'Voltage',
         'valueField': 'Volts',
+        'useLineColorForBulletBorder': true,
+        'balloon': {
+          'drop': true
+        },
         'fillAlphas': 0
       }, {
         'valueAxis': 'v2',
         'lineColor': '#FCD202',
         'bullet': 'square',
         'bulletBorderThickness': 1,
-        'hideBulletsCount': 30,
+        'hideBulletsCount': 50,
         'title': 'Current',
         'valueField': 'Current',
+        'useLineColorForBulletBorder': true,
+        'balloon': {
+          'drop': true
+        },
         'fillAlphas': 0
       }],
-      // 'chartScrollbar': {},
+      'chartScrollbar': [{
+        'autoGridCount': true,
+        'graph': 'v1',
+        'scrollbarHeight': 20
+      }, {
+        'autoGridCount': true,
+        'graph': 'v2',
+        'scrollbarHeight': 20
+      }],
       'chartCursor': {
         'cursorPosition': 'mouse'
       },
