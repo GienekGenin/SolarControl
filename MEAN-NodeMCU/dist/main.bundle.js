@@ -309,6 +309,7 @@ var SensorComponent = (function () {
         this.chartData = [{
                 'Time': '0',
                 'Volts': 0,
+                'Current': 0,
                 'index': 0
             }];
         this.session = false;
@@ -369,9 +370,14 @@ var SensorComponent = (function () {
         });
         // Handling new data incoming from DB
         this._sensorService.on('Update_session', function (data) {
-            //console.log(data.msg);
+            // console.log(data.msg);
             for (var i = 0; i < data.msg.length; i++) {
-                _this.chartData.push({ 'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg[i].index });
+                _this.chartData.push({
+                    'Time': data.msg[i].Time,
+                    'Volts': data.msg[i].Volts,
+                    'index': data.msg[i].index,
+                    'Current': data.msg[i].Current
+                });
             }
             for (var i = 0; i < _this.chartData.length; i++) {
                 for (var c = 0; c < _this.chartData.length; c++) {
@@ -391,16 +397,60 @@ var SensorComponent = (function () {
         this.chart = this.AmCharts.makeChart('chartdiv', {
             'type': 'serial',
             'theme': 'light',
+            'legend': {
+                'useGraphSettings': true
+            },
             'dataProvider': this.chartData,
+            'synchronizeGrid': true,
             'color': '#111111',
             'categoryField': 'Time',
+            'valueAxes': [{
+                    'id': 'v1',
+                    'axisColor': '#FF6600',
+                    'axisThickness': 2,
+                    'axisAlpha': 1,
+                    'position': 'left',
+                    'title': 'Voltage'
+                }, {
+                    'id': 'v2',
+                    'axisColor': '#FCD202',
+                    'axisThickness': 2,
+                    'axisAlpha': 1,
+                    'position': 'right',
+                    'title': 'Current'
+                }],
             'graphs': [{
-                    'valueField': 'Volts',
-                    'type': 'line',
-                    'fillAlphas': 0.5,
+                    'valueAxis': 'v1',
+                    'lineColor': '#FF6600',
                     'bullet': 'round',
-                    'lineColor': '#8d1cc6',
-                }]
+                    'bulletBorderThickness': 1,
+                    'hideBulletsCount': 30,
+                    'title': 'red line',
+                    'valueField': 'Volts',
+                    'fillAlphas': 0
+                }, {
+                    'valueAxis': 'v2',
+                    'lineColor': '#FCD202',
+                    'bullet': 'square',
+                    'bulletBorderThickness': 1,
+                    'hideBulletsCount': 30,
+                    'title': 'yellow line',
+                    'valueField': 'Current',
+                    'fillAlphas': 0
+                }],
+            'chartScrollbar': {},
+            'chartCursor': {
+                'cursorPosition': 'mouse'
+            },
+            'categoryAxis': {
+                'parseDates': false,
+                'axisColor': '#111',
+                'minorGridEnabled': true
+            },
+            'export': {
+                'enabled': true,
+                'position': 'bottom-right'
+            }
         });
     };
     // Remove chart if user session is over
