@@ -404,6 +404,7 @@ var SensorComponent = (function () {
             'synchronizeGrid': true,
             'color': '#111111',
             'categoryField': 'Time',
+            'mouseWheelZoomEnabled': true,
             'valueAxes': [{
                     'id': 'v1',
                     'axisColor': '#FF6600',
@@ -425,7 +426,7 @@ var SensorComponent = (function () {
                     'bullet': 'round',
                     'bulletBorderThickness': 1,
                     'hideBulletsCount': 30,
-                    'title': 'red line',
+                    'title': 'Voltage',
                     'valueField': 'Volts',
                     'fillAlphas': 0
                 }, {
@@ -434,11 +435,11 @@ var SensorComponent = (function () {
                     'bullet': 'square',
                     'bulletBorderThickness': 1,
                     'hideBulletsCount': 30,
-                    'title': 'yellow line',
+                    'title': 'Current',
                     'valueField': 'Current',
                     'fillAlphas': 0
                 }],
-            'chartScrollbar': {},
+            // 'chartScrollbar': {},
             'chartCursor': {
                 'cursorPosition': 'mouse'
             },
