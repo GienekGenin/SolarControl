@@ -75,11 +75,13 @@ function rightSensors(msg) {
 let session = {
   'sessionStatus': false,
   "sessionID": 0,
-  'index': 0
+  'index': 0,
+  'newReq': false
 };
 
 // Accepting http request from nodeMCU
 app.post('/data', function (req, res) {
+  session.newReq = true;
   console.log(req.body);
   rightSensors(req.body.data);
   if (session.sessionStatus) {
@@ -162,6 +164,7 @@ io.on('connection', (socket) => {
   // Event that sets starts new or stop current session
   socket.on('Set_session', (data) => {
     session.index = 0;
+    session.newReq = true;
     console.log(`Toggle session: ${data.msg.sessionStatus}`);
     session.sessionID = data.msg.sessionIndex;
     session.sessionStatus = data.msg.sessionStatus;
@@ -173,9 +176,10 @@ io.on('connection', (socket) => {
     // Finds all new incoming data
     setInterval(function () {
       //console.log(session.sessionStatus);
-      if(session.sessionStatus){
+      if(session.sessionStatus && session.newReq){
         db.solarInput.find({sessionID: session.sessionID, index:{$gte: session.index}}, function (err, docs) {
           if(docs){
+            session.newReq = false;
             //console.log(docs);
             return socket.emit('Update_session', {
               msg: docs

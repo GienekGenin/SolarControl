@@ -383,6 +383,7 @@ var SensorComponent = (function () {
                 for (var c = 0; c < _this.chartData.length; c++) {
                     if (_this.chartData[i].index === _this.chartData[c].index && i > c) {
                         _this.chartData.splice(c, 1);
+                        console.log("index i: " + _this.chartData[i].index + " || index c: " + _this.chartData[i].index);
                     }
                 }
             }

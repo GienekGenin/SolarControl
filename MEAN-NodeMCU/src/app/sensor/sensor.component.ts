@@ -97,6 +97,7 @@ export class SensorComponent implements OnInit {
         for (let c = 0; c < this.chartData.length; c++) {
           if (this.chartData[i].index === this.chartData[c].index && i > c) {
             this.chartData.splice(c, 1);
+            console.log(`index i: ${this.chartData[i].index} || index c: ${this.chartData[i].index}`);
           }
         }
       }
