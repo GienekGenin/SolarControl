@@ -54,6 +54,12 @@ export class SensorComponent implements OnInit {
     });
   }
 
+  clearDB() {
+    this._sensorService.emit('Clear_DB', {
+      msg: 'Clear DB'
+    });
+  }
+
   // what will be executed after component init
   ngOnInit() {
     // Test events to check sockets working properly
@@ -70,7 +76,6 @@ export class SensorComponent implements OnInit {
       });
     });
 
-    // Socket events that handling actual data-flow
     // Telling server to start data transfer
     this._sensorService.emit('Init_data', {
       msg: 'Init data'
@@ -92,13 +97,6 @@ export class SensorComponent implements OnInit {
       });
     });
     this._sensorService.on('Update_session', (data: any) => {
-      // console.log('Update session');
-      // console.log(data.msg);
-      console.log(this.oldData !== data.msg);
-      console.log('___________');
-      console.log(data.msg);
-      console.log(this.oldData);
-      console.log('___________');
       if (this.oldData.index !== data.msg.index) {
         this.chartData.push({
           'Time': data.msg.Time,
@@ -111,7 +109,6 @@ export class SensorComponent implements OnInit {
       this.AmCharts.updateChart(this.chart, () => {
         this.chart.dataProvider = this.chartData;
       });
-      // console.log(this.chartData);
     });
   }
 

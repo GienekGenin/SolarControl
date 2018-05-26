@@ -175,6 +175,10 @@ io.on('connection', (socket) => {
     }, 500);
   });
 
+  socket.on('Clear_DB', (data) => {
+    db.solarInput.remove();
+  });
+
   socket.on('Choose_session', (data) => {
     session.sessionID = data.msg;
     console.log(session.sessionID);
