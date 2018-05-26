@@ -75,34 +75,9 @@ function rightSensors(msg) {
 let session = {
   'sessionStatus': false,
   "sessionID": 0,
-  'index': 0,
-  'newReq': false
+  'index': 0
 };
-
-// Accepting http request from nodeMCU
-app.post('/data', function (req, res) {
-  session.newReq = true;
-  console.log(req.body);
-  rightSensors(req.body.data);
-  if (session.sessionStatus) {
-    const dataToDb = {
-      'Volts': req.body.data.bv,
-      'Current': req.body.data.bc,
-      'Time': getTime(),
-      'Day': getDay(),
-      'sessionID': session.sessionID,
-      'index': ++session.index
-    };
-    db.solarInput.save(dataToDb, function (err, data) {
-      if (err) {
-        res.send(err);
-      }
-      res.json(data);
-    });
-  } else {
-    res.json(req.body.data);
-  }
-});
+let dataToDB = 0;
 
 // Showing that data, and sending it back
 app.get('/data', function (req, res) {
@@ -144,49 +119,69 @@ io.on('connection', (socket) => {
   });
 
   // Event that clears all data in DB
-  socket.on('Clear_DB', (data) => {
-    //console.log(data.msg);
-    db.solarInput.remove();
+  socket.on('Set_session', (data) => {
+    // db.solarInput.remove({sessionID: session.sessionID});
+    session.sessionStatus = data.msg.sessionStatus;
+    session.sessionID = data.msg.sessionID;
+    session.index = 0;
+    console.log('Set session');
   });
+  socket.on('Stop_session', (data) => {
+    console.log('Stop session');
+    session.sessionStatus = false;
+  });
+
+  //________________________________________________________________
+  app.post('/data', function (req, res) {
+    console.log(req.body);
+    rightSensors(req.body.data);
+    if (session.sessionStatus) {
+      dataToDB = {
+        'Volts': req.body.data.bv,
+        'Current': req.body.data.bc,
+        'Time': getTime(),
+        'Day': getDay(),
+        'sessionID': session.sessionID,
+        'index': ++session.index
+      };
+      io.sockets.emit('Update_session', {
+        msg: dataToDB
+      });
+      db.solarInput.save(dataToDB, function (err, data) {
+        if (err) {
+          res.send(err);
+        }
+        res.json(data);
+      });
+    } else {
+      res.json(req.body.data);
+    }
+  });
+  //________________________________________________________________
 
   // Starting data transfer
   socket.on('Init_data', (data) => {
     //console.log(data.msg);
     setInterval(function () {
-      db.sensors.findOne(function (err, docs) {
-        socket.emit('Sensors_data', {
-          msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
-        });
-      });
-    }, 500);
-  });
-
-  // Event that sets starts new or stop current session
-  socket.on('Set_session', (data) => {
-    session.index = 0;
-    session.newReq = true;
-    console.log(`Toggle session: ${data.msg.sessionStatus}`);
-    session.sessionID = data.msg.sessionIndex;
-    session.sessionStatus = data.msg.sessionStatus;
-    if(session.sessionStatus){
-      socket.emit('Remove_data_from_chart', {
-        msg: 'Remove data'
-      });
-    }
-    // Finds all new incoming data
-    setInterval(function () {
-      //console.log(session.sessionStatus);
-      if(session.sessionStatus && session.newReq){
-        db.solarInput.find({sessionID: session.sessionID, index:{$gte: session.index}}, function (err, docs) {
-          if(docs){
-            session.newReq = false;
-            //console.log(docs);
-            return socket.emit('Update_session', {
-              msg: docs
-            });
-          }
+      if (session.newReq) {
+        db.sensors.findOne(function (err, docs) {
+          socket.emit('Sensors_data', {
+            msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
+          });
         });
       }
     }, 500);
   });
+
+  socket.on('Choose_session', (data) => {
+    session.sessionID = data.msg;
+    console.log(session.sessionID);
+    db.solarInput.find({sessionID: session.sessionID}, function (err, docs) {
+      console.log(docs);
+      return socket.emit('View_session', {
+        msg: docs
+      });
+    });
+  });
+
 });

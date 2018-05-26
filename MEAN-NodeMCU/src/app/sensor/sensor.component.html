@@ -59,17 +59,18 @@
   <table style="width:100%">
     <tr>
       <td>
-        <button (click)="setSession(true)">Start session</button>
+        <label for="set_session">Set session</label><input type="number" id="set_session" (change)="setSession($event)">
       </td>
-      <td>Next session: {{sessionID.next}}</td>
+      <td>Next session: {{session.next}}</td>
     </tr>
     <tr>
       <td>
-        <button (click)="setSession(false)">Stop session</button>
+        <button (click)="stopSession(false)">Stop session</button>
       </td>
-      <td>Current session {{sessionID.current}}</td>
+      <td>Current session {{session.current}}</td>
     </tr>
   </table>
-  <button (click)="clearDB()">Clear database</button>
+  <label for="choose_session">Choose session</label><input type="number" id="choose_session" (change)="chooseSession($event)">
+  <br>
   <div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>
 </div>

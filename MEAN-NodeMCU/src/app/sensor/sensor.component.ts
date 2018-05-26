@@ -14,14 +14,14 @@ export class SensorComponent implements OnInit {
     'bv': 0,
     'bc': 0
   };
-  chartData = [{
-    'Time': '0',
+  oldData = {
+    'Time': 0,
     'Volts': 0,
     'Current': 0,
     'index': 0
-  }];
-  session = false;
-  sessionID = {
+  };
+  chartData = [];
+  session = {
     current: 0,
     next: 0
   };
@@ -30,21 +30,27 @@ export class SensorComponent implements OnInit {
   constructor(private _sensorService: SensorService, private AmCharts: AmChartsService) {
   }
 
-  // set session index and signals server to start or stop measuring session
-  setSession(status) {
-    if (status) {
-      ++this.sessionID.current;
-      this.sessionID.next = this.sessionID.current + 1;
-    }
+// set session index and signals server to start or stop measuring session
+  setSession(e) {
+    this.session.current = +e.target.value;
+    this.session.next = +this.session.current + 1;
     this._sensorService.emit('Set_session', {
-      msg: {'sessionStatus': this.session = status, 'sessionIndex': this.sessionID.current}
+      msg: {'sessionStatus': true, 'sessionID': this.session.current}
+    });
+    this.AmCharts.updateChart(this.chart, () => {
+      this.chartData = [];
     });
   }
 
-  // emit event to clear all data in DB before start
-  clearDB() {
-    this._sensorService.emit('Clear_DB', {
-      msg: 'clear DB'
+  stopSession(status) {
+    this._sensorService.emit('Stop_session', {
+      msg: status
+    });
+  }
+
+  chooseSession(e) {
+    this._sensorService.emit('Choose_session', {
+      msg: +e.target.value
     });
   }
 
@@ -77,29 +83,30 @@ export class SensorComponent implements OnInit {
       this.data.bc = data.msg.bc;
     });
     // Clear data from chart before start of the new session
-    this._sensorService.on('Remove_data_from_chart', (data: any) => {
+
+    // Handling new data incoming from DB
+    this._sensorService.on('View_session', (data: any) => {
+      this.chartData = data.msg;
       this.AmCharts.updateChart(this.chart, () => {
-        this.chartData = [];
+        this.chart.dataProvider = this.chartData;
       });
     });
-    // Handling new data incoming from DB
     this._sensorService.on('Update_session', (data: any) => {
+      // console.log('Update session');
       // console.log(data.msg);
-      for (let i = 0; i < data.msg.length; i++) {
+      console.log(this.oldData !== data.msg);
+      console.log('___________');
+      console.log(data.msg);
+      console.log(this.oldData);
+      console.log('___________');
+      if (this.oldData.index !== data.msg.index) {
         this.chartData.push({
-          'Time': data.msg[i].Time,
-          'Volts': data.msg[i].Volts,
-          'index': data.msg[i].index,
-          'Current': data.msg[i].Current
+          'Time': data.msg.Time,
+          'Volts': data.msg.Volts,
+          'Current': data.msg.Current,
+          'index': data.msg.index
         });
-      }
-      for (let i = 0; i < this.chartData.length; i++) {
-        for (let c = 0; c < this.chartData.length; c++) {
-          if (this.chartData[i].index === this.chartData[c].index && i > c) {
-            this.chartData.splice(c, 1);
-            console.log(`index i: ${this.chartData[i].index} || index c: ${this.chartData[i].index}`);
-          }
-        }
+        this.oldData = data.msg;
       }
       this.AmCharts.updateChart(this.chart, () => {
         this.chart.dataProvider = this.chartData;
