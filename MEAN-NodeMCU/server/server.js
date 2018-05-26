@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongojs = require('mongojs');
 const db = mongojs('mongodb://Gennadii:1q2w120195@ds239097.mlab.com:39097/sensors', ['solarInput', 'sensors']);
 
+// Currently not used routes
 const index = require('./routes/index');
 const tasks = require('./routes/tasks');
 
@@ -54,8 +55,8 @@ Data pattern:
 http request: {"data":{"light":["1072","1099","1084","1118","1154","1166","1127","1094"],
                        "temp":["1085.3","1092.3","1086.2","1121.9","1058.5","1084.7","1100.9","1125.6"]},
                        "voltage":"7.25","current":"0.26"}
-DB model: {"Volts": 4.33,"Time": "21:53:0",  "Day": 14, "sessionID": 1, "index": 1}
-write sensors data in DB
+DB model: {'Volts': 4.33, 'Current': 3, 'Time': '21:53:0', 'Day': 14, 'sessionID': 1, 'index': 1}
+store sensors data in DB
 */
 function rightSensors(msg) {
   console.log(msg);
@@ -74,7 +75,7 @@ function rightSensors(msg) {
 // monitoring session status
 let session = {
   'sessionStatus': false,
-  "sessionID": 0,
+  'sessionID': 0,
   'newReq': false,
   'index': 0
 };
@@ -94,7 +95,7 @@ app.set('port', process.env.PORT || 8080);
 
 const server = app.listen(process.env.PORT || 8080, function () {
   let port = server.address().port;
-  console.log("App now running on port", port);
+  console.log('App now running on port', port);
 });
 
 const io = require('socket.io')(server);
@@ -125,18 +126,19 @@ io.on('connection', (socket) => {
     session.sessionStatus = data.msg.sessionStatus;
     session.sessionID = data.msg.sessionID;
     session.index = 0;
-    console.log('Set session');
+    // console.log('Set session');
   });
-  socket.on('Stop_session', (data) => {
-    console.log('Stop session');
+  // Stops current session
+  socket.on('Stop_session', () => {
+    // console.log('Stop session');
     session.sessionStatus = false;
   });
 
-  //________________________________________________________________
   app.post('/data', function (req, res) {
-    console.log(req.body);
     session.newReq = true;
+    // Store data into DB in separate function
     rightSensors(req.body.data);
+    // If users turned on session flag, data will be stored in the DB
     if (session.sessionStatus) {
       dataToDB = {
         'Volts': req.body.data.bv,
@@ -146,9 +148,11 @@ io.on('connection', (socket) => {
         'sessionID': session.sessionID,
         'index': ++session.index
       };
+      // Every time server receive post request, it sends this data to client via socket
       io.sockets.emit('Update_session', {
         msg: dataToDB
       });
+      // Save received data to DB
       db.solarInput.save(dataToDB, function (err, data) {
         if (err) {
           res.send(err);
@@ -159,35 +163,32 @@ io.on('connection', (socket) => {
       res.json(req.body.data);
     }
   });
-  //________________________________________________________________
 
   // Starting data transfer
   socket.on('Init_data', (data) => {
-    //console.log(data.msg);
     setInterval(function () {
+      // Refreshing data on client side only when there in a new post request
       if (session.newReq) {
         db.sensors.findOne(function (err, docs) {
           socket.emit('Sensors_data', {
-            msg: {"temp": docs.temp, "light": docs.light, "bv": docs.bv, "bc": docs.bc}
+            msg: {'temp': docs.temp, 'light': docs.light, 'bv': docs.bv, 'bc': docs.bc}
           });
         });
       }
     }, 500);
   });
 
+  // Clear DB on event
   socket.on('Clear_DB', (data) => {
     db.solarInput.remove();
   });
 
   socket.on('Choose_session', (data) => {
     session.sessionID = data.msg;
-    console.log(session.sessionID);
     db.solarInput.find({sessionID: session.sessionID}, function (err, docs) {
-      console.log(docs);
       return socket.emit('View_session', {
         msg: docs
       });
     });
   });
-
 });
