@@ -14,13 +14,14 @@ export class SensorComponent implements OnInit {
     'bv': 0,
     'bc': 0
   };
-  chartData = [{
-    'Time': '0',
+  oldData = {
+    'Time': 0,
     'Volts': 0,
+    'Current': 0,
     'index': 0
-  }];
-  session = false;
-  sessionID = {
+  };
+  chartData = [];
+  session = {
     current: 0,
     next: 0
   };
@@ -29,21 +30,33 @@ export class SensorComponent implements OnInit {
   constructor(private _sensorService: SensorService, private AmCharts: AmChartsService) {
   }
 
-  // set session index and signals server to start or stop measuring session
-  setSession(status) {
-    if (status) {
-      ++this.sessionID.current;
-      this.sessionID.next = this.sessionID.current + 1;
-    }
+// set session index and signals server to start or stop measuring session
+  setSession(e) {
+    this.session.current = +e.target.value;
+    this.session.next = +this.session.current + 1;
     this._sensorService.emit('Set_session', {
-      msg: {'sessionStatus': this.session = status, 'sessionIndex': this.sessionID.current}
+      msg: {'sessionStatus': true, 'sessionID': this.session.current}
+    });
+    this.AmCharts.updateChart(this.chart, () => {
+      this.chartData = [];
     });
   }
 
-  // emit event to clear all data in DB before start
+  stopSession(status) {
+    this._sensorService.emit('Stop_session', {
+      msg: status
+    });
+  }
+
+  chooseSession(e) {
+    this._sensorService.emit('Choose_session', {
+      msg: +e.target.value
+    });
+  }
+
   clearDB() {
     this._sensorService.emit('Clear_DB', {
-      msg: 'clear DB'
+      msg: 'Clear DB'
     });
   }
 
@@ -63,7 +76,6 @@ export class SensorComponent implements OnInit {
       });
     });
 
-    // Socket events that handling actual data-flow
     // Telling server to start data transfer
     this._sensorService.emit('Init_data', {
       msg: 'Init data'
@@ -76,28 +88,27 @@ export class SensorComponent implements OnInit {
       this.data.bc = data.msg.bc;
     });
     // Clear data from chart before start of the new session
-    this._sensorService.on('Remove_data_from_chart', (data: any) => {
+
+    // Handling new data incoming from DB
+    this._sensorService.on('View_session', (data: any) => {
+      this.chartData = data.msg;
       this.AmCharts.updateChart(this.chart, () => {
-        this.chartData = [];
+        this.chart.dataProvider = this.chartData;
       });
     });
-    // Handling new data incoming from DB
     this._sensorService.on('Update_session', (data: any) => {
-      //console.log(data.msg);
-      for (let i = 0; i < data.msg.length; i++) {
-        this.chartData.push({'Time': data.msg[i].Time, 'Volts': data.msg[i].Volts, 'index': data.msg[i].index});
-      }
-      for (let i = 0; i < this.chartData.length; i++) {
-        for (let c = 0; c < this.chartData.length; c++) {
-          if (this.chartData[i].index === this.chartData[c].index && i > c) {
-            this.chartData.splice(c, 1);
-          }
-        }
+      if (this.oldData.index !== data.msg.index) {
+        this.chartData.push({
+          'Time': data.msg.Time,
+          'Volts': data.msg.Volts,
+          'Current': data.msg.Current,
+          'index': data.msg.index
+        });
+        this.oldData = data.msg;
       }
       this.AmCharts.updateChart(this.chart, () => {
         this.chart.dataProvider = this.chartData;
       });
-      // console.log(this.chartData);
     });
   }
 
@@ -106,16 +117,78 @@ export class SensorComponent implements OnInit {
     this.chart = this.AmCharts.makeChart('chartdiv', {
       'type': 'serial',
       'theme': 'light',
+      'autoMarginOffset': 20,
+      'legend': {
+        'useGraphSettings': true
+      },
       'dataProvider': this.chartData,
+      'synchronizeGrid': true,
       'color': '#111111',
       'categoryField': 'Time',
+      'mouseWheelZoomEnabled': true,
+      'valueAxes': [{
+        'id': 'v1',
+        'axisColor': '#FF6600',
+        'axisThickness': 2,
+        'axisAlpha': 1,
+        'position': 'left',
+        'title': 'Voltage'
+      }, {
+        'id': 'v2',
+        'axisColor': '#FCD202',
+        'axisThickness': 2,
+        'axisAlpha': 1,
+        'position': 'right',
+        'title': 'Current'
+      }],
       'graphs': [{
-        'valueField': 'Volts',
-        'type': 'line',
-        'fillAlphas': 0.5,
+        'valueAxis': 'v1',
+        'lineColor': '#FF6600',
         'bullet': 'round',
-        'lineColor': '#8d1cc6',
-      }]
+        'bulletBorderThickness': 1,
+        'hideBulletsCount': 50,
+        'title': 'Voltage',
+        'valueField': 'Volts',
+        'useLineColorForBulletBorder': true,
+        'balloon': {
+          'drop': true
+        },
+        'fillAlphas': 0
+      }, {
+        'valueAxis': 'v2',
+        'lineColor': '#FCD202',
+        'bullet': 'square',
+        'bulletBorderThickness': 1,
+        'hideBulletsCount': 50,
+        'title': 'Current',
+        'valueField': 'Current',
+        'useLineColorForBulletBorder': true,
+        'balloon': {
+          'drop': true
+        },
+        'fillAlphas': 0
+      }],
+      'chartScrollbar': [{
+        'autoGridCount': true,
+        'graph': 'v1',
+        'scrollbarHeight': 20
+      }, {
+        'autoGridCount': true,
+        'graph': 'v2',
+        'scrollbarHeight': 20
+      }],
+      'chartCursor': {
+        'cursorPosition': 'mouse'
+      },
+      'categoryAxis': {
+        'parseDates': false,
+        'axisColor': '#111',
+        'minorGridEnabled': true
+      },
+      'export': {
+        'enabled': true,
+        'position': 'bottom-right'
+      }
     });
   }
 
