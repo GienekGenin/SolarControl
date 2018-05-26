@@ -75,6 +75,7 @@ function rightSensors(msg) {
 let session = {
   'sessionStatus': false,
   "sessionID": 0,
+  'newReq': false,
   'index': 0
 };
 let dataToDB = 0;
@@ -134,6 +135,7 @@ io.on('connection', (socket) => {
   //________________________________________________________________
   app.post('/data', function (req, res) {
     console.log(req.body);
+    session.newReq = true;
     rightSensors(req.body.data);
     if (session.sessionStatus) {
       dataToDB = {
