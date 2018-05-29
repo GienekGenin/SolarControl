@@ -209,7 +209,7 @@ var AppModule = (function () {
 /***/ "../../../../../src/app/login-form/login-form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"form\">\n  <h1>Welcome</h1>\n  <form (submit)=\"loginUser($event)\">\n      <input placeholder=\"Username\" type=\"text\">\n      <input placeholder=\"Password\" type=\"password\">\n    <div class=\"input\">\n      <button type=\"submit\" value=\"Login\">Login</button>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<div class=\"form\">\r\n  <h1>Welcome</h1>\r\n  <form (submit)=\"loginUser($event)\">\r\n      <input placeholder=\"Username\" type=\"text\">\r\n      <input placeholder=\"Password\" type=\"password\">\r\n    <div class=\"input\">\r\n      <button type=\"submit\" value=\"Login\">Login</button>\r\n    </div>\r\n  </form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -280,7 +280,6 @@ var LoginFormComponent = (function () {
             msg: 'Requesting users data'
         });
         this._sensorService.on('receive_users', function (data) {
-            console.log(data.msg);
             _this.users = data.msg;
         });
     };
