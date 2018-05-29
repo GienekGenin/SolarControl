@@ -8,10 +8,13 @@ import {HttpModule} from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import {AmChartsModule} from '@amcharts/amcharts3-angular';
+import { LoginFormComponent } from './login-form/login-form.component';
+import {UserService} from './users.service';
 
 const appRoutes: Routes = [
   { path: 'sensor', component: SensorComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
+  { path: '', component: LoginFormComponent },
 ];
 
 
@@ -19,7 +22,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SensorComponent,
-    AboutComponent
+    AboutComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [SensorService],
+  providers: [SensorService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

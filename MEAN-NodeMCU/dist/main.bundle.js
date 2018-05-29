@@ -151,6 +151,8 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__about_about_component__ = __webpack_require__("../../../../../src/app/about/about.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__amcharts_amcharts3_angular__ = __webpack_require__("../../../../@amcharts/amcharts3-angular/es2015/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__ = __webpack_require__("../../../../../src/app/login-form/login-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -167,9 +169,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var appRoutes = [
     { path: 'sensor', component: __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__["a" /* SensorComponent */] },
-    { path: 'about', component: __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */] }
+    { path: 'about', component: __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__["a" /* LoginFormComponent */] },
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -179,21 +184,117 @@ var AppModule = (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__["a" /* SensorComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */]
+                __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__["a" /* LoginFormComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_9__amcharts_amcharts3_angular__["a" /* AmChartsModule */],
-                __WEBPACK_IMPORTED_MODULE_7__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
+                __WEBPACK_IMPORTED_MODULE_7__angular_router__["b" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
                 )
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_4__sensor_service__["a" /* SensorService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_4__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_11__users_service__["a" /* UserService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/login-form/login-form.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"form\">\n  <h1>Welcome</h1>\n  <form (submit)=\"loginUser($event)\">\n      <input placeholder=\"Username\" type=\"text\">\n      <input placeholder=\"Password\" type=\"password\">\n    <div class=\"input\">\n      <button type=\"submit\" value=\"Login\">Login</button>\n    </div>\n  </form>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/login-form/login-form.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/login-form/login-form.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginFormComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sensor_service__ = __webpack_require__("../../../../../src/app/sensor.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var LoginFormComponent = (function () {
+    function LoginFormComponent(router, _sensorService, user) {
+        this.router = router;
+        this._sensorService = _sensorService;
+        this.user = user;
+        this.users = {
+            username: undefined,
+            pass: undefined
+        };
+    }
+    LoginFormComponent.prototype.loginUser = function (e) {
+        console.log(e.target.elements);
+        e.preventDefault();
+        var userName = e.target.elements[0].value;
+        var password = e.target.elements[1].value;
+        if (userName === this.users.username && password === this.users.pass) {
+            this.router.navigate(['/sensor']);
+            this.user.setUserLoggedIn(userName);
+        }
+        else {
+            alert('Incorrect username or password');
+        }
+    };
+    LoginFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._sensorService.emit('users_data', {
+            msg: 'Requesting users data'
+        });
+        this._sensorService.on('receive_users', function (data) {
+            console.log(data.msg);
+            _this.users = data.msg;
+        });
+    };
+    LoginFormComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-login-form',
+            template: __webpack_require__("../../../../../src/app/login-form/login-form.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/login-form/login-form.component.scss")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */], __WEBPACK_IMPORTED_MODULE_2__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_3__users_service__["a" /* UserService */]])
+    ], LoginFormComponent);
+    return LoginFormComponent;
 }());
 
 
@@ -489,6 +590,44 @@ var SensorComponent = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__["b" /* AmChartsService */]])
     ], SensorComponent);
     return SensorComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/users.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var UserService = (function () {
+    function UserService() {
+        this.isUserLoggedIn = false;
+    }
+    UserService.prototype.setUserLoggedIn = function (_username) {
+        this.isUserLoggedIn = true;
+        this.username = _username;
+    };
+    UserService.prototype.getUserLoggedIn = function () {
+        return this.isUserLoggedIn;
+    };
+    UserService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [])
+    ], UserService);
+    return UserService;
 }());
 
 

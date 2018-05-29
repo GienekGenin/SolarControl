@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongojs = require('mongojs');
-const db = mongojs('mongodb://Gennadii:1q2w120195@ds239097.mlab.com:39097/sensors', ['solarInput', 'sensors']);
+const db = mongojs('mongodb://Gennadii:1q2w120195@ds239097.mlab.com:39097/sensors', ['solarInput', 'sensors', 'users']);
 
 // Currently not used routes
 const index = require('./routes/index');
@@ -203,5 +203,14 @@ io.on('connection', (socket) => {
         msg: docs
       });
     });
+  });
+
+  socket.on('users_data', (data) => {
+    db.users.findOne(function (err, docs) {
+      socket.emit('receive_users', {
+        msg: docs
+      })
+    });
+    console.log(data.msg);
   });
 });
