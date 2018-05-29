@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/about/about.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  About\r\n</div>\r\n\r\n"
+module.exports = "<div style=\"text-align:center\">\r\n  <nav>\r\n    <a routerLink=\"/sensor\" routerLinkActive=\"active\">Sensors data</a>\r\n  </nav>\r\n  About\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -84,7 +84,7 @@ var AboutComponent = (function () {
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<div style=\"text-align:center\">\r\n  <h1>\r\n    Welcome\r\n  </h1>\r\n  <img width=\"630\" alt=\"IOT Logo\" src=\"../assets/img/IOT.png\">\r\n  <nav>\r\n    <a routerLink=\"/sensor\" routerLinkActive=\"active\">Sensors data</a>\r\n    <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n  </nav>\r\n</div>\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
@@ -264,8 +264,6 @@ var LoginFormComponent = (function () {
         };
     }
     LoginFormComponent.prototype.loginUser = function (e) {
-        console.log(e.target.elements);
-        e.preventDefault();
         var userName = e.target.elements[0].value;
         var password = e.target.elements[1].value;
         if (userName === this.users.username && password === this.users.pass) {
@@ -355,7 +353,7 @@ var SensorService = (function () {
 /***/ "../../../../../src/app/sensor/sensor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <table>\r\n    <tr>\r\n      <th>Sensor index</th>\r\n      <th>Light</th>\r\n      <th>Temperature</th>\r\n    </tr>\r\n    <tr>\r\n      <td>1</td>\r\n      <td>{{data.light[0]}}</td>\r\n      <td>{{data.temp[0]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>2</td>\r\n      <td>{{data.light[1]}}</td>\r\n      <td>{{data.temp[1]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>3</td>\r\n      <td>{{data.light[2]}}</td>\r\n      <td>{{data.temp[2]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>4</td>\r\n      <td>{{data.light[3]}}</td>\r\n      <td>{{data.temp[3]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>5</td>\r\n      <td>{{data.light[4]}}</td>\r\n      <td>{{data.temp[4]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>6</td>\r\n      <td>{{data.light[5]}}</td>\r\n      <td>{{data.temp[5]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>7</td>\r\n      <td>{{data.light[6]}}</td>\r\n      <td>{{data.temp[6]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>8</td>\r\n      <td>{{data.light[7]}}</td>\r\n      <td>{{data.temp[7]}}</td>\r\n    </tr>\r\n  </table>\r\n  <table>\r\n    <tr>\r\n      <th>Instant Battery Voltage</th>\r\n      <th>Instant Battery Current</th>\r\n    </tr>\r\n    <tr>\r\n      <td>{{data.bv}}</td>\r\n      <td>{{data.bc}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <label for=\"set_session\">Set session: </label><input type=\"number\" id=\"set_session\" (change)=\"setSession($event)\">\r\n      </td>\r\n      <td>Next session: {{session.next}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <button (click)=\"stopSession(false)\">Stop session</button>\r\n      </td>\r\n      <td>Current session {{session.current}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <label for=\"choose_session\">Choose session: </label><input type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\r\n      </td>\r\n      <td><button (click)=\"clearDB()\">Clear DB</button></td>\r\n    </tr>\r\n  </table>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
+module.exports = "<div style=\"text-align:center\">\r\n  <div style=\"text-align:center\">\r\n    <h1>\r\n      Welcome\r\n    </h1>\r\n    <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\r\n    <nav>\r\n      <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n    </nav>\r\n  </div>\r\n  <table>\r\n    <tr>\r\n      <th>Sensor index</th>\r\n      <th>Light</th>\r\n      <th>Temperature</th>\r\n    </tr>\r\n    <tr>\r\n      <td>1</td>\r\n      <td>{{data.light[0]}}</td>\r\n      <td>{{data.temp[0]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>2</td>\r\n      <td>{{data.light[1]}}</td>\r\n      <td>{{data.temp[1]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>3</td>\r\n      <td>{{data.light[2]}}</td>\r\n      <td>{{data.temp[2]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>4</td>\r\n      <td>{{data.light[3]}}</td>\r\n      <td>{{data.temp[3]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>5</td>\r\n      <td>{{data.light[4]}}</td>\r\n      <td>{{data.temp[4]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>6</td>\r\n      <td>{{data.light[5]}}</td>\r\n      <td>{{data.temp[5]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>7</td>\r\n      <td>{{data.light[6]}}</td>\r\n      <td>{{data.temp[6]}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>8</td>\r\n      <td>{{data.light[7]}}</td>\r\n      <td>{{data.temp[7]}}</td>\r\n    </tr>\r\n  </table>\r\n  <table>\r\n    <tr>\r\n      <th>Instant Battery Voltage</th>\r\n      <th>Instant Battery Current</th>\r\n    </tr>\r\n    <tr>\r\n      <td>{{data.bv}}</td>\r\n      <td>{{data.bc}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <label for=\"set_session\">Set session: </label><input type=\"number\" id=\"set_session\" (change)=\"setSession($event)\">\r\n      </td>\r\n      <td>Next session: {{session.next}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <button (click)=\"stopSession(false)\">Stop session</button>\r\n      </td>\r\n      <td>Current session {{session.current}}</td>\r\n    </tr>\r\n    <tr>\r\n      <td>\r\n        <label for=\"choose_session\">Choose session: </label><input type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\r\n      </td>\r\n      <td><button (click)=\"clearDB()\">Clear DB</button></td>\r\n    </tr>\r\n  </table>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
 
 /***/ }),
 

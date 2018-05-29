@@ -17,7 +17,6 @@ const appRoutes: Routes = [
   { path: '', component: LoginFormComponent },
 ];
 
-
 @NgModule({
   declarations: [
     AppComponent,
