@@ -211,6 +211,5 @@ io.on('connection', (socket) => {
         msg: docs
       })
     });
-    console.log(data.msg);
   });
 });

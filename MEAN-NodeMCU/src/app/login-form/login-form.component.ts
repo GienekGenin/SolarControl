@@ -34,7 +34,6 @@ export class LoginFormComponent implements OnInit {
       msg: 'Requesting users data'
     });
     this._sensorService.on('receive_users', (data: any) => {
-      console.log(data.msg);
       this.users = data.msg;
     });
   }
