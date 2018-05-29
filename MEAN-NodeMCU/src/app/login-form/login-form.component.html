@@ -1,10 +1,11 @@
-<div class="form">
-  <h1>Welcome</h1>
-  <form (submit)="loginUser($event)">
-      <input placeholder="Username" type="text">
-      <input placeholder="Password" type="password">
-    <div class="input">
-      <button type="submit" value="Login">Login</button>
-    </div>
-  </form>
+<div class="body"></div>
+<div class="grad"></div>
+<div class="header">
+  <div>Solar<span>Project</span></div>
 </div>
+<br>
+<form class="login" (submit)="loginUser($event)">
+  <input type="text" placeholder="username" name="user"><br>
+  <input type="password" placeholder="password" name="password"><br>
+  <input type="submit" value="Login">
+</form>
