@@ -209,7 +209,7 @@ var AppModule = (function () {
 /***/ "../../../../../src/app/login-form/login-form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"form\">\n  <h1>Welcome</h1>\n  <form (submit)=\"loginUser($event)\">\n      <input placeholder=\"Username\" type=\"text\">\n      <input placeholder=\"Password\" type=\"password\">\n    <div class=\"input\">\n      <button type=\"submit\" value=\"Login\">Login</button>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<div class=\"form d-flex justify-content-center\">\n  <video loop muted autoplay id=\"myVideo\">\n    <source src=\"../../assets/video/high-tech.mp4\" type=\"video/mp4\">\n  </video>\n  <div class=\"content\">\n    <h1>Welcome</h1>\n    <form (submit)=\"loginUser($event)\">\n      <input placeholder=\"Username\" type=\"text\">\n      <input placeholder=\"Password\" type=\"password\">\n      <div class=\"input\">\n        <button type=\"submit\" value=\"Login\">Login</button>\n      </div>\n    </form>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -221,7 +221,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#myVideo {\n  position: fixed;\n  margin-top: 150px;\n  width: 500px;\n  z-index: -100;\n  display: block;\n  border-radius: 15px;\n  opacity: 0.3; }\n\n/* Add some content at the bottom of the video/page */\n.content {\n  position: fixed;\n  background: rgba(0, 0, 0, 0.5);\n  color: #f1f1f1;\n  width: 500px;\n  height: 100%;\n  z-index: 100;\n  display: block; }\n\n.form {\n  width: 100%;\n  background-color: red; }\n", ""]);
 
 // exports
 

@@ -1,0 +1,31 @@
+#myVideo {
+  position: fixed;
+  //right: 0;
+  //bottom: 0;
+  //min-width: 100%;
+  //min-height: 100%;
+  margin-top: 150px;
+  width: 500px;
+  z-index: -100;
+  display: block;
+  border-radius: 15px;
+  opacity: 0.3;
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+  //margin-top: 170px;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 500px;
+  height: 100%;
+  //padding: 20px;
+  z-index: 100;
+  display: block;
+}
+
+.form{
+  width: 100%;
+  background-color: red;
+}
