@@ -91,6 +91,19 @@ app.get('/data', function (req, res) {
   });
 });
 
+
+// test api
+
+let testVar  = 1;
+app.get('/test', function (req, res) {
+  res.json(testVar);
+});
+
+app.post('/test', function (req, res) {
+  testVar = req.body;
+  res.json(testVar);
+});
+
 app.set('port', process.env.PORT || 8080);
 
 const server = app.listen(process.env.PORT || 8080, function () {
