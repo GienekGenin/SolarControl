@@ -1,6 +1,6 @@
 webpackJsonp(["main"],{
 
-/***/ "../../../../../src/$$_lazy_route_resource lazy recursive":
+/***/ "./src/$$_lazy_route_resource lazy recursive":
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,42 +13,31 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy recursive";
+webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
-/***/ "../../../../../src/app/about/about.component.html":
+/***/ "./src/app/about/about.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "<div style=\"text-align:center\">\r\n  <nav>\r\n    <a routerLink=\"/sensor\" routerLinkActive=\"active\">Sensors data</a>\r\n  </nav>\r\n  About\r\n</div>\r\n\r\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/about/about.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/app/about/about.component.scss":
+/***/ (function(module, exports) {
 
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = ""
 
 /***/ }),
 
-/***/ "../../../../../src/app/about/about.component.ts":
+/***/ "./src/app/about/about.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sensor_service__ = __webpack_require__("../../../../../src/app/sensor.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sensor_service__ = __webpack_require__("./src/app/sensor.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -60,7 +49,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var AboutComponent = (function () {
+var AboutComponent = /** @class */ (function () {
     function AboutComponent(_sensorService) {
         this._sensorService = _sensorService;
     }
@@ -69,8 +58,8 @@ var AboutComponent = (function () {
     AboutComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-weather',
-            template: __webpack_require__("../../../../../src/app/about/about.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/about/about.component.scss")]
+            template: __webpack_require__("./src/app/about/about.component.html"),
+            styles: [__webpack_require__("./src/app/about/about.component.scss")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sensor_service__["a" /* SensorService */]])
     ], AboutComponent);
@@ -81,37 +70,26 @@ var AboutComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.component.html":
+/***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/app/app.component.scss":
+/***/ (function(module, exports) {
 
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "a {\n  text-decoration: none; }\n  a:hover {\n    text-decoration: none; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = "a {\n  text-decoration: none; }\n  a:hover {\n    text-decoration: none; }\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.component.ts":
+/***/ "./src/app/app.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -119,14 +97,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var AppComponent = (function () {
+var AppComponent = /** @class */ (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__("../../../../../src/app/app.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
+            template: __webpack_require__("./src/app/app.component.html"),
+            styles: [__webpack_require__("./src/app/app.component.scss")]
         })
     ], AppComponent);
     return AppComponent;
@@ -136,29 +114,33 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/app.module.ts":
+/***/ "./src/app/app.module.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__ = __webpack_require__("../../../../../src/app/sensor/sensor.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sensor_service__ = __webpack_require__("../../../../../src/app/sensor.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__about_about_component__ = __webpack_require__("../../../../../src/app/about/about.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__amcharts_amcharts3_angular__ = __webpack_require__("../../../../@amcharts/amcharts3-angular/es2015/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__ = __webpack_require__("../../../../../src/app/login-form/login-form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("./src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__ = __webpack_require__("./src/app/sensor/sensor.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sensor_service__ = __webpack_require__("./src/app/sensor.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__about_about_component__ = __webpack_require__("./src/app/about/about.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__amcharts_amcharts3_angular__ = __webpack_require__("./node_modules/@amcharts/amcharts3-angular/es2015/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__ = __webpack_require__("./src/app/login-form/login-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__users_service__ = __webpack_require__("./src/app/users.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/animations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_module__ = __webpack_require__("./src/app/material.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -176,11 +158,11 @@ var appRoutes = [
     { path: 'about', component: __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */] },
     { path: '', component: __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__["a" /* LoginFormComponent */] },
 ];
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["K" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__["a" /* SensorComponent */],
@@ -189,9 +171,11 @@ var AppModule = (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_5__angular_forms__["c" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_9__amcharts_amcharts3_angular__["a" /* AmChartsModule */],
+                __WEBPACK_IMPORTED_MODULE_12__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+                __WEBPACK_IMPORTED_MODULE_13__material_module__["a" /* MaterialModule */],
                 __WEBPACK_IMPORTED_MODULE_7__angular_router__["b" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
                 )
             ],
@@ -206,41 +190,29 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/login-form/login-form.component.html":
+/***/ "./src/app/login-form/login-form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\"></div>\r\n<div class=\"grad\"></div>\r\n<div class=\"header\">\r\n  <div>Solar<span>Project</span></div>\r\n</div>\r\n<br>\r\n<form class=\"login\" (submit)=\"loginUser($event)\">\r\n  <input type=\"text\" placeholder=\"username\" name=\"user\"><br>\r\n  <input type=\"password\" placeholder=\"password\" name=\"password\"><br>\r\n  <input type=\"submit\" value=\"Login\">\r\n</form>\r\n"
+module.exports = "<div class=\"body\"></div>\r\n<div class=\"grad\"></div>\r\n<div class=\"header\">\r\n  <div>Solar<span>Project</span></div>\r\n</div>\r\n<br>\r\n<form class=\"login\" (submit)=\"loginUser($event)\">\r\n  <mat-form-field>\r\n    <input matInput type=\"text\" placeholder=\"username\" name=\"user\">\r\n  </mat-form-field><br>\r\n  <mat-form-field>\r\n    <input matInput type=\"password\" placeholder=\"password\" name=\"password\">\r\n  </mat-form-field><br>\r\n  <button mat-button type=\"submit\" value=\"Login\">Login</button>\r\n</form>\r\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/login-form/login-form.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/app/login-form/login-form.component.scss":
+/***/ (function(module, exports) {
 
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);", ""]);
-exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);", ""]);
-
-// module
-exports.push([module.i, "body {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  color: #fff;\n  font-family: Arial;\n  font-size: 12px; }\n\n.body {\n  position: fixed;\n  top: -5px;\n  left: -5px;\n  right: -5px;\n  bottom: -5px;\n  width: auto;\n  height: auto;\n  background-image: url(http://gipsypixel.com/wp-content/uploads/2017/11/City-Night-Picture-Wallpaper-Hd-Pics-Widescreen-Backgrounds-For-Mobile-Phones-Nature.jpg);\n  background-size: cover;\n  -webkit-filter: blur(5px);\n  z-index: 0; }\n\n.grad {\n  position: absolute;\n  top: -0px;\n  left: -0px;\n  right: -0px;\n  bottom: -0px;\n  width: auto;\n  height: auto;\n  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, rgba(0, 0, 0, 0.65)));\n  /* Chrome,Safari4+ */\n  z-index: 1;\n  opacity: 0.7; }\n\n.header {\n  position: absolute;\n  top: calc(50% - 35px);\n  left: calc(50% - 255px);\n  z-index: 2; }\n\n.header div {\n  float: left;\n  color: #fff;\n  font-family: 'Exo', sans-serif;\n  font-size: 35px;\n  font-weight: 200; }\n\n.header div span {\n  color: #5379fa !important; }\n\n.login {\n  position: absolute;\n  top: calc(50% - 75px);\n  left: calc(50% - 50px);\n  height: 150px;\n  width: 350px;\n  padding: 10px;\n  z-index: 2; }\n\n.login input[type=text] {\n  width: 250px;\n  height: 30px;\n  background: transparent;\n  border: 1px solid rgba(255, 255, 255, 0.6);\n  border-radius: 2px;\n  color: #fff;\n  font-family: 'Exo', sans-serif;\n  font-size: 16px;\n  font-weight: 400;\n  padding: 4px; }\n\n.login input[type=password] {\n  width: 250px;\n  height: 30px;\n  background: transparent;\n  border: 1px solid rgba(255, 255, 255, 0.6);\n  border-radius: 2px;\n  color: #fff;\n  font-family: 'Exo', sans-serif;\n  font-size: 16px;\n  font-weight: 400;\n  padding: 4px;\n  margin-top: 10px; }\n\n.login input[type=submit] {\n  width: 260px;\n  height: 35px;\n  background: #fff;\n  border: 1px solid #fff;\n  cursor: pointer;\n  border-radius: 2px;\n  color: #a18d6c;\n  font-family: 'Exo', sans-serif;\n  font-size: 16px;\n  font-weight: 400;\n  padding: 6px;\n  margin-top: 10px; }\n\n.login input[type=submit]:hover {\n  opacity: 0.8; }\n\n.login input[type=button]:active {\n  opacity: 0.6; }\n\n.login input[type=text]:focus {\n  outline: none;\n  border: 1px solid rgba(255, 255, 255, 0.9); }\n\n.login input[type=password]:focus {\n  outline: none;\n  border: 1px solid rgba(255, 255, 255, 0.9); }\n\n.login input[type=submit]:focus {\n  outline: none; }\n\n::-webkit-input-placeholder {\n  color: rgba(255, 255, 255, 0.6); }\n\n::-moz-input-placeholder {\n  color: rgba(255, 255, 255, 0.6); }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = "@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);\n@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);\nbody {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n  color: #fff;\n  font-family: Arial;\n  font-size: 12px; }\n.body {\n  position: fixed;\n  top: -5px;\n  left: -5px;\n  right: -5px;\n  bottom: -5px;\n  width: auto;\n  height: auto;\n  background-image: url(http://gipsypixel.com/wp-content/uploads/2017/11/City-Night-Picture-Wallpaper-Hd-Pics-Widescreen-Backgrounds-For-Mobile-Phones-Nature.jpg);\n  background-size: cover;\n  -webkit-filter: blur(5px);\n  z-index: 0; }\n.grad {\n  position: absolute;\n  top: -0px;\n  left: -0px;\n  right: -0px;\n  bottom: -0px;\n  width: auto;\n  height: auto;\n  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.65)));\n  /* Chrome,Safari4+ */\n  z-index: 1;\n  opacity: 0.7; }\n.header {\n  position: absolute;\n  top: calc(50% - 35px);\n  left: calc(50% - 255px);\n  z-index: 2; }\n.header div {\n  float: left;\n  color: #fff;\n  font-family: 'Exo', sans-serif;\n  font-size: 35px;\n  font-weight: 200; }\n.header div span {\n  color: #5379fa !important; }\n.login {\n  position: absolute;\n  top: calc(50% - 75px);\n  left: calc(50% - 50px);\n  height: 150px;\n  width: 350px;\n  padding: 10px;\n  z-index: 2; }\n.login button {\n  background-color: white; }\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/login-form/login-form.component.ts":
+/***/ "./src/app/login-form/login-form.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginFormComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sensor_service__ = __webpack_require__("../../../../../src/app/sensor.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sensor_service__ = __webpack_require__("./src/app/sensor.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__users_service__ = __webpack_require__("./src/app/users.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -254,7 +226,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var LoginFormComponent = (function () {
+var LoginFormComponent = /** @class */ (function () {
     function LoginFormComponent(router, _sensorService, user) {
         this.router = router;
         this._sensorService = _sensorService;
@@ -287,8 +259,8 @@ var LoginFormComponent = (function () {
     LoginFormComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-login-form',
-            template: __webpack_require__("../../../../../src/app/login-form/login-form.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/login-form/login-form.component.scss")]
+            template: __webpack_require__("./src/app/login-form/login-form.component.html"),
+            styles: [__webpack_require__("./src/app/login-form/login-form.component.scss")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */], __WEBPACK_IMPORTED_MODULE_2__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_3__users_service__["a" /* UserService */]])
     ], LoginFormComponent);
@@ -299,13 +271,44 @@ var LoginFormComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/sensor.service.ts":
+/***/ "./src/app/material.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MaterialModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var MaterialModule = /** @class */ (function () {
+    function MaterialModule() {
+    }
+    MaterialModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
+            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["b" /* MatInputModule */]],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_1__angular_material__["b" /* MatInputModule */]],
+        })
+    ], MaterialModule);
+    return MaterialModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/sensor.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SensorService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__("../../../../socket.io-client/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__("./node_modules/socket.io-client/lib/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -318,7 +321,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var SensorService = (function () {
+var SensorService = /** @class */ (function () {
     function SensorService() {
         this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__["connect"]();
     }
@@ -340,7 +343,7 @@ var SensorService = (function () {
         }
     };
     SensorService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [])
     ], SensorService);
     return SensorService;
@@ -350,39 +353,28 @@ var SensorService = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/sensor/sensor.component.html":
+/***/ "./src/app/sensor/sensor.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <h1>\r\n        Welcome\r\n      </h1>\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <nav>\r\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\">\r\n      <table>\r\n        <tr>\r\n          <th>Sensor index</th>\r\n          <th>Light</th>\r\n          <th>Temperature</th>\r\n        </tr>\r\n        <tr>\r\n          <td>1</td>\r\n          <td>{{data.light[0]}}</td>\r\n          <td>{{data.temp[0]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>2</td>\r\n          <td>{{data.light[1]}}</td>\r\n          <td>{{data.temp[1]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>3</td>\r\n          <td>{{data.light[2]}}</td>\r\n          <td>{{data.temp[2]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>4</td>\r\n          <td>{{data.light[3]}}</td>\r\n          <td>{{data.temp[3]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>5</td>\r\n          <td>{{data.light[4]}}</td>\r\n          <td>{{data.temp[4]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>6</td>\r\n          <td>{{data.light[5]}}</td>\r\n          <td>{{data.temp[5]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>7</td>\r\n          <td>{{data.light[6]}}</td>\r\n          <td>{{data.temp[6]}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>8</td>\r\n          <td>{{data.light[7]}}</td>\r\n          <td>{{data.temp[7]}}</td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\">\r\n      <table>\r\n        <tr>\r\n          <th>Instant Battery Voltage</th>\r\n          <th>Instant Battery Current</th>\r\n        </tr>\r\n        <tr>\r\n          <td>{{data.bv}}</td>\r\n          <td>{{data.bc}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <label for=\"set_session\">Set session: </label><input type=\"number\" id=\"set_session\"\r\n                                                                 (change)=\"setSession($event)\">\r\n          </td>\r\n          <td>Next session: {{session.next}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <button (click)=\"stopSession(false)\">Stop session</button>\r\n          </td>\r\n          <td>Current session {{session.current}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <label for=\"choose_session\">Choose session: </label><input type=\"number\" id=\"choose_session\"\r\n                                                                       (change)=\"chooseSession($event)\">\r\n          </td>\r\n          <td>\r\n            <button (click)=\"clearDB()\">Clear DB</button>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/sensor/sensor.component.scss":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/app/sensor/sensor.component.scss":
+/***/ (function(module, exports) {
 
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "table {\n  width: 100%;\n  text-align: center; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = "table {\n  width: 100%;\n  text-align: center; }\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/sensor/sensor.component.ts":
+/***/ "./src/app/sensor/sensor.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SensorComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sensor_service__ = __webpack_require__("../../../../../src/app/sensor.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__ = __webpack_require__("../../../../@amcharts/amcharts3-angular/es2015/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sensor_service__ = __webpack_require__("./src/app/sensor.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__ = __webpack_require__("./node_modules/@amcharts/amcharts3-angular/es2015/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -395,7 +387,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var SensorComponent = (function () {
+var SensorComponent = /** @class */ (function () {
     function SensorComponent(_sensorService, AmCharts) {
         this._sensorService = _sensorService;
         this.AmCharts = AmCharts;
@@ -582,8 +574,8 @@ var SensorComponent = (function () {
     SensorComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-sensor',
-            template: __webpack_require__("../../../../../src/app/sensor/sensor.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/sensor/sensor.component.scss")]
+            template: __webpack_require__("./src/app/sensor/sensor.component.html"),
+            styles: [__webpack_require__("./src/app/sensor/sensor.component.scss")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__["b" /* AmChartsService */]])
     ], SensorComponent);
@@ -594,12 +586,12 @@ var SensorComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/users.service.ts":
+/***/ "./src/app/users.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -610,7 +602,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var UserService = (function () {
+var UserService = /** @class */ (function () {
     function UserService() {
         this.isUserLoggedIn = false;
     }
@@ -622,7 +614,7 @@ var UserService = (function () {
         return this.isUserLoggedIn;
     };
     UserService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [])
     ], UserService);
     return UserService;
@@ -632,7 +624,7 @@ var UserService = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/environments/environment.ts":
+/***/ "./src/environments/environment.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -648,23 +640,23 @@ var environment = {
 
 /***/ }),
 
-/***/ "../../../../../src/main.ts":
+/***/ "./src/main.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfills__ = __webpack_require__("../../../../../src/polyfills.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/esm5/platform-browser-dynamic.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_module__ = __webpack_require__("../../../../../src/app/app.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfills__ = __webpack_require__("./src/polyfills.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_dynamic__ = __webpack_require__("./node_modules/@angular/platform-browser-dynamic/esm5/platform-browser-dynamic.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_app_module__ = __webpack_require__("./src/app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__("./src/environments/environment.ts");
 
 
 
 
 
 if (__WEBPACK_IMPORTED_MODULE_4__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_13" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_17" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_3__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });
@@ -672,14 +664,14 @@ Object(__WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ "../../../../../src/polyfills.ts":
+/***/ "./src/polyfills.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es7_reflect__ = __webpack_require__("../../../../core-js/es7/reflect.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es7_reflect__ = __webpack_require__("./node_modules/core-js/es7/reflect.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_zone_js_dist_zone__ = __webpack_require__("../../../../zone.js/dist/zone.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_zone_js_dist_zone__ = __webpack_require__("./node_modules/zone.js/dist/zone.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_zone_js_dist_zone__);
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
@@ -740,7 +732,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("../../../../../src/main.ts");
+module.exports = __webpack_require__("./src/main.ts");
 
 
 /***/ }),
