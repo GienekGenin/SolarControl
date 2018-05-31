@@ -94,7 +94,7 @@ app.get('/data', function (req, res) {
 
 // test api
 
-let testVar  = 1;
+let testVar = 1;
 app.get('/test', function (req, res) {
   res.json(testVar);
 });
@@ -175,6 +175,20 @@ io.on('connection', (socket) => {
     } else {
       res.json(req.body.data);
     }
+  });
+
+  socket.on('Last_data', (data) => {
+    // Refreshing data on client side only when there in a new post request
+    db.sensors.findOne(function (err, docs) {
+      socket.emit('Sensors_data', {
+        msg: {'temp': docs.temp, 'light': docs.light, 'bv': docs.bv, 'bc': docs.bc}
+      });
+    });
+    db.solarInput.find({sessionID: 4}, function (err, docs) {
+      return socket.emit('View_session', {
+        msg: docs
+      });
+    });
   });
 
   // Starting data transfer

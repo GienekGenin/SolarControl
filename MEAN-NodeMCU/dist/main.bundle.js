@@ -452,6 +452,10 @@ var SensorComponent = /** @class */ (function () {
                 console.log(_data.msg);
             });
         });
+        // Show last data from DB
+        this._sensorService.emit('Last_data', {
+            msg: 'Last data'
+        });
         // Telling server to start data transfer
         this._sensorService.emit('Init_data', {
             msg: 'Init data'
