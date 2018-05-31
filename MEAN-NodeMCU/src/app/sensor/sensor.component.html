@@ -76,24 +76,26 @@
         </tr>
         <tr>
           <td>
-            <label for="set_session">Set session: </label><input type="number" id="set_session"
-                                                                 (change)="setSession($event)">
+            <mat-form-field>
+              <input matInput placeholder="Choose session" type="number" id="choose_session" (change)="chooseSession($event)">
+            </mat-form-field>
           </td>
           <td>Next session: {{session.next}}</td>
         </tr>
         <tr>
           <td>
-            <button (click)="stopSession(false)">Stop session</button>
+            <mat-form-field>
+              <input matInput placeholder="Set session" type="number" id="set_session" (change)="setSession($event)">
+            </mat-form-field>
           </td>
           <td>Current session {{session.current}}</td>
         </tr>
         <tr>
           <td>
-            <label for="choose_session">Choose session: </label><input type="number" id="choose_session"
-                                                                       (change)="chooseSession($event)">
+            <button mat-button (click)="stopSession(false)">Stop session</button>
           </td>
           <td>
-            <button (click)="clearDB()">Clear DB</button>
+            <button mat-button (click)="clearDB()">Clear DB</button>
           </td>
         </tr>
       </table>
