@@ -1,3 +1,4 @@
+let http = require('http');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -94,7 +95,7 @@ app.get('/data', function (req, res) {
 
 // test api
 
-let testVar  = 1;
+let testVar = 1;
 app.get('/test', function (req, res) {
   res.json(testVar);
 });
@@ -177,6 +178,20 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('Last_data', (data) => {
+    // Refreshing data on client side only when there in a new post request
+    db.sensors.findOne(function (err, docs) {
+      socket.emit('Sensors_data', {
+        msg: {'temp': docs.temp, 'light': docs.light, 'bv': docs.bv, 'bc': docs.bc}
+      });
+    });
+    db.solarInput.find({sessionID: 4}, function (err, docs) {
+      return socket.emit('View_session', {
+        msg: docs
+      });
+    });
+  });
+
   // Starting data transfer
   socket.on('Init_data', (data) => {
     setInterval(function () {
@@ -213,3 +228,8 @@ io.on('connection', (socket) => {
     });
   });
 });
+
+// Never sleep again :)
+setInterval(function() {
+  http.get('https://blooming-fortress-61113.herokuapp.com/');
+}, 300000);
