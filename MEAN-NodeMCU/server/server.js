@@ -230,6 +230,6 @@ io.on('connection', (socket) => {
 });
 
 // Never sleep again :)
-setInterval(function() {
-  http.get('http://blooming-fortress-61113.herokuapp.com/');
-}, 300000);
+// setInterval(function() {
+//   http.get('http://blooming-fortress-61113.herokuapp.com/');
+// }, 300000);
