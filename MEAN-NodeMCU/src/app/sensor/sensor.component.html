@@ -14,58 +14,23 @@
       </nav>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center">
-      <table>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container">
+      <table id="sensor">
         <tr>
-          <th>Sensor index</th>
-          <th>Light</th>
-          <th>Temperature</th>
+          <td><p class="light">{{data.light[0]}}</p><p class="temp">{{data.temp[0]}}&deg;</p></td>
+          <td><p class="light">{{data.light[1]}}</p><p class="temp">{{data.temp[1]}}&deg;</p></td>
+          <td><p class="light">{{data.light[2]}}</p><p class="temp">{{data.temp[2]}}&deg;</p></td>
         </tr>
         <tr>
-          <td>1</td>
-          <td>{{data.light[0]}}</td>
-          <td>{{data.temp[0]}}&deg;</td>
+          <td><p class="light">{{data.light[3]}}</p><p class="temp">{{data.temp[3]}}&deg;</p></td>
+          <td><p class="light">{{data.light[4]}}</p><p class="temp">{{data.temp[4]}}&deg;</p></td>
+          <td><p class="light">{{data.light[5]}}</p><p class="temp">{{data.temp[5]}}&deg;</p></td>
         </tr>
         <tr>
-          <td>2</td>
-          <td>{{data.light[1]}}</td>
-          <td>{{data.temp[1]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>{{data.light[2]}}</td>
-          <td>{{data.temp[2]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>{{data.light[3]}}</td>
-          <td>{{data.temp[3]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>{{data.light[4]}}</td>
-          <td>{{data.temp[4]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>{{data.light[5]}}</td>
-          <td>{{data.temp[5]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>{{data.light[6]}}</td>
-          <td>{{data.temp[6]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>{{data.light[7]}}</td>
-          <td>{{data.temp[7]}}&deg;</td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>{{data.light[8]}}</td>
-          <td>{{data.temp[8]}}&deg;</td>
+          <td><p class="light">{{data.light[6]}}</p><p class="temp">{{data.temp[6]}}&deg;</p></td>
+          <td><p class="light">{{data.light[7]}}</p><p class="temp">{{data.temp[7]}}&deg;</p></td>
+          <td><p class="light">{{data.light[8]}}</p><p class="temp">{{data.temp[8]}}&deg;</p></td>
         </tr>
       </table>
     </div>
