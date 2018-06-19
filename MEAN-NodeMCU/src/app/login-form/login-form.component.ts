@@ -21,8 +21,11 @@ export class LoginFormComponent implements OnInit {
   loginUser(e) {
     const userName = e.target.elements[0].value;
     const password = e.target.elements[1].value;
-    if (userName === this.users.username && password === this.users.pass || (userName === 'admin' && password === 'admin')) {
+    if (userName === this.users.username && password === this.users.pass) {
       this.router.navigate(['/sensor']);
+      this.user.setUserLoggedIn(userName);
+    } else if (userName === 'admin' && password === 'admin') {
+      this.router.navigate(['/demo']);
       this.user.setUserLoggedIn(userName);
     } else {
       alert('Incorrect username or password');

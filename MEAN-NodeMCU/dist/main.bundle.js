@@ -133,6 +133,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__users_service__ = __webpack_require__("./src/app/users.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/animations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__material_module__ = __webpack_require__("./src/app/material.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__demonstration_demonstration_component__ = __webpack_require__("./src/app/demonstration/demonstration.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -153,8 +154,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
     { path: 'sensor', component: __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__["a" /* SensorComponent */] },
+    { path: 'demo', component: __WEBPACK_IMPORTED_MODULE_14__demonstration_demonstration_component__["a" /* DemonstrationComponent */] },
     { path: 'about', component: __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */] },
     { path: '', component: __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__["a" /* LoginFormComponent */] },
 ];
@@ -167,7 +170,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_3__sensor_sensor_component__["a" /* SensorComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__about_about_component__["a" /* AboutComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__["a" /* LoginFormComponent */]
+                __WEBPACK_IMPORTED_MODULE_10__login_form_login_form_component__["a" /* LoginFormComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__demonstration_demonstration_component__["a" /* DemonstrationComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -190,10 +194,221 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/demonstration/demonstration.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <h1>\n        Welcome\n      </h1>\n    </div>\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\n    </div>\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <nav>\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\n      </nav>\n    </div>\n  </div>\n  <div class=\"row d-flex justify-content-center\">\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\n      <table id=\"sensor\">\n        <tr>\n          <td><p class=\"light\">{{data.light[0]}}</p><p class=\"temp\">{{data.temp[0]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[1]}}</p><p class=\"temp\">{{data.temp[1]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[2]}}</p><p class=\"temp\">{{data.temp[2]}}&deg;</p></td>\n        </tr>\n        <tr>\n          <td><p class=\"light\">{{data.light[3]}}</p><p class=\"temp\">{{data.temp[3]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[4]}}</p><p class=\"temp\">{{data.temp[4]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[5]}}</p><p class=\"temp\">{{data.temp[5]}}&deg;</p></td>\n        </tr>\n        <tr>\n          <td><p class=\"light\">{{data.light[6]}}</p><p class=\"temp\">{{data.temp[6]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[7]}}</p><p class=\"temp\">{{data.temp[7]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[8]}}</p><p class=\"temp\">{{data.temp[8]}}&deg;</p></td>\n        </tr>\n      </table>\n    </div>\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\" style=\"padding-top: 65px;\">\n      <table>\n        <tr>\n          <th>Instant Battery Voltage</th>\n          <th>Instant Battery Current</th>\n        </tr>\n        <tr>\n          <td>{{data.bv}}</td>\n          <td>{{data.bc}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"2\" style=\"padding-top: 10px;\">\n            <mat-form-field>\n              <input matInput placeholder=\"Choose session\" type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\n            </mat-form-field>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n  <br>\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/demonstration/demonstration.component.scss":
+/***/ (function(module, exports) {
+
+module.exports = "table {\n  width: 100%;\n  text-align: center; }\n\n.data_container {\n  min-width: 360px;\n  min-height: 260px; }\n\n#sensor {\n  background-image: url('solar_panel.d7f9ccd31d6d096ff049.jpg');\n  background-repeat: no-repeat;\n  background-size: cover;\n  color: white;\n  width: 350px;\n  height: 235px; }\n\n#sensor > td {\n  margin: 10px; }\n\n.light {\n  background-color: darkviolet;\n  margin: auto;\n  width: 60px; }\n\n.temp {\n  background-color: red;\n  margin: auto;\n  width: 60px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/demonstration/demonstration.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DemonstrationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sensor_service__ = __webpack_require__("./src/app/sensor.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__ = __webpack_require__("./node_modules/@amcharts/amcharts3-angular/es2015/index.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var DemonstrationComponent = /** @class */ (function () {
+    function DemonstrationComponent(_sensorService, AmCharts) {
+        this._sensorService = _sensorService;
+        this.AmCharts = AmCharts;
+        this.data = {
+            'light': [],
+            'temp': [],
+            'bv': 0,
+            'bc': 0
+        };
+        this.oldData = {
+            'Time': 0,
+            'Volts': 0,
+            'Current': 0,
+            'index': 0
+        };
+        this.chartData = [];
+    }
+    DemonstrationComponent.prototype.chooseSession = function (e) {
+        this._sensorService.emit('Choose_session', {
+            msg: +e.target.value
+        });
+    };
+    // what will be executed after component init
+    DemonstrationComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // Test events to check sockets working properly
+        this._sensorService.emit('Client_asking', {
+            msg: 'Client to server, can u hear me server?'
+        });
+        this._sensorService.on('Server_asking', function (data) {
+            console.log(data.msg);
+            _this._sensorService.emit('Client_response', {
+                msg: 'Yes, its working for me!'
+            });
+            _this._sensorService.on('Server_response', function (_data) {
+                console.log(_data.msg);
+            });
+        });
+        // Show last data from DB
+        this._sensorService.emit('Last_data', {
+            msg: 'Last data'
+        });
+        // Telling server to start data transfer
+        this._sensorService.emit('Init_data', {
+            msg: 'Init data'
+        });
+        // Accept sensor values
+        this._sensorService.on('Sensors_data', function (data) {
+            _this.data.light = data.msg.light;
+            _this.data.temp = data.msg.temp;
+            _this.data.bv = data.msg.bv;
+            _this.data.bc = data.msg.bc;
+        });
+        // Clear data from chart before start of the new session
+        // Handling new data incoming from DB
+        this._sensorService.on('View_session', function (data) {
+            _this.chartData = data.msg;
+            _this.AmCharts.updateChart(_this.chart, function () {
+                _this.chart.dataProvider = _this.chartData;
+            });
+        });
+        this._sensorService.on('Update_session', function (data) {
+            if (_this.oldData.index !== data.msg.index) {
+                _this.chartData.push({
+                    'Time': data.msg.Time,
+                    'Volts': data.msg.Volts,
+                    'Current': data.msg.Current,
+                    'index': data.msg.index
+                });
+                _this.oldData = data.msg;
+            }
+            _this.AmCharts.updateChart(_this.chart, function () {
+                _this.chart.dataProvider = _this.chartData;
+            });
+        });
+    };
+    // Chart creation after view init
+    DemonstrationComponent.prototype.ngAfterViewInit = function () {
+        this.chart = this.AmCharts.makeChart('chartdiv', {
+            'type': 'serial',
+            'theme': 'light',
+            'autoMarginOffset': 20,
+            'legend': {
+                'useGraphSettings': true
+            },
+            'dataProvider': this.chartData,
+            'synchronizeGrid': true,
+            'color': '#111111',
+            'categoryField': 'Time',
+            'mouseWheelZoomEnabled': true,
+            'valueAxes': [{
+                    'id': 'v1',
+                    'axisColor': '#FF6600',
+                    'axisThickness': 2,
+                    'axisAlpha': 1,
+                    'position': 'left',
+                    'title': 'Voltage'
+                }, {
+                    'id': 'v2',
+                    'axisColor': '#FCD202',
+                    'axisThickness': 2,
+                    'axisAlpha': 1,
+                    'position': 'right',
+                    'title': 'Current'
+                }],
+            'graphs': [{
+                    'valueAxis': 'v1',
+                    'lineColor': '#FF6600',
+                    'bullet': 'round',
+                    'bulletBorderThickness': 1,
+                    'hideBulletsCount': 50,
+                    'title': 'Voltage',
+                    'valueField': 'Volts',
+                    'useLineColorForBulletBorder': true,
+                    'balloon': {
+                        'drop': true
+                    },
+                    'fillAlphas': 0
+                }, {
+                    'valueAxis': 'v2',
+                    'lineColor': '#FCD202',
+                    'bullet': 'square',
+                    'bulletBorderThickness': 1,
+                    'hideBulletsCount': 50,
+                    'title': 'Current',
+                    'valueField': 'Current',
+                    'useLineColorForBulletBorder': true,
+                    'balloon': {
+                        'drop': true
+                    },
+                    'fillAlphas': 0
+                }],
+            'chartScrollbar': [{
+                    'autoGridCount': true,
+                    'graph': 'v1',
+                    'scrollbarHeight': 20
+                }, {
+                    'autoGridCount': true,
+                    'graph': 'v2',
+                    'scrollbarHeight': 20
+                }],
+            'chartCursor': {
+                'cursorPosition': 'mouse'
+            },
+            'categoryAxis': {
+                'parseDates': false,
+                'axisColor': '#111',
+                'minorGridEnabled': true
+            },
+            'export': {
+                'enabled': true,
+                'position': 'bottom-right'
+            }
+        });
+    };
+    // Remove chart if user session is over
+    DemonstrationComponent.prototype.ngOnDestroy = function () {
+        if (this.chart) {
+            this.AmCharts.destroyChart(this.chart);
+        }
+    };
+    DemonstrationComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-demonstration',
+            template: __webpack_require__("./src/app/demonstration/demonstration.component.html"),
+            styles: [__webpack_require__("./src/app/demonstration/demonstration.component.scss")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__["b" /* AmChartsService */]])
+    ], DemonstrationComponent);
+    return DemonstrationComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/login-form/login-form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\"></div>\r\n<div class=\"grad\"></div>\r\n<div class=\"header\">\r\n  <div>Solar<span>Project</span></div>\r\n</div>\r\n<br>\r\n<form class=\"login\" (submit)=\"loginUser($event)\">\r\n  <input type=\"text\" placeholder=\"username\" name=\"user\"><br>\r\n  <input type=\"password\" placeholder=\"password\" name=\"password\"><br>\r\n  <button mat-button type=\"submit\" value=\"Login\">Login</button>\r\n</form>\r\n"
+module.exports = "<div class=\"body\"></div>\r\n<div class=\"grad\"></div>\r\n<div class=\"header\">\r\n  <div>Solar<span>Project</span></div>\r\n</div>\r\n<br>\r\n<form class=\"login\" (submit)=\"loginUser($event)\">\r\n  <input type=\"text\" placeholder=\"admin\" name=\"user\"><br>\r\n  <input type=\"password\" placeholder=\"admin\" name=\"password\"><br>\r\n  <button mat-button type=\"submit\" value=\"Login\">Login</button>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -239,8 +454,12 @@ var LoginFormComponent = /** @class */ (function () {
     LoginFormComponent.prototype.loginUser = function (e) {
         var userName = e.target.elements[0].value;
         var password = e.target.elements[1].value;
-        if (userName === this.users.username && password === this.users.pass || (userName === 'admin' && password === 'admin')) {
+        if (userName === this.users.username && password === this.users.pass) {
             this.router.navigate(['/sensor']);
+            this.user.setUserLoggedIn(userName);
+        }
+        else if (userName === 'admin' && password === 'admin') {
+            this.router.navigate(['/demo']);
             this.user.setUserLoggedIn(userName);
         }
         else {

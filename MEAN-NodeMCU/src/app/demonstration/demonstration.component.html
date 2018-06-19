@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+      <h1>
+        Welcome
+      </h1>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+      <img width="630" alt="IOT Logo" src="../../assets/img/IOT.png">
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+      <nav>
+        <a routerLink="/about" routerLinkActive="active">About project</a>
+      </nav>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container">
+      <table id="sensor">
+        <tr>
+          <td><p class="light">{{data.light[0]}}</p><p class="temp">{{data.temp[0]}}&deg;</p></td>
+          <td><p class="light">{{data.light[1]}}</p><p class="temp">{{data.temp[1]}}&deg;</p></td>
+          <td><p class="light">{{data.light[2]}}</p><p class="temp">{{data.temp[2]}}&deg;</p></td>
+        </tr>
+        <tr>
+          <td><p class="light">{{data.light[3]}}</p><p class="temp">{{data.temp[3]}}&deg;</p></td>
+          <td><p class="light">{{data.light[4]}}</p><p class="temp">{{data.temp[4]}}&deg;</p></td>
+          <td><p class="light">{{data.light[5]}}</p><p class="temp">{{data.temp[5]}}&deg;</p></td>
+        </tr>
+        <tr>
+          <td><p class="light">{{data.light[6]}}</p><p class="temp">{{data.temp[6]}}&deg;</p></td>
+          <td><p class="light">{{data.light[7]}}</p><p class="temp">{{data.temp[7]}}&deg;</p></td>
+          <td><p class="light">{{data.light[8]}}</p><p class="temp">{{data.temp[8]}}&deg;</p></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center" style="padding-top: 65px;">
+      <table>
+        <tr>
+          <th>Instant Battery Voltage</th>
+          <th>Instant Battery Current</th>
+        </tr>
+        <tr>
+          <td>{{data.bv}}</td>
+          <td>{{data.bc}}</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-top: 10px;">
+            <mat-form-field>
+              <input matInput placeholder="Choose session" type="number" id="choose_session" (change)="chooseSession($event)">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br>
+  <div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div>
+</div>
