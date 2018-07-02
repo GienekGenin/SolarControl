@@ -197,7 +197,7 @@ var AppModule = /** @class */ (function () {
 /***/ "./src/app/demonstration/demonstration.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <h1>\n        Welcome\n      </h1>\n    </div>\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\n    </div>\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <nav>\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\n      </nav>\n    </div>\n  </div>\n  <div class=\"row d-flex justify-content-center\">\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\n      <table id=\"sensor\">\n        <tr>\n          <td><p class=\"light\">{{data.light[0]}}</p><p class=\"temp\">{{data.temp[0]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[1]}}</p><p class=\"temp\">{{data.temp[1]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[2]}}</p><p class=\"temp\">{{data.temp[2]}}&deg;</p></td>\n        </tr>\n        <tr>\n          <td><p class=\"light\">{{data.light[3]}}</p><p class=\"temp\">{{data.temp[3]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[4]}}</p><p class=\"temp\">{{data.temp[4]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[5]}}</p><p class=\"temp\">{{data.temp[5]}}&deg;</p></td>\n        </tr>\n        <tr>\n          <td><p class=\"light\">{{data.light[6]}}</p><p class=\"temp\">{{data.temp[6]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[7]}}</p><p class=\"temp\">{{data.temp[7]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[8]}}</p><p class=\"temp\">{{data.temp[8]}}&deg;</p></td>\n        </tr>\n      </table>\n    </div>\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\" style=\"padding-top: 65px;\">\n      <table>\n        <tr>\n          <th>Instant Battery Voltage</th>\n          <th>Instant Battery Current</th>\n        </tr>\n        <tr>\n          <td>{{data.bv}}</td>\n          <td>{{data.bc}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"2\" style=\"padding-top: 10px;\">\n            <mat-form-field>\n              <input matInput placeholder=\"Choose session\" type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\n            </mat-form-field>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n  <br>\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <h1>\r\n        Welcome\r\n      </h1>\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <nav>\r\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <div class=\"row d-flex justify-content-center\">\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\r\n      <table id=\"sensor\">\r\n        <tr>\r\n          <td><p class=\"light\">{{data.light[0]}}</p><p class=\"temp\">{{data.temp[0]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[1]}}</p><p class=\"temp\">{{data.temp[1]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[2]}}</p><p class=\"temp\">{{data.temp[2]}}&deg;</p></td>\r\n        </tr>\r\n        <tr>\r\n          <td><p class=\"light\">{{data.light[3]}}</p><p class=\"temp\">{{data.temp[3]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[4]}}</p><p class=\"temp\">{{data.temp[4]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[5]}}</p><p class=\"temp\">{{data.temp[5]}}&deg;</p></td>\r\n        </tr>\r\n        <tr>\r\n          <td><p class=\"light\">{{data.light[6]}}</p><p class=\"temp\">{{data.temp[6]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[7]}}</p><p class=\"temp\">{{data.temp[7]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[8]}}</p><p class=\"temp\">{{data.temp[8]}}&deg;</p></td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\" style=\"padding-top: 65px;\">\r\n      <table>\r\n        <tr>\r\n          <th>Instant Battery Voltage</th>\r\n          <th>Instant Battery Current</th>\r\n        </tr>\r\n        <tr>\r\n          <td>{{data.bv}}</td>\r\n          <td>{{data.bc}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td colspan=\"2\" style=\"padding-top: 10px;\">\r\n            <mat-form-field>\r\n              <input matInput placeholder=\"Choose session\" type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\r\n            </mat-form-field>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -458,7 +458,7 @@ var LoginFormComponent = /** @class */ (function () {
             this.router.navigate(['/sensor']);
             this.user.setUserLoggedIn(userName);
         }
-        else if (userName === 'admin' && password === 'admin') {
+        else if (userName === 'demo' && password === 'demo') {
             this.router.navigate(['/demo']);
             this.user.setUserLoggedIn(userName);
         }
@@ -700,6 +700,24 @@ var SensorComponent = /** @class */ (function () {
                     'Time': data.msg.Time,
                     'Volts': data.msg.Volts,
                     'Current': data.msg.Current,
+                    'Light_0': data.msg.Light[0],
+                    'Light_1': data.msg.Light[1],
+                    'Light_2': data.msg.Light[2],
+                    'Light_3': data.msg.Light[3],
+                    'Light_4': data.msg.Light[4],
+                    'Light_5': data.msg.Light[5],
+                    'Light_6': data.msg.Light[6],
+                    'Light_7': data.msg.Light[7],
+                    'Light_8': data.msg.Light[8],
+                    'Temp_0': data.msg.Temp[0],
+                    'Temp_1': data.msg.Temp[1],
+                    'Temp_2': data.msg.Temp[2],
+                    'Temp_3': data.msg.Temp[3],
+                    'Temp_4': data.msg.Temp[4],
+                    'Temp_5': data.msg.Temp[5],
+                    'Temp_6': data.msg.Temp[6],
+                    'Temp_7': data.msg.Temp[7],
+                    'Temp_8': data.msg.Temp[8],
                     'index': data.msg.index
                 });
                 _this.oldData = data.msg;

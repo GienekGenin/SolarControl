@@ -157,6 +157,8 @@ io.on('connection', (socket) => {
       dataToDB = {
         'Volts': req.body.data.bv,
         'Current': req.body.data.bc,
+        'Light': req.body.data.light,
+        'Temp': req.body.data.temp,
         'Time': getTime(),
         'Day': getDay(),
         'sessionID': session.sessionID,
