@@ -1,0 +1,6 @@
+version: '3'
+services:
+  mean-container:
+    image: "gienekgenin/mean"
+    ports:
+      - "8080:8080"
