@@ -9,7 +9,7 @@ const expressSession = require("express-session");
 const MongoStore = require("connect-mongo")(expressSession);
 const mongooseConnection = require("./db/connect").connection;
 const UserService = require('./entities/user/user.service');
-
+const SensorService = require('./entities/lastSensorData/sensor.service');
 // Currently not used routes
 const index = require('./routes/index');
 const tasks = require('./routes/tasks');
@@ -77,16 +77,11 @@ store sensors data in DB
 */
 function rightSensors(msg) {
   console.log(msg);
-  db.sensors.update({_id: mongojs.ObjectId('5af489d1f36d28074502ec0a')}, {
-    $set: {
-      light: msg.light,
-      temp: msg.temp,
-      bv: msg.bv,
-      bc: msg.bc
-    }
-  }, function () {
+  SensorService.update(msg)
+  .then(()=>{
     console.log('Done');
-  });
+  })
+  .catch(err=>console.log(err));
 }
 
 // monitoring session status
@@ -106,19 +101,6 @@ app.get('/data', function (req, res) {
     }
     res.json(data);
   });
-});
-
-
-// test api
-
-let testVar = 1;
-app.get('/test', function (req, res) {
-  res.json(testVar);
-});
-
-app.post('/test', function (req, res) {
-  testVar = req.body;
-  res.json(testVar);
 });
 
 app.set('port', process.env.PORT || 8080);
@@ -194,13 +176,13 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('Last_data', (data) => {
-    // Refreshing data on client side only when there in a new post request
-    db.sensors.findOne(function (err, docs) {
-      socket.emit('Sensors_data', {
-        msg: {'temp': docs.temp, 'light': docs.light, 'bv': docs.bv, 'bc': docs.bc}
+  socket.on('Last_data', () => {
+    SensorService.getOne()
+      .then(doc=>{
+        socket.emit('Sensors_data', {
+          msg: doc
+        });
       });
-    });
     db.solarInput.find({sessionID: 4}, function (err, docs) {
       return socket.emit('View_session', {
         msg: docs
@@ -213,9 +195,10 @@ io.on('connection', (socket) => {
     setInterval(function () {
       // Refreshing data on client side only when there in a new post request
       if (session.newReq) {
-        db.sensors.findOne(function (err, docs) {
+        SensorService.getOne()
+        .then(doc=>{
           socket.emit('Sensors_data', {
-            msg: {'temp': docs.temp, 'light': docs.light, 'bv': docs.bv, 'bc': docs.bc}
+            msg: doc
           });
         });
       }

@@ -1,8 +1,8 @@
-const User = require('./user.schema');
+const UserSchema = require('./user.schema');
 
 class UserRepository{
     constructor(){
-        this.model = User;
+        this.model = UserSchema;
     }
 
     getAll(){
@@ -10,7 +10,7 @@ class UserRepository{
     }
 
     login(name, password){
-        return User.findOne({name,password}).select({_id:0});
+        return this.model.findOne({name,password}).select({_id:0});
     }
 }
 
