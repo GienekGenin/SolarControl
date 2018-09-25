@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {SensorService} from '../sensor.service';
-import {UserService} from '../users.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SensorService } from '../sensor.service';
+import { UserService } from '../users.service';
 
 @Component({
   selector: 'app-login-form',
@@ -9,35 +9,42 @@ import {UserService} from '../users.service';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private _sensorService: SensorService,
+    private userService: UserService
+  ) {}
 
-  constructor(private router: Router, private _sensorService: SensorService, private user: UserService) {
-  }
-
-  users = {
-    username: undefined,
-    pass: undefined
+  user = {
+    name: undefined,
+    password: undefined
   };
 
   loginUser(e) {
-    const userName = e.target.elements[0].value;
+    const name = e.target.elements[0].value;
     const password = e.target.elements[1].value;
-    if (userName === this.users.username && password === this.users.pass) {
-      this.router.navigate(['/sensor']);
-      this.user.setUserLoggedIn(userName);
-    } else if (userName === 'admin' && password === 'admin') {
-      this.router.navigate(['/demo']);
-      this.user.setUserLoggedIn(userName);
-    } else {
-      alert('Incorrect username or password');
+    if (name === '' || password === '') {
+      alert('Fill all fields');
+      return false;
     }
-  }
-
-  ngOnInit() {
     this._sensorService.emit('users_data', {
-      msg: 'Requesting users data'
+      user: { name, password }
     });
     this._sensorService.on('receive_users', (data: any) => {
-      this.users = data.msg;
+      this.user = data.user;
+      if (data.user === null) {
+        alert('Incorrect username or password');
+      } else if (name === this.user.name && password === this.user.password) {
+        this.router.navigate(['/sensor']);
+        this.userService.setUserLoggedIn(name);
+      } else if (name === 'admin' && password === 'admin') {
+        this.router.navigate(['/demo']);
+        this.userService.setUserLoggedIn(name);
+      } else {
+        alert('Incorrect username or password');
+      }
     });
   }
+
+  ngOnInit() {}
 }

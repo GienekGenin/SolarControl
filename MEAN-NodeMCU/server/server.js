@@ -5,11 +5,27 @@ const bodyParser = require('body-parser');
 const mongojs = require('mongojs');
 const db = mongojs('mongodb://Gennadii:1q2w120195@ds239097.mlab.com:39097/sensors', ['solarInput', 'sensors', 'users']);
 
+const expressSession = require("express-session");
+const MongoStore = require("connect-mongo")(expressSession);
+const mongooseConnection = require("./db/connect").connection;
+const UserService = require('./entities/user/user.service');
+
 // Currently not used routes
 const index = require('./routes/index');
 const tasks = require('./routes/tasks');
 
 const app = express();
+
+app.use(
+  expressSession({
+    secret: "sessionsecretsessionsecret",
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({
+      mongooseConnection: mongooseConnection
+    })
+  })
+);
 
 //View engine folder
 app.set('views', path.join(__dirname, 'views'));
@@ -221,11 +237,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('users_data', (data) => {
-    db.users.findOne(function (err, docs) {
-      socket.emit('receive_users', {
-        msg: docs
-      })
-    });
+    UserService.login(data.user).then(user=>socket.emit('receive_users', {
+      user
+    }))
   });
 });
 

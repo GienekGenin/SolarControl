@@ -197,7 +197,7 @@ var AppModule = /** @class */ (function () {
 /***/ "./src/app/demonstration/demonstration.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <h1>\n        Welcome\n      </h1>\n    </div>\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\n    </div>\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\n      <nav>\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\n      </nav>\n    </div>\n  </div>\n  <div class=\"row d-flex justify-content-center\">\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\n      <table id=\"sensor\">\n        <tr>\n          <td><p class=\"light\">{{data.light[0]}}</p><p class=\"temp\">{{data.temp[0]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[1]}}</p><p class=\"temp\">{{data.temp[1]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[2]}}</p><p class=\"temp\">{{data.temp[2]}}&deg;</p></td>\n        </tr>\n        <tr>\n          <td><p class=\"light\">{{data.light[3]}}</p><p class=\"temp\">{{data.temp[3]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[4]}}</p><p class=\"temp\">{{data.temp[4]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[5]}}</p><p class=\"temp\">{{data.temp[5]}}&deg;</p></td>\n        </tr>\n        <tr>\n          <td><p class=\"light\">{{data.light[6]}}</p><p class=\"temp\">{{data.temp[6]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[7]}}</p><p class=\"temp\">{{data.temp[7]}}&deg;</p></td>\n          <td><p class=\"light\">{{data.light[8]}}</p><p class=\"temp\">{{data.temp[8]}}&deg;</p></td>\n        </tr>\n      </table>\n    </div>\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\" style=\"padding-top: 65px;\">\n      <table>\n        <tr>\n          <th>Instant Battery Voltage</th>\n          <th>Instant Battery Current</th>\n        </tr>\n        <tr>\n          <td>{{data.bv}}</td>\n          <td>{{data.bc}}</td>\n        </tr>\n        <tr>\n          <td colspan=\"2\" style=\"padding-top: 10px;\">\n            <mat-form-field>\n              <input matInput placeholder=\"Choose session\" type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\n            </mat-form-field>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n  <br>\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <h1>\r\n        Welcome\r\n      </h1>\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <nav>\r\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <div class=\"row d-flex justify-content-center\">\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\r\n      <table id=\"sensor\">\r\n        <tr>\r\n          <td><p class=\"light\">{{data.light[0]}}</p><p class=\"temp\">{{data.temp[0]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[1]}}</p><p class=\"temp\">{{data.temp[1]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[2]}}</p><p class=\"temp\">{{data.temp[2]}}&deg;</p></td>\r\n        </tr>\r\n        <tr>\r\n          <td><p class=\"light\">{{data.light[3]}}</p><p class=\"temp\">{{data.temp[3]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[4]}}</p><p class=\"temp\">{{data.temp[4]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[5]}}</p><p class=\"temp\">{{data.temp[5]}}&deg;</p></td>\r\n        </tr>\r\n        <tr>\r\n          <td><p class=\"light\">{{data.light[6]}}</p><p class=\"temp\">{{data.temp[6]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[7]}}</p><p class=\"temp\">{{data.temp[7]}}&deg;</p></td>\r\n          <td><p class=\"light\">{{data.light[8]}}</p><p class=\"temp\">{{data.temp[8]}}&deg;</p></td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\" style=\"padding-top: 65px;\">\r\n      <table>\r\n        <tr>\r\n          <th>Instant Battery Voltage</th>\r\n          <th>Instant Battery Current</th>\r\n        </tr>\r\n        <tr>\r\n          <td>{{data.bv}}</td>\r\n          <td>{{data.bc}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td colspan=\"2\" style=\"padding-top: 10px;\">\r\n            <mat-form-field>\r\n              <input matInput placeholder=\"Choose session\" type=\"number\" id=\"choose_session\" (change)=\"chooseSession($event)\">\r\n            </mat-form-field>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -442,46 +442,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var LoginFormComponent = /** @class */ (function () {
-    function LoginFormComponent(router, _sensorService, user) {
+    function LoginFormComponent(router, _sensorService, userService) {
         this.router = router;
         this._sensorService = _sensorService;
-        this.user = user;
-        this.users = {
-            username: undefined,
-            pass: undefined
+        this.userService = userService;
+        this.user = {
+            name: undefined,
+            password: undefined
         };
     }
     LoginFormComponent.prototype.loginUser = function (e) {
-        var userName = e.target.elements[0].value;
-        var password = e.target.elements[1].value;
-        if (userName === this.users.username && password === this.users.pass) {
-            this.router.navigate(['/sensor']);
-            this.user.setUserLoggedIn(userName);
-        }
-        else if (userName === 'admin' && password === 'admin') {
-            this.router.navigate(['/demo']);
-            this.user.setUserLoggedIn(userName);
-        }
-        else {
-            alert('Incorrect username or password');
-        }
-    };
-    LoginFormComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var name = e.target.elements[0].value;
+        var password = e.target.elements[1].value;
+        if (name === '' || password === '') {
+            alert('Fill all fields');
+            return false;
+        }
         this._sensorService.emit('users_data', {
-            msg: 'Requesting users data'
+            user: { name: name, password: password }
         });
         this._sensorService.on('receive_users', function (data) {
-            _this.users = data.msg;
+            _this.user = data.user;
+            if (data.user === null) {
+                alert('Incorrect username or password');
+            }
+            else if (name === _this.user.name && password === _this.user.password) {
+                _this.router.navigate(['/sensor']);
+                _this.userService.setUserLoggedIn(name);
+            }
+            else if (name === 'admin' && password === 'admin') {
+                _this.router.navigate(['/demo']);
+                _this.userService.setUserLoggedIn(name);
+            }
+            else {
+                alert('Incorrect username or password');
+            }
         });
     };
+    LoginFormComponent.prototype.ngOnInit = function () { };
     LoginFormComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-login-form',
             template: __webpack_require__("./src/app/login-form/login-form.component.html"),
             styles: [__webpack_require__("./src/app/login-form/login-form.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */], __WEBPACK_IMPORTED_MODULE_2__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_3__users_service__["a" /* UserService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_2__sensor_service__["a" /* SensorService */],
+            __WEBPACK_IMPORTED_MODULE_3__users_service__["a" /* UserService */]])
     ], LoginFormComponent);
     return LoginFormComponent;
 }());
@@ -829,9 +837,9 @@ var UserService = /** @class */ (function () {
     function UserService() {
         this.isUserLoggedIn = false;
     }
-    UserService.prototype.setUserLoggedIn = function (_username) {
+    UserService.prototype.setUserLoggedIn = function (_name) {
         this.isUserLoggedIn = true;
-        this.username = _username;
+        this.name = _name;
     };
     UserService.prototype.getUserLoggedIn = function () {
         return this.isUserLoggedIn;
