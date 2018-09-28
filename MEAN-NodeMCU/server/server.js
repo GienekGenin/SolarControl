@@ -66,8 +66,8 @@ const io = require('socket.io')(server);
 
 let session = null;
 
-SessionService.getSesssion().then(_session=>{
-  session = _session;
+SessionService.getLastSession().then(_session=>{
+  session = _session[0];
   //Socket connection
   io.on('connection', (socket) => {
     console.log('New connection made');

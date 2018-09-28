@@ -7,10 +7,6 @@ class SessionService {
         this.repository = SessionRepository;
     }
 
-    getSesssion() {
-        return this.repository.getSesssion();
-    }
-
     updateSession(obj){
         return this.repository.updateSession(obj);
     }

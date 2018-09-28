@@ -5,10 +5,6 @@ class SessionRepository{
         this.model = SessionSchema;
     }
 
-    getSesssion(){
-        return this.model.findOne({sessionStatus: true}).select({_id:0});
-    }
-
     updateSession(obj){
         return this.model.update({ _id: '5bae0835fb6fc01d131c0de9' }, { $set: obj});
     }
