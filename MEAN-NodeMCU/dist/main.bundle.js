@@ -619,51 +619,24 @@ var SensorComponent = /** @class */ (function () {
         this._sensorService = _sensorService;
         this.AmCharts = AmCharts;
         this.data = {
-            'light': [],
-            'temp': [],
-            'bv': 0,
-            'bc': 0
+            light: [],
+            temp: [],
+            bv: 0,
+            bc: 0
         };
         this.oldData = {
-            'Time': 0,
-            'Volts': 0,
-            'Current': 0,
-            'index': 0
+            Time: 0,
+            Volts: 0,
+            Current: 0,
+            index: 0
         };
+        this.i = 0;
         this.chartData = [];
         this.session = {
             current: 0,
             next: 0
         };
     }
-    // set session index and signals server to start or stop measuring session
-    SensorComponent.prototype.setSession = function (e) {
-        var _this = this;
-        this.session.current = +e.target.value;
-        this.session.next = +this.session.current + 1;
-        this._sensorService.emit('Set_session', {
-            msg: { 'sessionStatus': true, 'sessionID': this.session.current }
-        });
-        this.AmCharts.updateChart(this.chart, function () {
-            _this.chartData = [];
-        });
-    };
-    SensorComponent.prototype.stopSession = function (status) {
-        this._sensorService.emit('Stop_session', {
-            msg: status
-        });
-    };
-    SensorComponent.prototype.chooseSession = function (e) {
-        this._sensorService.emit('Choose_session', {
-            msg: +e.target.value
-        });
-    };
-    SensorComponent.prototype.clearDB = function () {
-        this._sensorService.emit('Clear_DB', {
-            msg: 'Clear DB'
-        });
-    };
-    // what will be executed after component init
     SensorComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Test events to check sockets working properly
@@ -679,39 +652,22 @@ var SensorComponent = /** @class */ (function () {
                 console.log(_data.msg);
             });
         });
-        // Show last data from DB
-        this._sensorService.emit('Last_data', {
-            msg: 'Last data'
+        this._sensorService.on('SensorsData', function (_data) {
+            _this.data.light = _data.msg.light;
+            _this.data.temp = _data.msg.temp;
+            _this.data.bv = _data.msg.bv;
+            _this.data.bc = _data.msg.bc;
         });
-        // Telling server to start data transfer
-        this._sensorService.emit('Init_data', {
-            msg: 'Init data'
+        this._sensorService.emit('Init', {
+            msg: 'Client to server, can u hear me server?'
         });
-        // Accept sensor values
-        this._sensorService.on('Sensors_data', function (data) {
-            _this.data.light = data.msg.light;
-            _this.data.temp = data.msg.temp;
-            _this.data.bv = data.msg.bv;
-            _this.data.bc = data.msg.bc;
-        });
-        // Clear data from chart before start of the new session
-        // Handling new data incoming from DB
-        this._sensorService.on('View_session', function (data) {
-            _this.chartData = data.msg;
-            _this.AmCharts.updateChart(_this.chart, function () {
-                _this.chart.dataProvider = _this.chartData;
+        this._sensorService.on('NewData', function (data) {
+            _this.chartData.push({
+                Time: data.msg.time,
+                Volts: data.msg.bv,
+                Current: data.msg.bc,
+                index: _this.i++
             });
-        });
-        this._sensorService.on('Update_session', function (data) {
-            if (_this.oldData.index !== data.msg.index) {
-                _this.chartData.push({
-                    'Time': data.msg.Time,
-                    'Volts': data.msg.Volts,
-                    'Current': data.msg.Current,
-                    'index': data.msg.index
-                });
-                _this.oldData = data.msg;
-            }
             _this.AmCharts.updateChart(_this.chart, function () {
                 _this.chart.dataProvider = _this.chartData;
             });
@@ -720,79 +676,88 @@ var SensorComponent = /** @class */ (function () {
     // Chart creation after view init
     SensorComponent.prototype.ngAfterViewInit = function () {
         this.chart = this.AmCharts.makeChart('chartdiv', {
-            'type': 'serial',
-            'theme': 'light',
-            'autoMarginOffset': 20,
-            'legend': {
-                'useGraphSettings': true
+            type: 'serial',
+            theme: 'light',
+            autoMarginOffset: 20,
+            legend: {
+                useGraphSettings: true
             },
-            'dataProvider': this.chartData,
-            'synchronizeGrid': true,
-            'color': '#111111',
-            'categoryField': 'Time',
-            'mouseWheelZoomEnabled': true,
-            'valueAxes': [{
-                    'id': 'v1',
-                    'axisColor': '#FF6600',
-                    'axisThickness': 2,
-                    'axisAlpha': 1,
-                    'position': 'left',
-                    'title': 'Voltage'
-                }, {
-                    'id': 'v2',
-                    'axisColor': '#FCD202',
-                    'axisThickness': 2,
-                    'axisAlpha': 1,
-                    'position': 'right',
-                    'title': 'Current'
-                }],
-            'graphs': [{
-                    'valueAxis': 'v1',
-                    'lineColor': '#FF6600',
-                    'bullet': 'round',
-                    'bulletBorderThickness': 1,
-                    'hideBulletsCount': 50,
-                    'title': 'Voltage',
-                    'valueField': 'Volts',
-                    'useLineColorForBulletBorder': true,
-                    'balloon': {
-                        'drop': true
+            dataProvider: this.chartData,
+            synchronizeGrid: true,
+            color: '#111111',
+            categoryField: 'Time',
+            mouseWheelZoomEnabled: true,
+            valueAxes: [
+                {
+                    id: 'v1',
+                    axisColor: '#FF6600',
+                    axisThickness: 2,
+                    axisAlpha: 1,
+                    position: 'left',
+                    title: 'Voltage'
+                },
+                {
+                    id: 'v2',
+                    axisColor: '#FCD202',
+                    axisThickness: 2,
+                    axisAlpha: 1,
+                    position: 'right',
+                    title: 'Current'
+                }
+            ],
+            graphs: [
+                {
+                    valueAxis: 'v1',
+                    lineColor: '#FF6600',
+                    bullet: 'round',
+                    bulletBorderThickness: 1,
+                    hideBulletsCount: 50,
+                    title: 'Voltage',
+                    valueField: 'Volts',
+                    useLineColorForBulletBorder: true,
+                    balloon: {
+                        drop: true
                     },
-                    'fillAlphas': 0
-                }, {
-                    'valueAxis': 'v2',
-                    'lineColor': '#FCD202',
-                    'bullet': 'square',
-                    'bulletBorderThickness': 1,
-                    'hideBulletsCount': 50,
-                    'title': 'Current',
-                    'valueField': 'Current',
-                    'useLineColorForBulletBorder': true,
-                    'balloon': {
-                        'drop': true
+                    fillAlphas: 0
+                },
+                {
+                    valueAxis: 'v2',
+                    lineColor: '#FCD202',
+                    bullet: 'square',
+                    bulletBorderThickness: 1,
+                    hideBulletsCount: 50,
+                    title: 'Current',
+                    valueField: 'Current',
+                    useLineColorForBulletBorder: true,
+                    balloon: {
+                        drop: true
                     },
-                    'fillAlphas': 0
-                }],
-            'chartScrollbar': [{
-                    'autoGridCount': true,
-                    'graph': 'v1',
-                    'scrollbarHeight': 20
-                }, {
-                    'autoGridCount': true,
-                    'graph': 'v2',
-                    'scrollbarHeight': 20
-                }],
-            'chartCursor': {
-                'cursorPosition': 'mouse'
+                    fillAlphas: 0
+                }
+            ],
+            chartScrollbar: [
+                {
+                    autoGridCount: true,
+                    graph: 'v1',
+                    scrollbarHeight: 20
+                },
+                {
+                    autoGridCount: true,
+                    graph: 'v2',
+                    scrollbarHeight: 20
+                }
+            ],
+            chartCursor: {
+                cursorPosition: 'mouse'
             },
-            'categoryAxis': {
-                'parseDates': false,
-                'axisColor': '#111',
-                'minorGridEnabled': true
+            categoryAxis: {
+                parseDates: false,
+                axisColor: '#111',
+                minorGridEnabled: true
             },
-            'export': {
-                'enabled': true,
-                'position': 'bottom-right'
+            export: {
+                enabled: true,
+                position: 'bottom-right'
             }
         });
     };
@@ -808,7 +773,8 @@ var SensorComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/sensor/sensor.component.html"),
             styles: [__webpack_require__("./src/app/sensor/sensor.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sensor_service__["a" /* SensorService */], __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__["b" /* AmChartsService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sensor_service__["a" /* SensorService */],
+            __WEBPACK_IMPORTED_MODULE_2__amcharts_amcharts3_angular__["b" /* AmChartsService */]])
     ], SensorComponent);
     return SensorComponent;
 }());
