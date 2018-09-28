@@ -100,21 +100,26 @@ SessionService.getLastSession().then(_session=>{
         socket.emit('GetAllSessions', {
           msg: docs
         });
-      })
+      });
       SessionService.getLastSession().then(doc=>{
         socket.emit('GetLastSession', {
           msg: doc
         });
-      })
+      });
+      SessionService.getLastSession().then(_session=>{
+        session = _session[0];
+      });
     });
 
     app.post('/data', function (req, res) {
-      if(_session){
+      console.log(_session, session.sessionStatus);
+      if(_session && session.sessionStatus){
         io.emit('NewData', {
           msg: req.body.data,
           time: moment()
         });
         let dataToDB = Object.assign(req.body.data, {time: moment(), sessionID: session.sessionID});
+        console.log("data to db");
         SolarService.save(dataToDB).catch(err=>err);
       }
       io.emit('SensorsData', {
@@ -134,12 +139,15 @@ SessionService.getLastSession().then(_session=>{
             io.emit('GetAllSessions', {
               msg: docs
             });
-          })
+          });
           SessionService.getLastSession().then(doc=>{
             io.emit('GetLastSession', {
               msg: doc
             });
-          })
+          });
+          SessionService.getLastSession().then(_session=>{
+            session = _session[0];
+          });
         })
         .catch(err=>err);
     });
@@ -151,12 +159,15 @@ SessionService.getLastSession().then(_session=>{
             io.emit('GetAllSessions', {
               msg: docs
             });
-          })
+          });
           SessionService.getLastSession().then(doc=>{
             io.emit('GetLastSession', {
               msg: doc
             });
-          })
+          });
+          SessionService.getLastSession().then(_session=>{
+            session = _session[0];
+          });
         })
         .catch(err=>err);
     });
