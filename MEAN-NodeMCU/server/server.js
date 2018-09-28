@@ -109,17 +109,31 @@ SessionService.getLastSession().then(_session=>{
       SessionService.getLastSession().then(_session=>{
         session = _session[0];
       });
+      SolarService.getAllBySession(session.sessionID).then(data=>{
+        let chartData = [];
+        data.forEach((el,i)=>{
+          chartData.push({
+            ligth: el.light,
+            temp: el.temp,
+            time: el.time,
+            bv: el.bv,
+            bc: el.bc,
+            index: i
+          })
+        });
+        socket.emit('InitData', {
+          data: chartData
+        });
+      });
     });
 
     app.post('/data', function (req, res) {
-      console.log(_session, session.sessionStatus);
       if(_session && session.sessionStatus){
         io.emit('NewData', {
           msg: req.body.data,
           time: moment()
         });
         let dataToDB = Object.assign(req.body.data, {time: moment(), sessionID: session.sessionID});
-        console.log("data to db");
         SolarService.save(dataToDB).catch(err=>err);
       }
       io.emit('SensorsData', {
@@ -170,6 +184,42 @@ SessionService.getLastSession().then(_session=>{
           });
         })
         .catch(err=>err);
+    });
+
+    socket.on('GetSelectedSession', (data) => {
+      SolarService.getAllBySession(data.msg).then(data=>{
+        let chartData = [];
+        data.forEach((el,i)=>{
+          chartData.push({
+            ligth: el.light,
+            temp: el.temp,
+            time: el.time,
+            bv: el.bv,
+            bc: el.bc,
+            index: i
+          })
+        });
+        socket.emit('GetSelectedSession', {
+          data: chartData
+        });
+      });
+      SessionService.stopSession()
+      .then(()=>{
+        SessionService.getAllSessions().then(docs=>{
+          io.emit('GetAllSessions', {
+            msg: docs
+          });
+        });
+        SessionService.getLastSession().then(doc=>{
+          io.emit('GetLastSession', {
+            msg: doc
+          });
+        });
+        SessionService.getLastSession().then(_session=>{
+          session = _session[0];
+        });
+      })
+      .catch(err=>err);
     });
 
     socket.on('users_data', (data) => {

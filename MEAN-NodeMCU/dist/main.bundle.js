@@ -583,7 +583,7 @@ var SensorService = /** @class */ (function () {
 /***/ "./src/app/sensor/sensor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <h1>\r\n        Welcome\r\n      </h1>\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <nav>\r\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <div class=\"row d-flex justify-content-center\">\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\r\n      <table id=\"sensor\">\r\n        <tr>\r\n          <td>\r\n            <p class=\"light\">{{data.light[0]}}</p>\r\n            <p class=\"temp\">{{data.temp[0]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[1]}}</p>\r\n            <p class=\"temp\">{{data.temp[1]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[2]}}</p>\r\n            <p class=\"temp\">{{data.temp[2]}}&deg;</p>\r\n          </td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <p class=\"light\">{{data.light[3]}}</p>\r\n            <p class=\"temp\">{{data.temp[3]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[4]}}</p>\r\n            <p class=\"temp\">{{data.temp[4]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[5]}}</p>\r\n            <p class=\"temp\">{{data.temp[5]}}&deg;</p>\r\n          </td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <p class=\"light\">{{data.light[6]}}</p>\r\n            <p class=\"temp\">{{data.temp[6]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[7]}}</p>\r\n            <p class=\"temp\">{{data.temp[7]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[8]}}</p>\r\n            <p class=\"temp\">{{data.temp[8]}}&deg;</p>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\">\r\n      <table>\r\n        <tr>\r\n          <th>Instant Battery Voltage</th>\r\n          <th>Instant Battery Current</th>\r\n        </tr>\r\n        <tr>\r\n          <td>{{data.bv}}</td>\r\n          <td>{{data.bc}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <mat-form-field *ngIf=\"sessions\">\r\n              <mat-select placeholder=\"View session\">\r\n                <mat-option *ngFor=\"let session of sessions\" [value]=\"session.sessionID\">\r\n                  Session № {{ session.sessionID }}\r\n                </mat-option>\r\n              </mat-select>\r\n            </mat-form-field>\r\n          </td>\r\n          <td *ngIf=\"lastSession\">Next session: {{lastSession.sessionID + 1}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <button mat-button (click)=\"setSession()\">Start new session</button>\r\n          </td>\r\n          <td *ngIf=\"lastSession\">Current session: {{lastSession.sessionID}}\r\n            <span *ngIf=\"lastSession.sessionStatus\">Running</span>\r\n            <span *ngIf=\"!lastSession.sessionStatus\">Stopped</span>\r\n          </td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <button mat-button (click)=\"stopSession()\">Stop session</button>\r\n          </td>\r\n          <td>\r\n            <button mat-button (click)=\"clearDB()\">Clear DB</button>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <h1>\r\n        Welcome\r\n      </h1>\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <img width=\"630\" alt=\"IOT Logo\" src=\"../../assets/img/IOT.png\">\r\n    </div>\r\n    <div class=\"col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center\">\r\n      <nav>\r\n        <a routerLink=\"/about\" routerLinkActive=\"active\">About project</a>\r\n      </nav>\r\n    </div>\r\n  </div>\r\n  <div class=\"row d-flex justify-content-center\">\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container\">\r\n      <table id=\"sensor\">\r\n        <tr>\r\n          <td>\r\n            <p class=\"light\">{{data.light[0]}}</p>\r\n            <p class=\"temp\">{{data.temp[0]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[1]}}</p>\r\n            <p class=\"temp\">{{data.temp[1]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[2]}}</p>\r\n            <p class=\"temp\">{{data.temp[2]}}&deg;</p>\r\n          </td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <p class=\"light\">{{data.light[3]}}</p>\r\n            <p class=\"temp\">{{data.temp[3]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[4]}}</p>\r\n            <p class=\"temp\">{{data.temp[4]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[5]}}</p>\r\n            <p class=\"temp\">{{data.temp[5]}}&deg;</p>\r\n          </td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <p class=\"light\">{{data.light[6]}}</p>\r\n            <p class=\"temp\">{{data.temp[6]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[7]}}</p>\r\n            <p class=\"temp\">{{data.temp[7]}}&deg;</p>\r\n          </td>\r\n          <td>\r\n            <p class=\"light\">{{data.light[8]}}</p>\r\n            <p class=\"temp\">{{data.temp[8]}}&deg;</p>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n    <div class=\"col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center\">\r\n      <table>\r\n        <tr>\r\n          <th>Instant Battery Voltage</th>\r\n          <th>Instant Battery Current</th>\r\n        </tr>\r\n        <tr>\r\n          <td>{{data.bv}}</td>\r\n          <td>{{data.bc}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <mat-form-field *ngIf=\"sessions\">\r\n              <mat-select placeholder=\"View session\" (change)=\"getSelectedSession($event.value)\">\r\n                <mat-option *ngFor=\"let session of sessions\" [value]=\"session.sessionID\">\r\n                  Session № {{ session.sessionID }}\r\n                </mat-option>\r\n              </mat-select>\r\n            </mat-form-field>\r\n          </td>\r\n          <td *ngIf=\"lastSession\">Next session: {{lastSession.sessionID + 1}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <button mat-button (click)=\"setSession()\">Start new session</button>\r\n          </td>\r\n          <td *ngIf=\"lastSession\">Current session: {{lastSession.sessionID}}\r\n            <span *ngIf=\"lastSession.sessionStatus\">Running</span>\r\n            <span *ngIf=\"!lastSession.sessionStatus\">Stopped</span>\r\n          </td>\r\n        </tr>\r\n        <tr>\r\n          <td>\r\n            <button mat-button (click)=\"stopSession()\">Stop session</button>\r\n          </td>\r\n          <td>\r\n            <button mat-button (click)=\"clearDB()\">Clear DB</button>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <div id=\"chartdiv\" [style.width.%]=\"100\" [style.height.px]=\"500\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -624,7 +624,6 @@ var SensorComponent = /** @class */ (function () {
             bv: 0,
             bc: 0
         };
-        this.i = 0;
         this.chartData = [];
         this.lastSession = null;
     }
@@ -658,12 +657,24 @@ var SensorComponent = /** @class */ (function () {
         this._sensorService.on('GetLastSession', function (_data) {
             _this.lastSession = _data.msg[0];
         });
+        this._sensorService.on('InitData', function (_msg) {
+            _this.chartData = _msg.data;
+            _this.AmCharts.updateChart(_this.chart, function () {
+                _this.chart.dataProvider = _this.chartData;
+            });
+        });
+        this._sensorService.on('GetSelectedSession', function (_msg) {
+            _this.chartData = _msg.data;
+            _this.AmCharts.updateChart(_this.chart, function () {
+                _this.chart.dataProvider = _this.chartData;
+            });
+        });
         this._sensorService.on('NewData', function (data) {
             _this.chartData.push({
-                Time: data.msg.time,
-                Volts: data.msg.bv,
-                Current: data.msg.bc,
-                index: _this.i++
+                time: data.msg.time,
+                bv: data.msg.bv,
+                bc: data.msg.bc,
+                index: _this.chartData.length
             });
             _this.AmCharts.updateChart(_this.chart, function () {
                 _this.chart.dataProvider = _this.chartData;
@@ -671,6 +682,11 @@ var SensorComponent = /** @class */ (function () {
         });
     };
     SensorComponent.prototype.setSession = function () {
+        var _this = this;
+        this.AmCharts.updateChart(this.chart, function () {
+            _this.chart.dataProvider = [];
+            _this.chartData = [];
+        });
         this._sensorService.emit('StartNewSession', {
             msg: 'StartNewSession'
         });
@@ -678,6 +694,11 @@ var SensorComponent = /** @class */ (function () {
     SensorComponent.prototype.stopSession = function () {
         this._sensorService.emit('StopSession', {
             msg: 'StopSession'
+        });
+    };
+    SensorComponent.prototype.getSelectedSession = function (sessionID) {
+        this._sensorService.emit('GetSelectedSession', {
+            msg: sessionID
         });
     };
     // Chart creation after view init
@@ -692,7 +713,7 @@ var SensorComponent = /** @class */ (function () {
             dataProvider: this.chartData,
             synchronizeGrid: true,
             color: '#111111',
-            categoryField: 'Time',
+            categoryField: 'time',
             mouseWheelZoomEnabled: true,
             valueAxes: [
                 {
@@ -720,7 +741,7 @@ var SensorComponent = /** @class */ (function () {
                     bulletBorderThickness: 1,
                     hideBulletsCount: 50,
                     title: 'Voltage',
-                    valueField: 'Volts',
+                    valueField: 'bv',
                     useLineColorForBulletBorder: true,
                     balloon: {
                         drop: true
@@ -734,7 +755,7 @@ var SensorComponent = /** @class */ (function () {
                     bulletBorderThickness: 1,
                     hideBulletsCount: 50,
                     title: 'Current',
-                    valueField: 'Current',
+                    valueField: 'bc',
                     useLineColorForBulletBorder: true,
                     balloon: {
                         drop: true

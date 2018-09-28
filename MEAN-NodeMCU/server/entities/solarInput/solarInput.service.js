@@ -13,6 +13,10 @@ class SolarService {
     save(obj){
         return this.repository.save(obj);
     }
+    
+    getAllBySession(sessionId){
+        return this.repository.getAllBySession(sessionId);
+    }
 }
 
 module.exports = new SolarService();

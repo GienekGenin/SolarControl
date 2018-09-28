@@ -74,7 +74,7 @@
         <tr>
           <td>
             <mat-form-field *ngIf="sessions">
-              <mat-select placeholder="View session">
+              <mat-select placeholder="View session" (change)="getSelectedSession($event.value)">
                 <mat-option *ngFor="let session of sessions" [value]="session.sessionID">
                   Session № {{ session.sessionID }}
                 </mat-option>

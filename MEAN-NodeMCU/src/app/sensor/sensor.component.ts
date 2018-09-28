@@ -14,7 +14,6 @@ export class SensorComponent implements OnInit {
     bv: 0,
     bc: 0
   };
-  i = 0;
   chartData = [];
   sessions: Object[];
   lastSession = null;
@@ -54,12 +53,24 @@ export class SensorComponent implements OnInit {
     this._sensorService.on('GetLastSession', (_data: any) => {
       this.lastSession = _data.msg[0];
     });
+    this._sensorService.on('InitData', (_msg: any) => {
+      this.chartData = _msg.data;
+      this.AmCharts.updateChart(this.chart, () => {
+        this.chart.dataProvider = this.chartData;
+      });
+    });
+    this._sensorService.on('GetSelectedSession', (_msg: any) => {
+      this.chartData = _msg.data;
+      this.AmCharts.updateChart(this.chart, () => {
+        this.chart.dataProvider = this.chartData;
+      });
+    });
     this._sensorService.on('NewData', (data: any) => {
       this.chartData.push({
-        Time: data.msg.time,
-        Volts: data.msg.bv,
-        Current: data.msg.bc,
-        index: this.i++
+        time: data.msg.time,
+        bv: data.msg.bv,
+        bc: data.msg.bc,
+        index: this.chartData.length
       });
       this.AmCharts.updateChart(this.chart, () => {
         this.chart.dataProvider = this.chartData;
@@ -68,6 +79,10 @@ export class SensorComponent implements OnInit {
   }
 
   setSession() {
+    this.AmCharts.updateChart(this.chart, () => {
+      this.chart.dataProvider = [];
+      this.chartData = [];
+    });
     this._sensorService.emit('StartNewSession', {
       msg: 'StartNewSession'
     });
@@ -76,6 +91,12 @@ export class SensorComponent implements OnInit {
   stopSession() {
     this._sensorService.emit('StopSession', {
       msg: 'StopSession'
+    });
+  }
+
+  getSelectedSession(sessionID) {
+    this._sensorService.emit('GetSelectedSession', {
+      msg: sessionID
     });
   }
 
@@ -91,7 +112,7 @@ export class SensorComponent implements OnInit {
       dataProvider: this.chartData,
       synchronizeGrid: true,
       color: '#111111',
-      categoryField: 'Time',
+      categoryField: 'time',
       mouseWheelZoomEnabled: true,
       valueAxes: [
         {
@@ -119,7 +140,7 @@ export class SensorComponent implements OnInit {
           bulletBorderThickness: 1,
           hideBulletsCount: 50,
           title: 'Voltage',
-          valueField: 'Volts',
+          valueField: 'bv',
           useLineColorForBulletBorder: true,
           balloon: {
             drop: true
@@ -133,7 +154,7 @@ export class SensorComponent implements OnInit {
           bulletBorderThickness: 1,
           hideBulletsCount: 50,
           title: 'Current',
-          valueField: 'Current',
+          valueField: 'bc',
           useLineColorForBulletBorder: true,
           balloon: {
             drop: true

@@ -12,6 +12,10 @@ class SolarRepository{
     save(obj){
         return this.model.create(obj);
     }
+
+    getAllBySession(sessionID){
+        return this.model.find({sessionID}).sort({time: 1});
+    }
 }
 
 module.exports = new SolarRepository();
