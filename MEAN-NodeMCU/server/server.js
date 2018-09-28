@@ -129,9 +129,37 @@ SessionService.getSesssion().then(_session=>{
 
     socket.on('StartNewSession', () => {
       SessionService.switchSession()
-        .then(d=>console.log(d))
-        .catch(err=>console.log(err));
-      });
+        .then(()=>{
+          SessionService.getAllSessions().then(docs=>{
+            io.emit('GetAllSessions', {
+              msg: docs
+            });
+          })
+          SessionService.getLastSession().then(doc=>{
+            io.emit('GetLastSession', {
+              msg: doc
+            });
+          })
+        })
+        .catch(err=>err);
+    });
+
+    socket.on('StopSession', () => {
+      SessionService.stopSession()
+        .then(()=>{
+          SessionService.getAllSessions().then(docs=>{
+            io.emit('GetAllSessions', {
+              msg: docs
+            });
+          })
+          SessionService.getLastSession().then(doc=>{
+            io.emit('GetLastSession', {
+              msg: doc
+            });
+          })
+        })
+        .catch(err=>err);
+    });
 
     socket.on('users_data', (data) => {
       UserService.login(data.user).then(user=>socket.emit('receive_users', {

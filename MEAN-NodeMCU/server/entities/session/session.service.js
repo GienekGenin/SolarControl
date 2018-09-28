@@ -47,12 +47,16 @@ class SessionService {
                     }
                 ],
                 (payload, err)=>{
+                    resolve(payload);
                     if(err){
                         reject(err);
                     }
-                    resolve(payload);
             })
         });
+    }
+
+    stopSession(){
+        return this.repository.stopSession();
     }
 }
 

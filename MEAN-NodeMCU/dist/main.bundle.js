@@ -653,6 +653,7 @@ var SensorComponent = /** @class */ (function () {
             msg: 'Client to server, can u hear me server?'
         });
         this._sensorService.on('GetAllSessions', function (_data) {
+            console.log('Get All', _data);
             _this.sessions = _data.msg;
         });
         this._sensorService.on('GetLastSession', function (_data) {
@@ -673,6 +674,11 @@ var SensorComponent = /** @class */ (function () {
     SensorComponent.prototype.setSession = function () {
         this._sensorService.emit('StartNewSession', {
             msg: 'StartNewSession'
+        });
+    };
+    SensorComponent.prototype.stopSession = function () {
+        this._sensorService.emit('StopSession', {
+            msg: 'StopSession'
         });
     };
     // Chart creation after view init
