@@ -72,6 +72,23 @@ SessionService.getSesssion().then(_session=>{
   io.on('connection', (socket) => {
     console.log('New connection made');
 
+  // Test events to check sockets working properly
+  socket.on('Client_asking', (data) => {
+    console.log(data.msg);
+  });
+
+  //Emit a message when we load the browser window
+  socket.emit('Server_asking', {
+    msg: 'Server to client, do u read me? Over.'
+  });
+
+  socket.on('Client_response', (data) => {
+    console.log(data.msg);
+    socket.emit('Server_response', {
+      msg: 'Loud and clear'
+    })
+  });
+
     socket.on('Init', () => {
       SensorService.getOne()
       .then(doc=>{
@@ -110,36 +127,11 @@ SessionService.getSesssion().then(_session=>{
         .catch(err=>err);
     });
 
-    // Test events to check sockets working properly
-    socket.on('Client_asking', (data) => {
-      console.log(data.msg);
-    });
-
-    //Emit a message when we load the browser window
-    socket.emit('Server_asking', {
-      msg: 'Server to client, do u read me? Over.'
-    });
-
-    socket.on('Client_response', (data) => {
-      console.log(data.msg);
-      socket.emit('Server_response', {
-        msg: 'Loud and clear'
-      })
-    });
-
-    // Event that clears all data in DB
-    socket.on('Set_session', (data) => {
-      // db.solarInput.remove({sessionID: session.sessionID});
-      session.sessionStatus = data.msg.sessionStatus;
-      session.sessionID = data.msg.sessionID;
-      session.index = 0;
-      // console.log('Set session');
-    });
-    // Stops current session
-    socket.on('Stop_session', () => {
-      // console.log('Stop session');
-      session.sessionStatus = false;
-    });
+    socket.on('StartNewSession', () => {
+      SessionService.switchSession()
+        .then(d=>console.log(d))
+        .catch(err=>console.log(err));
+      });
 
     socket.on('users_data', (data) => {
       UserService.login(data.user).then(user=>socket.emit('receive_users', {

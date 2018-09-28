@@ -67,6 +67,12 @@ export class SensorComponent implements OnInit {
     });
   }
 
+  setSession() {
+    this._sensorService.emit('StartNewSession', {
+      msg: 'StartNewSession'
+    });
+  }
+
   // Chart creation after view init
   ngAfterViewInit() {
     this.chart = this.AmCharts.makeChart('chartdiv', {

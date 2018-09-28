@@ -20,6 +20,14 @@ class SessionRepository{
     getLastSession(){
         return this.model.find().sort({sessionID: -1}).select({_id: 0}).limit(1);
     }
+
+    stopSession() {
+        return this.model.findOneAndUpdate({sessionStatus: true}, {$set: {sessionStatus: false}});
+    }
+
+    startSession(obj){
+        return this.model.create(obj);
+    }
 }
 
 module.exports = new SessionRepository();

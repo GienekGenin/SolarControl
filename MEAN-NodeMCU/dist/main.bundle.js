@@ -670,6 +670,11 @@ var SensorComponent = /** @class */ (function () {
             });
         });
     };
+    SensorComponent.prototype.setSession = function () {
+        this._sensorService.emit('StartNewSession', {
+            msg: 'StartNewSession'
+        });
+    };
     // Chart creation after view init
     SensorComponent.prototype.ngAfterViewInit = function () {
         this.chart = this.AmCharts.makeChart('chartdiv', {
