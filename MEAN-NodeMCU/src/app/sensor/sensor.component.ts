@@ -14,18 +14,10 @@ export class SensorComponent implements OnInit {
     bv: 0,
     bc: 0
   };
-  oldData = {
-    Time: 0,
-    Volts: 0,
-    Current: 0,
-    index: 0
-  };
   i = 0;
   chartData = [];
-  session = {
-    current: 0,
-    next: 0
-  };
+  sessions: Object[];
+  lastSession = null;
   private chart: AmChart;
 
   constructor(
@@ -55,6 +47,12 @@ export class SensorComponent implements OnInit {
     });
     this._sensorService.emit('Init', {
       msg: 'Client to server, can u hear me server?'
+    });
+    this._sensorService.on('GetAllSessions', (_data: any) => {
+      this.sessions = _data.msg;
+    });
+    this._sensorService.on('GetLastSession', (_data: any) => {
+      this.lastSession = _data.msg[0];
     });
     this._sensorService.on('NewData', (data: any) => {
       this.chartData.push({

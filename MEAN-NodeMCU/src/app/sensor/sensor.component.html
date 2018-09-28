@@ -18,19 +18,46 @@
     <div class="col-sm-6 col-md-6 col-lg-6 d-flex justify-content-center data_container">
       <table id="sensor">
         <tr>
-          <td><p class="light">{{data.light[0]}}</p><p class="temp">{{data.temp[0]}}&deg;</p></td>
-          <td><p class="light">{{data.light[1]}}</p><p class="temp">{{data.temp[1]}}&deg;</p></td>
-          <td><p class="light">{{data.light[2]}}</p><p class="temp">{{data.temp[2]}}&deg;</p></td>
+          <td>
+            <p class="light">{{data.light[0]}}</p>
+            <p class="temp">{{data.temp[0]}}&deg;</p>
+          </td>
+          <td>
+            <p class="light">{{data.light[1]}}</p>
+            <p class="temp">{{data.temp[1]}}&deg;</p>
+          </td>
+          <td>
+            <p class="light">{{data.light[2]}}</p>
+            <p class="temp">{{data.temp[2]}}&deg;</p>
+          </td>
         </tr>
         <tr>
-          <td><p class="light">{{data.light[3]}}</p><p class="temp">{{data.temp[3]}}&deg;</p></td>
-          <td><p class="light">{{data.light[4]}}</p><p class="temp">{{data.temp[4]}}&deg;</p></td>
-          <td><p class="light">{{data.light[5]}}</p><p class="temp">{{data.temp[5]}}&deg;</p></td>
+          <td>
+            <p class="light">{{data.light[3]}}</p>
+            <p class="temp">{{data.temp[3]}}&deg;</p>
+          </td>
+          <td>
+            <p class="light">{{data.light[4]}}</p>
+            <p class="temp">{{data.temp[4]}}&deg;</p>
+          </td>
+          <td>
+            <p class="light">{{data.light[5]}}</p>
+            <p class="temp">{{data.temp[5]}}&deg;</p>
+          </td>
         </tr>
         <tr>
-          <td><p class="light">{{data.light[6]}}</p><p class="temp">{{data.temp[6]}}&deg;</p></td>
-          <td><p class="light">{{data.light[7]}}</p><p class="temp">{{data.temp[7]}}&deg;</p></td>
-          <td><p class="light">{{data.light[8]}}</p><p class="temp">{{data.temp[8]}}&deg;</p></td>
+          <td>
+            <p class="light">{{data.light[6]}}</p>
+            <p class="temp">{{data.temp[6]}}&deg;</p>
+          </td>
+          <td>
+            <p class="light">{{data.light[7]}}</p>
+            <p class="temp">{{data.temp[7]}}&deg;</p>
+          </td>
+          <td>
+            <p class="light">{{data.light[8]}}</p>
+            <p class="temp">{{data.temp[8]}}&deg;</p>
+          </td>
         </tr>
       </table>
     </div>
@@ -46,23 +73,28 @@
         </tr>
         <tr>
           <td>
-            <mat-form-field>
-              <input matInput placeholder="Choose session" type="number" id="choose_session" (change)="chooseSession($event)">
+            <mat-form-field *ngIf="sessions">
+              <mat-select placeholder="View session">
+                <mat-option *ngFor="let session of sessions" [value]="session.sessionID">
+                  Session № {{ session.sessionID }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </td>
-          <td>Next session: {{session.next}}</td>
+          <td *ngIf="lastSession">Next session: {{lastSession.sessionID + 1}}</td>
         </tr>
         <tr>
           <td>
-            <mat-form-field>
-              <input matInput placeholder="Set session" type="number" id="set_session" (change)="setSession($event)">
-            </mat-form-field>
+            <button mat-button (click)="setSession()">Start new session</button>
           </td>
-          <td>Current session {{session.current}}</td>
+          <td *ngIf="lastSession">Current session: {{lastSession.sessionID}}
+            <span *ngIf="lastSession.sessionStatus">Running</span>
+            <span *ngIf="!lastSession.sessionStatus">Stopped</span>
+          </td>
         </tr>
         <tr>
           <td>
-            <button mat-button (click)="stopSession(false)">Stop session</button>
+            <button mat-button (click)="stopSession()">Stop session</button>
           </td>
           <td>
             <button mat-button (click)="clearDB()">Clear DB</button>
