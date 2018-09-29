@@ -89,6 +89,10 @@ SessionService.getLastSession().then(_session=>{
     })
   });
 
+  const updateSession = () => {
+    
+  }
+
     socket.on('Init', () => {
       SensorService.getOne()
       .then(doc=>{
@@ -101,28 +105,26 @@ SessionService.getLastSession().then(_session=>{
           msg: docs
         });
       });
-      SessionService.getLastSession().then(doc=>{
-        socket.emit('GetLastSession', {
-          msg: doc
-        });
-      });
       SessionService.getLastSession().then(_session=>{
         session = _session[0];
-      });
-      SolarService.getAllBySession(session.sessionID).then(data=>{
-        let chartData = [];
-        data.forEach((el,i)=>{
-          chartData.push({
-            ligth: el.light,
-            temp: el.temp,
-            time: el.time,
-            bv: el.bv,
-            bc: el.bc,
-            index: i
-          })
+        socket.emit('GetLastSession', {
+          msg: _session
         });
-        socket.emit('InitData', {
-          data: chartData
+        SolarService.getAllBySession(session.sessionID).then(data=>{
+          let chartData = [];
+          data.forEach((el,i)=>{
+            chartData.push({
+              ligth: el.light,
+              temp: el.temp,
+              time: el.time,
+              bv: el.bv,
+              bc: el.bc,
+              index: i
+            })
+          });
+          socket.emit('InitData', {
+            data: chartData
+          });
         });
       });
     });
@@ -223,7 +225,37 @@ SessionService.getLastSession().then(_session=>{
     });
 
     socket.on('DeleteSessions', (data) => {
-      console.log(data.msg);
+      SolarService.deleteSessions(data.msg)
+        .then(()=>{
+          SessionService.getAllSessions().then(docs=>{
+            socket.emit('GetAllSessions', {
+              msg: docs
+            });
+          });
+          SessionService.getLastSession().then(_session=>{
+            session = _session[0];
+            socket.emit('GetLastSession', {
+              msg: _session
+            });
+            SolarService.getAllBySession(session.sessionID).then(data=>{
+              let chartData = [];
+              data.forEach((el,i)=>{
+                chartData.push({
+                  ligth: el.light,
+                  temp: el.temp,
+                  time: el.time,
+                  bv: el.bv,
+                  bc: el.bc,
+                  index: i
+                })
+              });
+              socket.emit('InitData', {
+                data: chartData
+              });
+            });
+          });
+        })
+        .catch(err=>err);
     });
 
     socket.on('users_data', (data) => {

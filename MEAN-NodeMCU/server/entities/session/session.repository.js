@@ -24,6 +24,10 @@ class SessionRepository{
     startSession(obj){
         return this.model.create(obj);
     }
+
+    deleteSessions(sessionIDs){
+        return this.model.deleteMany({sessionID: {$in: sessionIDs}});
+    }
 }
 
 module.exports = new SessionRepository();

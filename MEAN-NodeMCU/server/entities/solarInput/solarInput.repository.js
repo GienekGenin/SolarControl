@@ -16,6 +16,10 @@ class SolarRepository{
     getAllBySession(sessionID){
         return this.model.find({sessionID}).sort({time: 1});
     }
+
+    deleteSessionData(sessionIDs){
+        return this.model.deleteMany({sessionID: {$in: sessionIDs}});
+    }
 }
 
 module.exports = new SolarRepository();

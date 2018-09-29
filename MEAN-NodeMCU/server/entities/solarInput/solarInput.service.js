@@ -1,4 +1,6 @@
+const async = require('async');
 const SolarRepository = require('./solarInput.repository');
+const SessionRepository = require('../session/session.repository');
 
 class SolarService {
     
@@ -16,6 +18,31 @@ class SolarService {
     
     getAllBySession(sessionId){
         return this.repository.getAllBySession(sessionId);
+    }
+
+    deleteSessions(sessionIDs){
+        return new Promise((resolve, reject) => {
+            async.waterfall(
+                [
+                    callback=>{
+                        this.repository.deleteSessionData(sessionIDs)
+                            .then(()=>callback(null))
+                            .catch(err=>callback(err));
+                    },
+                    callback=>{
+                        SessionRepository.deleteSessions(sessionIDs)
+                            .then(()=>callback(null))
+                            .catch(err=>callback(err));
+                    }
+                ],
+                (payload,err)=>{
+                    if(err){
+                        reject(err);
+                    }
+                    resolve(payload);
+                }
+            )
+        })
     }
 }
 
