@@ -27,18 +27,15 @@ export class LoginFormComponent implements OnInit {
       alert('Fill all fields');
       return false;
     }
-    this._sensorService.emit('users_data', {
+    this._sensorService.emit('UsersData', {
       user: { name, password }
     });
-    this._sensorService.on('receive_users', (data: any) => {
+    this._sensorService.on('RecieveUsers', (data: any) => {
       this.user = data.user;
       if (data.user === null) {
         alert('Incorrect username or password');
       } else if (name === this.user.name && password === this.user.password) {
         this.router.navigate(['/sensor']);
-        this.userService.setUserLoggedIn(name);
-      } else if (name === 'admin' && password === 'admin') {
-        this.router.navigate(['/demo']);
         this.userService.setUserLoggedIn(name);
       } else {
         alert('Incorrect username or password');

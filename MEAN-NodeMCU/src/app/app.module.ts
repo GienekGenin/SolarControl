@@ -12,11 +12,9 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { UserService } from './users.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { DemonstrationComponent } from './demonstration/demonstration.component';
 
 const appRoutes: Routes = [
   { path: 'sensor', component: SensorComponent },
-  { path: 'demo', component: DemonstrationComponent },
   { path: 'about', component: AboutComponent },
   { path: '', component: LoginFormComponent }
 ];
@@ -26,8 +24,7 @@ const appRoutes: Routes = [
     AppComponent,
     SensorComponent,
     AboutComponent,
-    LoginFormComponent,
-    DemonstrationComponent
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,

@@ -116,7 +116,7 @@ SessionService.getLastSession().then(_session=>{
             chartData.push({
               ligth: el.light,
               temp: el.temp,
-              time: el.time,
+              time: moment(el.time).format("hh:mm:ss"),
               bv: el.bv,
               bc: el.bc,
               index: i
@@ -133,7 +133,7 @@ SessionService.getLastSession().then(_session=>{
       if(_session && session.sessionStatus){
         io.emit('NewData', {
           msg: req.body.data,
-          time: moment()
+          time: moment().format("hh:mm:ss")
         });
         let dataToDB = Object.assign(req.body.data, {time: moment(), sessionID: session.sessionID});
         SolarService.save(dataToDB).catch(err=>err);
@@ -183,6 +183,22 @@ SessionService.getLastSession().then(_session=>{
           });
           SessionService.getLastSession().then(_session=>{
             session = _session[0];
+            SolarService.getAllBySession(session.sessionID).then(data=>{
+              let chartData = [];
+              data.forEach((el,i)=>{
+                chartData.push({
+                  ligth: el.light,
+                  temp: el.temp,
+                  time: moment(el.time).format("hh:mm:ss"),
+                  bv: el.bv,
+                  bc: el.bc,
+                  index: i
+                })
+              });
+              socket.emit('InitData', {
+                data: chartData
+              });
+            });
           });
         })
         .catch(err=>err);
@@ -195,7 +211,7 @@ SessionService.getLastSession().then(_session=>{
           chartData.push({
             ligth: el.light,
             temp: el.temp,
-            time: el.time,
+            time: moment(el.time).format("hh:mm:ss"),
             bv: el.bv,
             bc: el.bc,
             index: i
@@ -243,7 +259,7 @@ SessionService.getLastSession().then(_session=>{
                 chartData.push({
                   ligth: el.light,
                   temp: el.temp,
-                  time: el.time,
+                  time: moment(el.time).format("hh:mm:ss"),
                   bv: el.bv,
                   bc: el.bc,
                   index: i
@@ -258,8 +274,8 @@ SessionService.getLastSession().then(_session=>{
         .catch(err=>err);
     });
 
-    socket.on('users_data', (data) => {
-      UserService.login(data.user).then(user=>socket.emit('receive_users', {
+    socket.on('UsersData', (data) => {
+      UserService.login(data.user).then(user=>socket.emit('RecieveUsers', {
         user
       }))
     });
