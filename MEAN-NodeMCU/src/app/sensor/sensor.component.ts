@@ -69,7 +69,7 @@ export class SensorComponent implements OnInit {
     });
     this._sensorService.on('NewData', (data: any) => {
       this.chartData.push({
-        time: data.msg.time,
+        time: data.time,
         bv: data.msg.bv,
         bc: data.msg.bc,
         index: this.chartData.length

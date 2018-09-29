@@ -456,7 +456,7 @@ var SensorComponent = /** @class */ (function () {
         });
         this._sensorService.on('NewData', function (data) {
             _this.chartData.push({
-                time: data.msg.time,
+                time: data.time,
                 bv: data.msg.bv,
                 bc: data.msg.bc,
                 index: _this.chartData.length
