@@ -97,7 +97,17 @@
             <button mat-button (click)="stopSession()">Stop session</button>
           </td>
           <td>
-            <button mat-button (click)="clearDB()">Clear DB</button>
+            <mat-form-field *ngIf="sessions">
+              <mat-select placeholder="Delete sessions" [formControl]="deleteSessionsControl" multiple>
+                <mat-option *ngFor="let session of sessions" [value]="session.sessionID">{{session.sessionID}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="deleteSessionsControl.value">
+              <button mat-button (click)="deleteSessions()" [disabled]="deleteSessionsControl.value.length === sessions.length || deleteSessionsControl.value.length === 0">
+                <span *ngIf="!(deleteSessionsControl.value.length === sessions.length)">Delete sessions</span>
+                <span *ngIf="deleteSessionsControl.value.length === sessions.length" style="color:red">Can't delete all</span>
+              </button>
+            </div>
           </td>
         </tr>
       </table>

@@ -222,6 +222,10 @@ SessionService.getLastSession().then(_session=>{
       .catch(err=>err);
     });
 
+    socket.on('DeleteSessions', (data) => {
+      console.log(data.msg);
+    });
+
     socket.on('users_data', (data) => {
       UserService.login(data.user).then(user=>socket.emit('receive_users', {
         user

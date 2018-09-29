@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { SensorService } from '../sensor.service';
 import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-sensor',
@@ -17,6 +18,7 @@ export class SensorComponent implements OnInit {
   chartData = [];
   sessions: Object[];
   lastSession = null;
+  deleteSessionsControl = new FormControl();
   private chart: AmChart;
 
   constructor(
@@ -97,6 +99,12 @@ export class SensorComponent implements OnInit {
   getSelectedSession(sessionID) {
     this._sensorService.emit('GetSelectedSession', {
       msg: sessionID
+    });
+  }
+
+  deleteSessions() {
+    this._sensorService.emit('DeleteSessions', {
+      msg: this.deleteSessionsControl.value
     });
   }
 
