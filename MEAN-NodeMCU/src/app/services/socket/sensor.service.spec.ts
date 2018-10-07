@@ -1,6 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 
-import { SensorService } from './sensor.service';
+import { SensorService } from './socket.service';
 
 describe('SensorService', () => {
   beforeEach(() => {

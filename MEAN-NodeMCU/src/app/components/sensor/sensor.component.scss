@@ -1,15 +1,15 @@
-table{
+table {
   width: 100%;
   text-align: center;
 }
 
-.data_container{
+.data_container {
   min-width: 360px;
   min-height: 260px;
 }
 
-#sensor{
-  background-image: url("../../assets/img/solar_panel.jpg");
+#sensor {
+  background-image: url('https://lh5.googleusercontent.com/TISjfhhvpS0l4IEUiAqvTS7RNHezOgMi5N7sfne-NdETRlajOdzHzfqNj26HbduGOslHVJDFTqlYtrkI55EE=w1366-h626');
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -17,7 +17,7 @@ table{
   height: 235px;
 }
 
-#sensor > td {
+#sensor>td {
   margin: 10px;
 }
 

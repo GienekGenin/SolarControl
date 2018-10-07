@@ -1,7 +1,7 @@
 import { AmChart, AmChartsService } from '@amcharts/amcharts3-angular';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SensorService } from '../sensor.service';
+import { SensorService } from '../../services/socket/socket.service';
 
 @Component({
   selector: 'app-sensor',

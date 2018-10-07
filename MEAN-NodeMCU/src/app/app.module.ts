@@ -5,13 +5,13 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { AboutComponent } from './components/about/about.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { SensorComponent } from './components/sensor/sensor.component';
 import { MaterialModule } from './material.module';
-import { SensorService } from './sensor.service';
-import { SensorComponent } from './sensor/sensor.component';
-import { UserService } from './users.service';
+import { SensorService } from './services/socket/socket.service';
+import { UserService } from './services/user/users.service';
 
 const appRoutes: Routes = [
   { path: 'sensor', component: SensorComponent },
