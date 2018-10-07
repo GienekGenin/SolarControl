@@ -1,42 +1,44 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { SensorService } from '../sensor.service';
-import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
+import { AmChart, AmChartsService } from '@amcharts/amcharts3-angular';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { SensorService } from '../sensor.service';
 
 @Component({
   selector: 'app-sensor',
   templateUrl: './sensor.component.html',
-  styleUrls: ['./sensor.component.scss']
+  styleUrls: ['./sensor.component.scss'],
 })
-export class SensorComponent implements OnInit {
+export class SensorComponent implements OnInit, AfterViewInit, OnDestroy {
   data = {
     light: [],
     temp: [],
     bv: 0,
-    bc: 0
+    bc: 0,
   };
   chartData = [];
-  sessions: Object[];
+  sessions: object[];
   lastSession = null;
   deleteSessionsControl = new FormControl();
   private chart: AmChart;
 
   constructor(
     private _sensorService: SensorService,
-    private AmCharts: AmChartsService
+    private AmCharts: AmChartsService,
   ) {}
 
   ngOnInit() {
     // Test events to check sockets working properly
     this._sensorService.emit('Client_asking', {
-      msg: 'Client to server, can u hear me server?'
+      msg: 'Client to server, can u hear me server?',
     });
     this._sensorService.on('Server_asking', (data: any) => {
+      // tslint:disable-next-line:no-console
       console.log(data.msg);
       this._sensorService.emit('Client_response', {
-        msg: 'Yes, its working for me!'
+        msg: 'Yes, its working for me!',
       });
       this._sensorService.on('Server_response', (_data: any) => {
+        // tslint:disable-next-line:no-console
         console.log(_data.msg);
       });
     });
@@ -47,7 +49,7 @@ export class SensorComponent implements OnInit {
       this.data.bc = _data.msg.bc;
     });
     this._sensorService.emit('Init', {
-      msg: 'Client to server, can u hear me server?'
+      msg: 'Client to server, can u hear me server?',
     });
     this._sensorService.on('GetAllSessions', (_data: any) => {
       this.sessions = _data.msg;
@@ -72,7 +74,7 @@ export class SensorComponent implements OnInit {
         time: data.time,
         bv: data.msg.bv,
         bc: data.msg.bc,
-        index: this.chartData.length
+        index: this.chartData.length,
       });
       this.AmCharts.updateChart(this.chart, () => {
         this.chart.dataProvider = this.chartData;
@@ -86,25 +88,25 @@ export class SensorComponent implements OnInit {
       this.chartData = [];
     });
     this._sensorService.emit('StartNewSession', {
-      msg: 'StartNewSession'
+      msg: 'StartNewSession',
     });
   }
 
   stopSession() {
     this._sensorService.emit('StopSession', {
-      msg: 'StopSession'
+      msg: 'StopSession',
     });
   }
 
   getSelectedSession(sessionID) {
     this._sensorService.emit('GetSelectedSession', {
-      msg: sessionID
+      msg: sessionID,
     });
   }
 
   deleteSessions() {
     this._sensorService.emit('DeleteSessions', {
-      msg: this.deleteSessionsControl.value
+      msg: this.deleteSessionsControl.value,
     });
   }
 
@@ -115,7 +117,7 @@ export class SensorComponent implements OnInit {
       theme: 'light',
       autoMarginOffset: 20,
       legend: {
-        useGraphSettings: true
+        useGraphSettings: true,
       },
       dataProvider: this.chartData,
       synchronizeGrid: true,
@@ -129,7 +131,7 @@ export class SensorComponent implements OnInit {
           axisThickness: 2,
           axisAlpha: 1,
           position: 'left',
-          title: 'Voltage'
+          title: 'Voltage',
         },
         {
           id: 'v2',
@@ -137,8 +139,8 @@ export class SensorComponent implements OnInit {
           axisThickness: 2,
           axisAlpha: 1,
           position: 'right',
-          title: 'Current'
-        }
+          title: 'Current',
+        },
       ],
       graphs: [
         {
@@ -151,9 +153,9 @@ export class SensorComponent implements OnInit {
           valueField: 'bv',
           useLineColorForBulletBorder: true,
           balloon: {
-            drop: true
+            drop: true,
           },
-          fillAlphas: 0
+          fillAlphas: 0,
         },
         {
           valueAxis: 'v2',
@@ -165,35 +167,35 @@ export class SensorComponent implements OnInit {
           valueField: 'bc',
           useLineColorForBulletBorder: true,
           balloon: {
-            drop: true
+            drop: true,
           },
-          fillAlphas: 0
-        }
+          fillAlphas: 0,
+        },
       ],
       chartScrollbar: [
         {
           autoGridCount: true,
           graph: 'v1',
-          scrollbarHeight: 20
+          scrollbarHeight: 20,
         },
         {
           autoGridCount: true,
           graph: 'v2',
-          scrollbarHeight: 20
-        }
+          scrollbarHeight: 20,
+        },
       ],
       chartCursor: {
-        cursorPosition: 'mouse'
+        cursorPosition: 'mouse',
       },
       categoryAxis: {
         parseDates: false,
         axisColor: '#111',
-        minorGridEnabled: true
+        minorGridEnabled: true,
       },
       export: {
         enabled: true,
-        position: 'bottom-right'
-      }
+        position: 'bottom-right',
+      },
     });
   }
 

@@ -6,18 +6,18 @@ import { UserService } from '../users.service';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
   constructor(
     private router: Router,
     private _sensorService: SensorService,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   user = {
     name: undefined,
-    password: undefined
+    password: undefined,
   };
 
   loginUser(e) {
@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
       return false;
     }
     this._sensorService.emit('UsersData', {
-      user: { name, password }
+      user: { name, password },
     });
     this._sensorService.on('RecieveUsers', (data: any) => {
       this.user = data.user;

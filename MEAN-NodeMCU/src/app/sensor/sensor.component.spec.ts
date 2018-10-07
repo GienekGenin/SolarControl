@@ -8,7 +8,7 @@ describe('LedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SensorComponent ]
+      declarations: [ SensorComponent ],
     })
     .compileComponents();
   }));
