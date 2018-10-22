@@ -363,15 +363,11 @@ var SensorComponent = /** @class */ (function () {
         });
         this._sensorService.on('InitData', function (_msg) {
             _this.chartData = _msg.data;
-            _this.AmCharts.updateChart(_this.chart, function () {
-                _this.chart.dataProvider = _this.chartData;
-            });
+            _this.updateChart();
         });
         this._sensorService.on('GetSelectedSession', function (_msg) {
             _this.chartData = _msg.data;
-            _this.AmCharts.updateChart(_this.chart, function () {
-                _this.chart.dataProvider = _this.chartData;
-            });
+            _this.updateChart();
         });
         this._sensorService.on('NewData', function (data) {
             _this.chartData.push({
@@ -380,9 +376,7 @@ var SensorComponent = /** @class */ (function () {
                 bc: data.msg.bc,
                 index: _this.chartData.length,
             });
-            _this.AmCharts.updateChart(_this.chart, function () {
-                _this.chart.dataProvider = _this.chartData;
-            });
+            _this.updateChart();
         });
     };
     SensorComponent.prototype.setSession = function () {
@@ -409,6 +403,19 @@ var SensorComponent = /** @class */ (function () {
         this._sensorService.emit('DeleteSessions', {
             msg: this.deleteSessionsControl.value,
         });
+    };
+    SensorComponent.prototype.removeIcon = function () {
+        var parent = document.getElementsByClassName('amcharts-chart-div')[0];
+        var child = document.querySelectorAll('[title="JavaScript charts"]')[0];
+        parent.removeChild(child);
+        return true;
+    };
+    SensorComponent.prototype.updateChart = function () {
+        var _this = this;
+        this.AmCharts.updateChart(this.chart, function () {
+            _this.chart.dataProvider = _this.chartData;
+        });
+        this.removeIcon();
     };
     // Chart creation after view init
     SensorComponent.prototype.ngAfterViewInit = function () {

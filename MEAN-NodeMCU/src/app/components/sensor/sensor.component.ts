@@ -59,15 +59,11 @@ export class SensorComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this._sensorService.on('InitData', (_msg: any) => {
       this.chartData = _msg.data;
-      this.AmCharts.updateChart(this.chart, () => {
-        this.chart.dataProvider = this.chartData;
-      });
+      this.updateChart();
     });
     this._sensorService.on('GetSelectedSession', (_msg: any) => {
       this.chartData = _msg.data;
-      this.AmCharts.updateChart(this.chart, () => {
-        this.chart.dataProvider = this.chartData;
-      });
+      this.updateChart();
     });
     this._sensorService.on('NewData', (data: any) => {
       this.chartData.push({
@@ -76,9 +72,7 @@ export class SensorComponent implements OnInit, AfterViewInit, OnDestroy {
         bc: data.msg.bc,
         index: this.chartData.length,
       });
-      this.AmCharts.updateChart(this.chart, () => {
-        this.chart.dataProvider = this.chartData;
-      });
+      this.updateChart();
     });
   }
 
@@ -108,6 +102,20 @@ export class SensorComponent implements OnInit, AfterViewInit, OnDestroy {
     this._sensorService.emit('DeleteSessions', {
       msg: this.deleteSessionsControl.value,
     });
+  }
+
+  removeIcon() {
+    const parent = document.getElementsByClassName('amcharts-chart-div')[0];
+    const child = document.querySelectorAll('[title="JavaScript charts"]')[0];
+    parent.removeChild(child);
+    return true;
+  }
+
+  updateChart() {
+    this.AmCharts.updateChart(this.chart, () => {
+      this.chart.dataProvider = this.chartData;
+    });
+    this.removeIcon();
   }
 
   // Chart creation after view init
