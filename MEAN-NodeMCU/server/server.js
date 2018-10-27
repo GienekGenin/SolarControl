@@ -129,18 +129,18 @@ SessionService.getLastSession().then(_session=>{
 		app.post('/data', function (req, res) {
 			if(_session && session.sessionStatus){
 				io.emit('NewData', {
-					msg: req.body.data,
+					msg: req.body,
 					time: moment().format('hh:mm:ss')
 				});
-				let dataToDB = Object.assign(req.body.data, {time: moment(), sessionID: session.sessionID});
+				let dataToDB = Object.assign(req.body, {time: moment(), sessionID: session.sessionID});
 				SolarService.save(dataToDB).catch(err=>err);
 			}
 			io.emit('SensorsData', {
-				msg: req.body.data
+				msg: req.body
 			});
-			SensorService.update(req.body.data)
+			SensorService.update(req.body)
 				.then(()=>{
-					res.json(req.body.data);
+					res.json(req.body);
 				})
 				.catch(err=>err);
 		});
