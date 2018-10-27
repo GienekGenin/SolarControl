@@ -55,7 +55,7 @@ uint8_t cnt = 0;
 uint16_t ADC_results[2] = { 0 };
 float MUX1[9] = { 0 };
 float MUX2[9] = { 0 };
-float RefV = 3.28;
+float RefV = 3.315;
 float Resolution = 4095.0;
 /* USER CODE END PV */
 
@@ -65,8 +65,8 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-	MUX1[cnt] = (RefV * ADC_results[0])/Resolution;
-	MUX2[cnt] = (RefV * ADC_results[1])/Resolution;
+	MUX1[cnt] = (RefV * ADC_results[0]) / Resolution;
+	MUX2[cnt] = (RefV * ADC_results[1]) / Resolution;
 	HAL_GPIO_WritePin(GPIOD, 0b1111 << 4, GPIO_PIN_RESET);
 	cnt++;
 	if (cnt > 8) {
@@ -120,8 +120,6 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-
-
 
   /* USER CODE END WHILE */
 
