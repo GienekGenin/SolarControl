@@ -1,9 +1,0 @@
-LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
-LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
-LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:STM32_HAL Run,org.eclipse.launchbar.core.descriptorType.default\:GPIO_Counter_Test Run
-eclipse.preferences.version=1
-org.eclipse.launchbar.core.descriptorType.default\:GPIO_Counter_Test\ Run/activeLaunchMode=run
-org.eclipse.launchbar.core.descriptorType.default\:GPIO_Counter_Test\ Run/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
-org.eclipse.launchbar.core.descriptorType.default\:STM32_HAL\ Run/activeLaunchMode=run
-org.eclipse.launchbar.core.descriptorType.default\:STM32_HAL\ Run/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
