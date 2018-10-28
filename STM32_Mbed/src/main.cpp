@@ -24,26 +24,15 @@ unsigned long lastms = 0;
 string createString(float data)
 {
     char buffer[10];
-    sprintf(buffer, "%4.0f", data); // datastream value
-    string massage = buffer;
-    return massage;
-};
-
-string createString1(float data)
-{
-    char buffer[10];
-    sprintf(buffer, "%4.1f", data); // datastream value
-    string massage = buffer;
-    return massage;
-};
-
-string createString2(float data)
-{
-    char buffer[10];
     sprintf(buffer, "%4.2f", data); // datastream value
     string massage = buffer;
     return massage;
 };
+
+float roundAnal(float data)
+{
+    return floor(data * 3.3 * 100) / 100;
+}
 
 // main() runs in its own thread in the OS
 int main()
@@ -67,16 +56,15 @@ int main()
     LED_3 = 1;
     while (true)
     {
-        float data[2][9];
-        float bv, bc;
-        string temp_0, temp_1, temp_2, temp_3, temp_4, temp_5, temp_6, temp_7, temp_8;
-        string light_0, light_1, light_2, light_3, light_4, light_5, light_6, light_7, light_8;
+        float sum = 0;
+        string result = "", temp = "", light = "", bv, bc;
         begin = timer.read_ms();
         if (begin - lastms >= 2000)
         {
             lastms = begin;
             for (int i = 0; i < 9; i++)
             {
+                float temp_data, light_data;
                 for (int c = 0; c < 4; c++)
                 {
                     if (c == 0)
@@ -96,65 +84,19 @@ int main()
                         S3 = pin_stat[i][c];
                     }
                 }
-                if (i == 0)
-                {
-                    temp_0 = createString1(temp_sig * 4.5 * 100);
-                    light_0 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 1)
-                {
-                    temp_1 = createString1(temp_sig * 4.5 * 100);
-                    light_1 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 2)
-                {
-                    temp_2 = createString1(temp_sig * 4.5 * 100);
-                    light_2 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 3)
-                {
-                    temp_3 = createString1(temp_sig * 4.5 * 100);
-                    light_3 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 4)
-                {
-                    temp_4 = createString1(temp_sig * 4.5 * 100);
-                    light_4 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 5)
-                {
-                    temp_5 = createString1(temp_sig * 4.5 * 100);
-                    light_5 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 6)
-                {
-                    temp_6 = createString1(temp_sig * 4.5 * 100);
-                    light_6 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 7)
-                {
-                    temp_7 = createString1(temp_sig * 4.5 * 100);
-                    light_7 = createString(light_sig / 3.28 * 4096);
-                }
-                if (i == 8)
-                {
-                    temp_8 = createString1(temp_sig * 4.5 * 100);
-                    light_8 = createString(light_sig / 3.28 * 4096);
-                }
+
+                temp_data = roundAnal(temp_sig);
+                light_data = roundAnal(light_sig);
+                sum = sum + temp_data + light_data;
+                temp += createString(temp_data) + ",";
+                light += createString(light_data) + ",";
             }
-            bc = bv_sig * 3.3 / 220;
-            bv = bc * (982 + 200);
-            string post1 = "{ \"data\": {\"bv\":" + createString2(bv * 10) + ",\"bc\":" + createString2(bc * 1000);
-            string post2 = ",\"light\":[" + light_0 + "," + light_1 + "," + light_2 + "," + light_3 + ",";
-            string post3 = light_4 + "," + light_5 + "," + light_6 + "," + light_7 + "," + light_8;
-            string post4 = "],\"temp\":[" + temp_0 + "," + temp_1 + "," + temp_2 + "," + temp_3 + ",";
-            string post5 = temp_4 + "," + temp_5 + "," + temp_6 + "," + temp_7 + "," + temp_8 + "]} }";
-            pc.printf("%s\n", post1 + post2 + post3);
-            device.printf("%s", post1);
-            device.printf("%s", post2);
-            device.printf("%s", post3);
-            device.printf("%s", post4);
-            device.printf("%s", post5);
+            float bv_data = roundAnal(bv_sig);
+            sum += bv_data;
+            string bv = createString(bv_data) + ",";
+            result = temp + light + bv + createString(sum);
+            pc.printf("%s\n", result);
+            device.printf("%s", result);
         }
     }
 }
