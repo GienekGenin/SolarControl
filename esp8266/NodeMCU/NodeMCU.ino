@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <SoftwareSerial.h>
+#include <ArduinoJson.h>
 
 SoftwareSerial NodeSerial(D5, D6); //RX, TX
 
@@ -29,7 +30,11 @@ void sendData(String data)
     HTTPClient http;
     http.begin("http://blooming-fortress-61113.herokuapp.com/data");
     http.addHeader("Content-Type", "application/json");
-    String postMessage = data;
+    StaticJsonBuffer<500> jsonBuffer;
+    JsonObject& root = jsonBuffer.createObject();
+    root["data"] = data;
+    String postMessage = "";
+    root.printTo(postMessage);
     //Uncomment these lines to see output
 
     Serial.println("Data:");
