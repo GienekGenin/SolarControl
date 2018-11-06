@@ -66,31 +66,6 @@ const io = require('socket.io')(server);
 
 let session = null;
 
-const parseData = data => {
-	let parsedData = data.split(',');
-	if(parsedData.length !== 20){
-		return;
-	}
-	let light = [];
-	let temp = [];
-	for(let i = 0 ;i<parsedData.length;i++){
-		if(i<9){
-			light.push(Number(parsedData[i]));
-		}
-		if(i>8 && i < 18){
-			temp.push(Number(parsedData[i]));
-		}
-	}
-	const bc = Number(parsedData[18]) / 220;
-	const bv = bc * 1000 + Number(parsedData[18]);
-	return {
-		light,
-		temp,
-		bv: Math.round(bv * 100) / 100,
-		bc: Math.round(bc * 100) / 100
-	};
-};
-
 SessionService.getLastSession().then(_session=>{
 	session = _session[0];
 	//Socket connection
@@ -152,21 +127,20 @@ SessionService.getLastSession().then(_session=>{
 		});
 
 		app.post('/data', function (req, res) {
-			let data = parseData(req.body.data);
 			if(_session && session.sessionStatus){
 				io.emit('NewData', {
-					msg: data,
+					msg: req.body,
 					time: moment().format('hh:mm:ss')
 				});
-				let dataToDB = Object.assign(data, {time: moment(), sessionID: session.sessionID});
+				let dataToDB = Object.assign(req.body, {time: moment(), sessionID: session.sessionID});
 				SolarService.save(dataToDB).catch(err=>err);
 			}
 			io.emit('SensorsData', {
-				msg: data
+				msg: req.body
 			});
-			SensorService.update(data)
+			SensorService.update(req.body)
 				.then(()=>{
-					res.json(data);
+					res.json(req.body);
 				})
 				.catch(err=>err);
 		});
