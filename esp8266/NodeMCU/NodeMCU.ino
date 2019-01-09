@@ -1,7 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <SoftwareSerial.h>
-#include <ArduinoJson.h>
 
 SoftwareSerial NodeSerial(D5, D6); //RX, TX
 
@@ -24,41 +23,20 @@ void setup()
 
 void sendData(String data)
 {
-  //Check WiFi connection status
-  if (WiFi.status() == WL_CONNECTED)
+  if (WiFi.status() == WL_CONNECTED) //Check WiFi connection status
   {
     HTTPClient http;
     http.begin("http://blooming-fortress-61113.herokuapp.com/data");
     http.addHeader("Content-Type", "application/json");
-    StaticJsonBuffer<500> jsonBuffer;
-    JsonObject& root = jsonBuffer.createObject();
-    root["data"] = data;
-    String postMessage = "";
-    root.printTo(postMessage);
-    //Uncomment these lines to see output
-
-    Serial.println("Data:");
-    Serial.println(data);
-    Serial.println("PostMessage:");
-    Serial.println(postMessage);
-
-    //Send POST request
-    int httpCode = http.POST(postMessage);
-    //Check the returning code
-    if (httpCode > 0)
+//    String postMessage = "";
+    int httpCode = http.POST(data); //Send POST request
+    if (httpCode > 0)                      //Check the returning code
     {
-      //Print http response
-      //Serial.println("http response: " + httpCode);
-      //Get the request response payload
       String payload = http.getString();
-      //Print the response payload
-      //Serial.println(payload);
+      // Serial.println(payload); //Print the response payload
     }
-    //Close connection
-    http.end();
+    http.end(); //Close connection
   }
-  //Send a request every 100ms seconds
-  //delay(100);
 }
 
 void loop()

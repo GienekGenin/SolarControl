@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const mongooseConnection = require('./db/connect').connection;
+const moment = require('moment');
+const app = express();
+
 const UserService = require('./entities/user/user.service');
 const SensorService = require('./entities/lastSensorData/sensor.service');
 const SessionService = require('./entities/session/session.service');
 const SolarService = require('./entities/solarInput/solarInput.service');
-const moment = require('moment');
-const app = express();
 
 app.use(
 	expressSession({

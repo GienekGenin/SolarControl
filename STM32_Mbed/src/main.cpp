@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include <string>
+#include "MbedJSONValue.h"
 
 Serial pc(USBTX, USBRX, 9600); // tx, rx
 Serial device(D1, D0, 115200); // tx, rx
@@ -11,28 +12,10 @@ DigitalOut LED_1(LED1);
 DigitalOut LED_2(LED2);
 DigitalOut LED_3(LED3);
 
-DigitalOut S0(D9);
-DigitalOut S1(D8);
-DigitalOut S2(D7);
-DigitalOut S3(D6);
-AnalogIn light_sig(A0);
-AnalogIn temp_sig(A1);
-AnalogIn bv_sig(A2);
+AnalogIn bv_sig(A0);
+AnalogIn bc_sig(A1);
 
 unsigned long lastms = 0;
-
-string createString(float data)
-{
-    char buffer[10];
-    sprintf(buffer, "%4.2f", data); // datastream value
-    string massage = buffer;
-    return massage;
-};
-
-float roundAnal(float data)
-{
-    return floor(data * 3.3 * 100) / 100;
-}
 
 // main() runs in its own thread in the OS
 int main()
@@ -40,63 +23,43 @@ int main()
     //Start of the timer
     int begin;
     timer.start();
-    int pin_stat[9][4] = {
-        {1, 1, 1, 0},
-        {0, 0, 0, 1},
-        {1, 0, 0, 1},
-        {0, 1, 0, 1},
-        {1, 1, 0, 1},
-        {0, 0, 1, 1},
-        {1, 0, 1, 1},
-        {0, 1, 1, 1},
-        {1, 1, 1, 1},
-    };
     LED_1 = 1;
     LED_2 = 1;
     LED_3 = 1;
     while (true)
     {
-        float sum = 0;
-        string result = "", temp = "", light = "", bv, bc;
+        float data[2][9];
+        float bv, bc;
+        MbedJSONValue values;
         begin = timer.read_ms();
-        if (begin - lastms >= 2000)
+        if (begin - lastms >= 1500)
         {
+            float bv_sum = 0, bc_sum = 0;
             lastms = begin;
             for (int i = 0; i < 9; i++)
             {
-                float temp_data, light_data;
-                for (int c = 0; c < 4; c++)
-                {
-                    if (c == 0)
-                    {
-                        S0 = pin_stat[i][c];
-                    }
-                    if (c == 1)
-                    {
-                        S1 = pin_stat[i][c];
-                    }
-                    if (c == 2)
-                    {
-                        S2 = pin_stat[i][c];
-                    }
-                    if (c == 3)
-                    {
-                        S3 = pin_stat[i][c];
-                    }
-                }
-
-                temp_data = roundAnal(temp_sig);
-                light_data = roundAnal(light_sig);
-                sum = sum + temp_data + light_data;
-                temp += createString(temp_data) + ",";
-                light += createString(light_data) + ",";
+                char light_char[5], temp_char[5];
+                sprintf(light_char, "%0.0f", 0);
+                sprintf(temp_char, "%0.0f", 0);
+                values["light"][i] = light_char;
+                values["temp"][i] = temp_char;
             }
-            float bv_data = roundAnal(bv_sig);
-            sum += bv_data;
-            string bv = createString(bv_data) + ",";
-            result = temp + light + bv + createString(sum);
-            pc.printf("%s\n", result);
-            device.printf("%s", result);
+
+            for (int i = 0; i < 100; i++)
+            {
+                bc_sum += bc_sig * 3.3;
+                bv_sum += bv_sig * 3.3;
+            }
+            bc = bc_sum / 100 * 1.6;
+            bv = bv_sum / 100 * 500 / 10;
+            char bv_char[5], bc_char[5];
+            sprintf(bv_char, "%2.4f", bv);
+            values["bv"] = bv_char;
+            sprintf(bc_char, "%2.4f", bc);
+            values["bc"] = bc_char;
+            std::string data = values.serialize();
+            pc.printf("%s\n", data);
+            device.printf("%s\n", data);
         }
     }
 }

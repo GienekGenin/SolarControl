@@ -31,3 +31,4 @@ function dbConnectionHandler() {
 }
   
 module.exports = new dbConnectionHandler();
+
